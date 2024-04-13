@@ -10,9 +10,9 @@ const Page = () => {
         <div className={style.container} >
             <Navbar />
             <div className={style.loginCon}>
-                <h1>LogIn</h1>
-                <form action="" className={style.form}  >
 
+                <form action="" className={style.form}  >
+                    <h1>LogIn</h1>
                     <input placeholder="   email" name="email" type="text" required className={style.input} />
 
                     <input type="password" required placeholder="  password" name="password" className={style.input} />
