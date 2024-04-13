@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  height: 1000px;
+  // border: 1px solid red;
+}
+.loadingCon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  .loadImg {
+    width: 60px;
+    height: 60px;
+  }
+}

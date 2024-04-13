@@ -1,0 +1,21 @@
+.container {
+  height: fit-content;
+  width: 90vw;
+  margin: 20px auto;
+  .slider {
+    width: 90vw;
+    height: 40vw;
+    background-color: blanchedalmond;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .container {
+    padding: 0 6vw;
+    .slider {
+      width: 100%;
+    }
+  }
+}

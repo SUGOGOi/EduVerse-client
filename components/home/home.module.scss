@@ -1,0 +1,71 @@
+.mmmm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  margin-top: 97.2px;
+  width: 100%;
+  height: auto;
+
+  // border: 1px solid rgb(0, 26, 255);
+}
+
+#header {
+  margin-top: 6vw;
+  margin-bottom: 4vw;
+  font-size: 4vw;
+  text-transform: capitalize;
+}
+
+.courses {
+  width: 90vw;
+  padding: 0 4vw;
+  height: auto;
+  // border: 1px solid red;
+}
+.coursetags {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.tags {
+  width: fit-content;
+  height: fit-content;
+  margin: 1.5vw;
+  font-size: 2vw;
+  padding: 0.8vw 1.8vw;
+  background-color: rgb(185, 185, 185);
+  border-radius: 2vw;
+}
+
+/* Mobile View */
+@media only screen and (max-width: 700px) {
+  #header {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 4vw;
+  }
+
+  .course-tags {
+    display: flex;
+    width: 90vw;
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    margin: 2vw;
+    font-size: 4vw;
+    padding: 1vw 2vw;
+  }
+}
+
+/* Tablet View */
+@media (min-width: 700px) and (max-width: 1300px) {
+  .tags {
+    font-size: 3vw;
+  }
+}
