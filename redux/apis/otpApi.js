@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const otpApi = createApi({
   reducerPath: "otpApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/api/v1/otp/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://eduverse-server-d6nq.onrender.com/v1/otp/",
+  }),
   endpoints: (builder) => ({
     otpSend: builder.mutation({
       query: ({ ...body }) => ({
