@@ -1,0 +1,46 @@
+@mixin mobile {
+  @media screen and (max-width: 540px) {
+    @content;
+  }
+}
+.menu {
+  width: 250px;
+  margin-top: 60px;
+  height: 150px;
+  background-color: white;
+  color: black;
+  position: fixed;
+  top: -210px;
+  right: 0px;
+  box-shadow: 0.5px 0.5px 20px #676767;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s all ease-in-out;
+
+  @include mobile() {
+    width: 180px;
+  }
+
+  ul {
+    list-style-type: none;
+    text-align: center;
+    li {
+      padding: 10px;
+      .menuText {
+        text-decoration: none;
+        color: black;
+        font-weight: 500;
+        font-size: 18px;
+      }
+      :hover {
+        color: blue;
+      }
+    }
+  }
+}
+.active {
+  // border: 1px solid red;
+  position: fixed;
+  top: 0px;
+}

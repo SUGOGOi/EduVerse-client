@@ -5,17 +5,30 @@ import Link from "next/link";
 import { IoPerson } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
 import TopMenu from "../topMenu/TopMenu";
+import AuthMenu from "../auth-menu/AuthMenu";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isAuthOpen, setIsAuthOpen] = useState(false);
     const handleOpen = () => {
+        if (isAuthOpen) {
+            setIsAuthOpen(!isAuthOpen)
+        }
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const handleAuthOpen = () => {
+        if (isMenuOpen) {
+            setIsMenuOpen(!isMenuOpen);
+        }
+        setIsAuthOpen(!isAuthOpen)
+
+    }
 
     return (
         <>
             <div className={style.container}>
-                <div className={` ${style.menu}  ${isMenuOpen ? style.active : null}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <div className={` ${style.menu}  ${isMenuOpen ? style.active : null}`} onClick={handleOpen}>
                     <div className={style.arrow}>
                         <IoIosArrowUp size={25} />
                     </div>
@@ -42,11 +55,13 @@ const Navbar = () => {
                         Contact
                     </Link>
                 </div>
-                <div className={style.auth}>
+                <div className={style.auth} onClick={handleAuthOpen}  >
                     <IoPerson size={35} />
                 </div>
             </div>
             <TopMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+
+            <AuthMenu isAuthOpen={isAuthOpen} setIsAuthOpen={setIsAuthOpen} />
         </>
     );
 };
