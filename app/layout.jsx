@@ -1,6 +1,8 @@
 
 import "./globals.scss";
 import Footer from "@/components/footer/Footer";
+import ReduxProvider from "@/redux/ReduxProvider";
+import { Toaster } from "react-hot-toast";
 
 
 export const metadata = {
@@ -10,11 +12,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <ReduxProvider>
+      <html lang="en">
+        <body>
+          <Toaster position="bottom-center" />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </ReduxProvider>
   );
 }
