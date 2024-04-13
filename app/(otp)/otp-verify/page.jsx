@@ -3,7 +3,7 @@ import Navbar from "@/components/navbar/Navbar"
 import style from "./page.module.scss"
 import { useState } from "react"
 
-const page = () => {
+const Page = () => {
     const [isLoading, setIsLoading] = useState(true);
     return (
         <div className={style.container} >
@@ -32,4 +32,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

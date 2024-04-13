@@ -5,7 +5,7 @@ import Image from "next/image"
 import qr from "../../../public/images/qr.png"
 import { useRouter } from 'next/navigation'
 
-const page = () => {
+const Page = () => {
     const router = useRouter();
     const proccedHandler = () => {
         router.push("/signup")
@@ -25,4 +25,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

@@ -4,7 +4,7 @@ import style from "./page.module.scss"
 import Link from "next/link"
 import { useState } from "react"
 
-const page = () => {
+const Page = () => {
     const [isLoading, setIsLoading] = useState();
     return (
         <div className={style.container} >
@@ -50,4 +50,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
