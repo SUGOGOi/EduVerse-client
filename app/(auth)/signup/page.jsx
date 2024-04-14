@@ -91,7 +91,7 @@ const Page = () => {
             <div className={style.signupCon}>
 
                 <form action="" className={style.form} onSubmit={submitHandler} >
-                    <h1>SignUp</h1>
+                    <h1>Signup</h1>
 
                     <input placeholder="   name" name="name" type="text" required className={style.input} onChange={(e) => setName(e.target.value)} />
 
