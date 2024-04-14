@@ -56,7 +56,7 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className={style.auth} onClick={handleAuthOpen}  >
-                    <IoPerson size={35} />
+                    <IoPerson size={25} />
                 </div>
             </div>
             <TopMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />

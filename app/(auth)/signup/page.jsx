@@ -14,9 +14,9 @@ import { toast } from "react-hot-toast";
 const Page = () => {
     const [registerUser, { isLoading }] = useRegisterUserMutation();
     const dispatch = useDispatch();
-    const { email } = useSelector(state => state.otpReducer)
 
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [phno, setPhno] = useState("");
     const [password, setPassword] = useState("");
     const [cpassword, setCpassword] = useState("");
@@ -27,6 +27,7 @@ const Page = () => {
     const router = useRouter();
     const [isShow, setIsShow] = useState("");
     const [isCShow, setIsCShow] = useState("");
+    const [isProcced, setIsProcced] = useState(false);
 
 
     const showHandler = () => {
@@ -82,7 +83,10 @@ const Page = () => {
 
     useEffect(() => {
         if (password != cpassword) {
-            console.log("password not matched")
+            setIsProcced(false)
+        }
+        if (password === cpassword) {
+            setIsProcced(true)
         }
     }, [cpassword, password])
     return (
@@ -95,7 +99,7 @@ const Page = () => {
 
                     <input placeholder="   name" name="name" type="text" required className={style.input} onChange={(e) => setName(e.target.value)} />
 
-                    <input placeholder={`   ${email}`} name="email" type="text" required className={style.input} value={email} disabled />
+                    <input placeholder={`   email`} name="email" type="text" required className={style.input} onChange={(e) => setEmail(e.target.value)} />
                     <input placeholder="   mobile number" name="phno" type="text" required className={style.input} onChange={(e) => setPhno(e.target.value)} />
                     <div className={style.inputPass}>
                         <input placeholder="   password" name="password" type={isShow ? "text" : "password"} required className={style.input} onChange={(e) => setPassword(e.target.value)} /> {isShow ? <FiEye onClick={showHandler} /> : <FiEyeOff onClick={showHandler} />}
@@ -103,6 +107,9 @@ const Page = () => {
                     <div className={style.inputPass}>
                         <input placeholder="   confirm password" name="cpassword" type={isCShow ? "text" : "password"} required className={style.input} onChange={(e) => setCpassword(e.target.value)} />{isCShow ? <FiEye onClick={cshowHandler} /> : <FiEyeOff onClick={cshowHandler} />}
                     </div>
+                    {
+                        !isProcced && (<p className={style.notMatch} >Password not match</p>)
+                    }
 
                     <select name="school" onChange={(e) => setSchool(e.target.value)} className={style.input} required>
                         <option value="">Select Your School</option>
@@ -117,7 +124,7 @@ const Page = () => {
                         imagePrev && (
                             <Image src={imagePrev} width={200} height={200} alt='preview' />
                         )}
-                    <button type="submit" className={style.btn} >{
+                    <button type="submit" className={`${style.btn} ${!isProcced ? style.procced : null}`} >{
                         isLoading ? (<div className={style.btnLoading} >
                             <div className={style.wave}></div>
                             <div className={style.wave}></div>

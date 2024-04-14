@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 // import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux"
 import { otpNotSendReducer, otpSendReducer } from "@/redux/reducers/otpReducer"
+import validator from "validator";
 const Page = () => {
     const [email, setEmail] = useState("");
     const [otpSend, { isLoading }] = useOtpSendMutation();
@@ -17,7 +18,10 @@ const Page = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        console.log(email)
+        if (!validator.isEmail(email)) {
+            toast.error("Invalid email")
+            return;
+        }
         const res = await otpSend({ email });
 
         if ("data" in res) {

@@ -33,6 +33,7 @@
     .form {
       h1 {
         margin: 20px;
+        font-size: 26px;
         color: rgb(77, 77, 77);
       }
       margin-top: 40px;
@@ -40,7 +41,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
-      box-shadow: 0.5px 0.5px 20px #a8a8a8;
+      // box-shadow: 0.5px 0.5px 20px #a8a8a8;
       border: 2px solid rgb(146, 145, 145);
       border-radius: 20px;
 
