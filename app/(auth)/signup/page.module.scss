@@ -22,7 +22,7 @@
   //   border: 1px solid red;
 
   .signupCon {
-    width: 500px;
+    width: 800px;
     height: 1000px;
     // border: 1px solid red;
     color: black;
@@ -31,18 +31,23 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    h1 {
-      margin: 50px;
-    }
+
     .form {
+      h1 {
+        margin: 20px;
+        color: rgb(77, 77, 77);
+      }
+      margin-top: 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
-      box-shadow: 0.5px 0.5px 20px #676767;
+      box-shadow: 0.5px 0.5px 20px #a8a8a8;
+      border: 2px solid rgb(146, 145, 145);
+      border-radius: 20px;
 
       height: 80%;
-      width: 70%;
+      width: 50%;
       .inputPass {
         display: flex;
         flex-direction: column;
@@ -60,6 +65,9 @@
         @include mobile() {
           width: 200px;
         }
+      }
+      .input:focus {
+        outline: 2px solid rgb(146, 145, 145);
       }
 
       .btn {
@@ -124,6 +132,12 @@
             }
           }
         }
+      }
+      @include tablet() {
+        width: 70%;
+      }
+      @include mobile() {
+        width: 85%;
       }
     }
   }

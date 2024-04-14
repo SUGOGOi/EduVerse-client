@@ -44,8 +44,9 @@ const Page = () => {
         <div className={style.container} >
             <Navbar />
             <div className={style.otpVerify}>
-                <h1>OTP Verify</h1>
+
                 <form action="" className={style.form} onSubmit={submitHandler} >
+                    <h1>OTP Verify</h1>
                     <input placeholder="   XXXX" name="otp" type="text" required className={style.input} onChange={(e) => setOtp(e.target.value)} />
                     <button type="submit" className={style.btn} >{
                         isLoading ? (<div className={style.btnLoading} >

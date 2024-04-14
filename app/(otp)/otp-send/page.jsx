@@ -38,8 +38,9 @@ const Page = () => {
             <div className={style.container}>
                 <Navbar />
                 <div className={style.otpSend}>
-                    <h1>Email Verify</h1>
+
                     <form action="" onSubmit={submitHandler} className={style.form}>
+                        <h1>Email Verify</h1>
                         <input
                             placeholder="   email"
                             name="email"

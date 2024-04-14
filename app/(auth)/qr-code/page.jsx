@@ -15,8 +15,9 @@ const Page = () => {
         <div className={style.container} >
             <Navbar />
             <div className={style.qr}>
-                <h1>Payment</h1>
+
                 <div className={style.form}  >
+                    <h1>Payment</h1>
                     <Image src={qr} width={150} height={150} alt="" />
                     <button type="submit" className={style.btn} onClick={proccedHandler}  >Procced</button>
                 </div>

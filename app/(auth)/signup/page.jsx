@@ -89,8 +89,9 @@ const Page = () => {
         <div className={style.container} >
             <Navbar />
             <div className={style.signupCon}>
-                <h1>SignUp</h1>
+
                 <form action="" className={style.form} onSubmit={submitHandler} >
+                    <h1>SignUp</h1>
 
                     <input placeholder="   name" name="name" type="text" required className={style.input} onChange={(e) => setName(e.target.value)} />
 
@@ -128,7 +129,7 @@ const Page = () => {
                             <div className={style.wave}></div>
                             <div className={style.wave}></div>
                             <div className={style.wave}></div>
-                        </div>) : (<p>Login</p>)
+                        </div>) : (<p>Signup</p>)
                     }</button>
                     <p>Already have an account? <br /> <Link href={"/login"} >Login</Link></p>
                 </form>

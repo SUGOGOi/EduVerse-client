@@ -22,7 +22,7 @@
   //   border: 1px solid red;
 
   .loginCon {
-    width: 100%;
+    width: 800px;
     height: 91vh;
     // border: 1px solid red;
     color: black;
@@ -56,10 +56,10 @@
         border-style: none;
         background-color: rgb(211, 210, 210);
         @include tablet() {
-          width: 250px;
+          width: 275px;
         }
         @include mobile() {
-          width: 200px;
+          width: 250px;
         }
       }
       .input:focus {
@@ -133,7 +133,7 @@
         width: 70%;
       }
       @include mobile() {
-        width: 80%;
+        width: 85%;
       }
     }
   }
