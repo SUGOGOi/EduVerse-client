@@ -3,17 +3,26 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://eduverse-server-d6nq.onrender.com/api/v1/auth/",
+    baseUrl: "http://localhost:8000/api/v1/",
   }),
   endpoints: (builder) => ({
     registerUser: builder.mutation({
       query: ({ formData }) => ({
-        url: `register`,
+        url: `auth/register`,
         method: "POST",
+        credentials: "include",
         body: formData,
+      }),
+    }),
+
+    getMyProfile: builder.query({
+      query: () => ({
+        url: `user/myprofile`,
+        method: "GET",
+        credentials: "include",
       }),
     }),
   }),
 });
 
-export const { useRegisterUserMutation } = userApi;
+export const { useRegisterUserMutation, useGetMyProfileQuery } = userApi;

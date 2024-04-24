@@ -17,6 +17,16 @@ export const userReducer = createSlice({
       state.error = action.payload.error;
       state.success = action.payload.success;
     },
+
+    loadUserReducer: (state, action) => {
+      state.success = action.payload.success;
+      state.user = action.payload.user;
+    },
+    loadUserFailReducer: (state, action) => {
+      state.message = null;
+      state.error = action.payload.error;
+      state.success = action.payload.success;
+    },
     clearErrorReducer: (state) => {
       state.error = null;
       state.success = null;
@@ -31,6 +41,8 @@ export const userReducer = createSlice({
 export const {
   registerReducer,
   registerFailReducer,
+  loadUserReducer,
+  loadUserFailReducer,
   clearErrorReducer,
   clearMessageReducer,
 } = userReducer.actions;
