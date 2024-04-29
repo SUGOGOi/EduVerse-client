@@ -1,8 +1,26 @@
 .container {
+  margin-top: 67px;
   width: 100%;
-  height: auto;
-  .myDetails {
-    width: 70%;
-    height: auto;
+  height: 91vh;
+  color: black;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .profileCon {
+    width: 800px;
+    height: 70%;
+    // border: 1px solid red;
+    color: black;
+    background-color: white;
+    border: 2px solid rgb(146, 145, 145);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    .myDetails {
+      width: 50%;
+      height: 100%;
+    }
   }
 }
