@@ -69,7 +69,7 @@ const Page = () => {
 
     const changeImageHandler = e => {
         const file = e.target.files[0];
-        console.log(file)
+        // console.log(file)
         const reader = new FileReader();
 
         reader.readAsDataURL(file);

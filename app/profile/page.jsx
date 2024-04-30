@@ -8,6 +8,7 @@ import { useGetMyProfileQuery } from "@/redux/apis/userApi"
 import { loadUserReducer } from '@/redux/reducers/userReducer'
 import Navbar from '@/components/navbar/Navbar'
 import { toast } from "react-hot-toast";
+import Loading from '../loading'
 
 
 const Page = () => {
@@ -16,33 +17,47 @@ const Page = () => {
     const dispatch = useDispatch();
 
 
+    if (user) {
+        var url = user.paymentPhoto.url;
 
-    if (data) {
-        toast.success(data.message)
-        dispatch(loadUserReducer(data))
     }
-    if (error) {
-        // console.log(error)
-        const err = error;
-        const messageRes = err.data.error;
-        toast.error(messageRes)
-    }
+
+
+
+    useEffect(() => {
+        if (document.cookie) {
+            if (data) {
+                // toast.success(data.message)
+                dispatch(loadUserReducer(data))
+            }
+
+            if (error) {
+                // console.log(error)
+                const err = error;
+                const messageRes = err.data.error;
+                toast.error(messageRes)
+            }
+        }
+
+    }, [data, error])
+
+
 
     return (
         <>
             <Navbar />
-            <div className={style.container} >
-                <div className={style.profileCon}>
-                    <div className={style.myDetails}>
-                        <Image src={qr} alt="" width={200} height={200} />
-                        <div className={style.name}></div>
-                        <div className={style.email}></div>
+            {
+                user ? (<div className={style.container} >
+                    <div className={style.profileCon}>
+                        <div className={style.myDetails}>
+                            <img src={url} alt='' className={style.image} />
+                            <div className={style.name}>{`${user.name}`}</div>
+                            <div className={style.email}>{`${user.email}`}</div>
+                            <div className={style.approved}>{`Approved : ${user.isApproved}`}</div>
+                        </div>
                     </div>
-                    <div className={style.myCourses}>
-
-                    </div>
-                </div>
-            </div>
+                </div>) : (<Loading />)
+            }
         </>
     )
 }

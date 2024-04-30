@@ -2,7 +2,7 @@ import React from 'react'
 import load from "../public/gif/loading.gif"
 import Image from 'next/image'
 import style from "./page.module.scss"
-const loading = () => {
+const Loading = () => {
     return (
         <div className={style.loadingCon} >
             <Image alt='loading..' src={load} className={style.loadImg} />
@@ -10,4 +10,4 @@ const loading = () => {
     )
 }
 
-export default loading
+export default Loading

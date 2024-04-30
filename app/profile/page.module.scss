@@ -1,3 +1,15 @@
+@mixin tablet {
+  @media screen and (max-width: 700px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 540px) {
+    @content;
+  }
+}
+
 .container {
   margin-top: 67px;
   width: 100%;
@@ -8,7 +20,7 @@
   align-items: center;
   justify-content: center;
   .profileCon {
-    width: 800px;
+    width: 700px;
     height: 70%;
     // border: 1px solid red;
     color: black;
@@ -16,11 +28,45 @@
     border: 2px solid rgb(146, 145, 145);
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
+    justify-content: center;
+    // flex-direction: column;
+    border-radius: 20px;
     .myDetails {
-      width: 50%;
+      width: 60%;
       height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .image {
+        border-radius: 50%;
+      }
+      .name {
+        font-size: 25px;
+        color: rgb(77, 77, 77);
+        font-weight: 800;
+      }
+      .email {
+        font-size: 20px;
+        color: rgb(77, 77, 77);
+        font-weight: 500;
+      }
+      .approved {
+        font-size: 20px;
+        color: rgb(233, 12, 12);
+        font-weight: 500;
+      }
+
+      @include tablet() {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    @include tablet() {
+      flex-direction: column;
+      width: 90%;
+      height: auto;
     }
   }
 }
