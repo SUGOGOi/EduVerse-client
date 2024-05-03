@@ -27,6 +27,15 @@ export const userReducer = createSlice({
       state.error = action.payload.error;
       state.success = action.payload.success;
     },
+
+    logoutReducer: (state) => {
+      state.user = null;
+    },
+    logoutFailReducer: (state, action) => {
+      state.error = action.payload.error;
+      state.success = action.payload.success;
+    },
+
     clearErrorReducer: (state) => {
       state.error = null;
       state.success = null;
@@ -45,4 +54,6 @@ export const {
   loadUserFailReducer,
   clearErrorReducer,
   clearMessageReducer,
+  logoutReducer,
+  logoutFailReducer,
 } = userReducer.actions;

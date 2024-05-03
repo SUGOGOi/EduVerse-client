@@ -54,7 +54,7 @@ const Page = () => {
             toast.success(res.data.message)
             dispatch(registerReducer(res.data))
             setTimeout(() => {
-                router.push('/profile', { scroll: false })
+                router.push(`/profile`, { scroll: false })
             }, 2000)
             dispatch(clearMessageReducer())
 

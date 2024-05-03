@@ -38,6 +38,19 @@
       }
     }
   }
+  .ul {
+    .divText {
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    :hover {
+      color: blue;
+    }
+  }
 }
 .active {
   // border: 1px solid red;

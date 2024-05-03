@@ -15,6 +15,23 @@ export const userApi = createApi({
       }),
     }),
 
+    loginUser: builder.mutation({
+      query: ({ ...body }) => ({
+        url: `auth/login`,
+        method: "POST",
+        credentials: "include",
+        body: body,
+      }),
+    }),
+
+    logoutUser: builder.mutation({
+      query: () => ({
+        url: `auth/logout`,
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
+
     getMyProfile: builder.query({
       query: () => ({
         url: `user/myprofile`,
@@ -25,4 +42,9 @@ export const userApi = createApi({
   }),
 });
 
-export const { useRegisterUserMutation, useGetMyProfileQuery } = userApi;
+export const {
+  useRegisterUserMutation,
+  useGetMyProfileQuery,
+  useLoginUserMutation,
+  useLogoutUserMutation,
+} = userApi;
