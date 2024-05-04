@@ -1,12 +1,38 @@
-
-import React from 'react';
+"use client"
+import React, { useEffect } from 'react';
 import style from './page.module.scss';
 import Link from "next/link"
+import { useAllCoursesQuery } from '@/redux/apis/courseApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/courseReducer';
+import Loading from '../loading';
 
 const Page = () => {
     // Dummy data for total users and courses
-    const totalUsers = 1000;
-    const totalCourses = 50;
+    const { data, isLoading, isError, error } = useAllCoursesQuery();
+    const { courses } = useSelector(state => state.courseReducer);
+    console.log(courses)
+    const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        if (data) {
+            // toast.success(data.message)
+            dispatch(loadCoursesReducer(data))
+        }
+        if (error) {
+            // console.log(error)
+            const err = error;
+            const messageRes = err.data.error;
+            toast.error(messageRes)
+            dispatch(loadCoursesFailReducer(err))
+        }
+
+
+    }, [data, error])
+
+
+
 
     return (
         <div className={style.admin_dashboard}>
@@ -15,7 +41,7 @@ const Page = () => {
                 <ul>
                     <li><Link className={style.links} href={"/dashboard"} >Dashboard</Link></li>
                     <li><Link className={style.links} href={"/dashboard/users"} >Users</Link></li>
-                    <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
+                    <li><Link className={style.links} href={"/dashboard/courses"}  >courses</Link></li>
                     {/* Add more menu items as needed */}
                 </ul>
             </div>
@@ -29,14 +55,15 @@ const Page = () => {
                 <div className={style.dashboard_card}>
                     <div className={style.card}>
                         <h2>Total Users</h2>
-                        <p>{totalUsers}</p>
+                        <p>{9}</p>
                     </div>
                     <div className={style.card}>
                         <h2>Total Courses</h2>
-                        <p>{totalCourses}</p>
+                        {
+                            courses ? (<p>{courses.length}</p>) : (<Loading />)
+                        }
                     </div>
                 </div>
-                {/* Add your dashboard components and content here */}
             </div>
         </div>
     );

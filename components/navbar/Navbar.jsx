@@ -45,13 +45,13 @@ const Navbar = () => {
                     <Link href="/" className={style.navItems}>
                         Home
                     </Link>
-                    <Link href="/Courses" className={style.navItems}>
+                    <Link href="/courses" className={style.navItems}>
                         Courses
                     </Link>
-                    <Link href="/About" className={style.navItems}>
+                    <Link href="/about" className={style.navItems}>
                         About
                     </Link>
-                    <Link href="/Contact" className={style.navItems}>
+                    <Link href="/contact" className={style.navItems}>
                         Contact
                     </Link>
                 </div>

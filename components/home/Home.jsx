@@ -21,6 +21,9 @@ const Home = () => {
                 dispatch(loadUserReducer(data))
             }
 
+
+        }
+        if (!document.cookie) {
             if (error) {
                 // console.log(error)
                 const err = error;

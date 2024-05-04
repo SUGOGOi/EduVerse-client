@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation"
 import { useRouter } from 'next/navigation'
 import { useLogoutUserMutation } from "@/redux/apis/userApi"
 import { clearErrorReducer, clearMessageReducer, loadUserReducer, logoutFailReducer, logoutReducer } from '@/redux/reducers/userReducer'
-import Loading from '@/app/loading'
 import toast from 'react-hot-toast'
 
 
@@ -56,9 +55,9 @@ const AuthMenu = ({ isAuthOpen, setIsAuthOpen }) => {
             {
                 user ? (<div className={style.ul} onClick={() => setIsAuthOpen(false)}   >
                     {
-                        path ? (isLoading ? (<Loading />) : (<div className={style.divText} onClick={logoutHandller} >
+                        path ? (<div className={style.divText} onClick={logoutHandller} >
                             Logout
-                        </div>)) : (
+                        </div>) : (
                             <div className={style.divText} onClick={goToProfile} >Profile</div>)
                     }
                 </div>) : (<ul>

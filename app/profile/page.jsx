@@ -6,6 +6,7 @@ import { loadUserReducer } from '@/redux/reducers/userReducer'
 import Navbar from '@/components/navbar/Navbar'
 import { toast } from "react-hot-toast";
 import Loading from '../loading'
+import Link from "next/link"
 
 
 const Page = () => {
@@ -26,7 +27,9 @@ const Page = () => {
                             <img src={`${user.paymentPhoto.url}`} alt='' className={style.image} />
                             <div className={style.name}>{`${user.name}`}</div>
                             <div className={style.email}>{`${user.email}`}</div>
-                            <div className={style.approved}>{`Approved : ${user.isApproved}`}</div>
+                            {
+                                user.role === "admin" ? (<div className={style.dashBtn}  > <Link className={style.Link} href={"/dashboard"}>Go to Dashboard</Link></div>) : (<div className={style.approved}>{`Approved : ${user.isApproved}`}</div>)
+                            }
                         </div>
                     </div>
                 </div>) : (<Loading />)

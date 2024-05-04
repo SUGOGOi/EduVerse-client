@@ -6,11 +6,11 @@ const Footer = () => {
     return (
         <div className={style.footer}>
             <div className={style.linkContainer}>
-                <Link className={style.links} href="/Login">Login</Link>
-                <Link className={style.links} href="/Contact">Home</Link>
-                <Link className={style.links} href="/Courses">Courses</Link>
-                <Link className={style.links} href="/About">About</Link>
-                <Link className={style.links} href="/Contact">Contact</Link>
+                <Link className={style.links} href="/login">Login</Link>
+                <Link className={style.links} href="/contact">Home</Link>
+                <Link className={style.links} href="/courses">Courses</Link>
+                <Link className={style.links} href="/about">About</Link>
+                <Link className={style.links} href="/contact">Contact</Link>
             </div>
             <h1 className={style.logoFooter}>
                 &#169; EduVerse

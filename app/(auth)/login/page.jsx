@@ -6,7 +6,6 @@ import { useState, useEffect } from "react"
 import { toast } from "react-hot-toast";
 import { useLoginUserMutation } from "@/redux/apis/userApi"
 import { useRouter } from 'next/navigation'
-// import { useRouter } from 'next/router'
 import { useDispatch } from "react-redux"
 import { clearMessageReducer, loadUserReducer } from "@/redux/reducers/userReducer"
 import { FiEye, FiEyeOff } from "react-icons/fi";

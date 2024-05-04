@@ -11,6 +11,15 @@ export function middleware(request) {
     "/otp-send" ||
     "/otp-verify";
 
+  const isPrivatePath = path === "/profile";
+
+  const isAdminPath =
+    path === "/dashboard" ||
+    "/dashboard/users" ||
+    "/dashboard/courses" ||
+    "/dashboard/course-detail" ||
+    "/dashboard/user-detail";
+
   const token = request.cookies.get("token") || "";
 
   if (isPublicPath && token) {
@@ -21,6 +30,10 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
+
+// if (isPrivatePath && !token) {
+//   return NextResponse.redirect(new URL("/login", request.url));
+// }
 
 // See "Matching Paths" below to learn more
 export const config = {

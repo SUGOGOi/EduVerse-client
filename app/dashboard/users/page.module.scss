@@ -59,10 +59,19 @@ $hilight: #2e374a;
 }
 
 .card {
+  margin: 10px 0;
   background-color: #f0f0f0;
   padding: 20px;
   margin-right: 20px;
   border-radius: 5px;
+  display: flex;
+  width: 80%;
+  align-items: center;
+  justify-content: space-around;
+  height: 40px;
+  p {
+    display: flex;
+  }
 }
 
 .card h2 {

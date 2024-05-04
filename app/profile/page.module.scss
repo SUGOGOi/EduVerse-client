@@ -1,3 +1,9 @@
+$bg: #151c2c;
+$bgSoft: #182237;
+$text: white;
+$textSoft: #b7bac1;
+$hilight: #2e374a;
+
 @mixin tablet {
   @media screen and (max-width: 700px) {
     @content;
@@ -56,6 +62,17 @@
         font-size: 20px;
         color: rgb(233, 12, 12);
         font-weight: 500;
+      }
+      .dashBtn {
+        margin: 10px;
+        background-color: $bg;
+        padding: 10px;
+        border-radius: 5px;
+        .Link {
+          color: white;
+          font-weight: 600;
+          text-decoration: none;
+        }
       }
 
       @include tablet() {
