@@ -1,87 +1,125 @@
 "use client"
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './page.module.scss';
 import Link from "next/link"
-import { useAllCoursesQuery } from '@/redux/apis/courseApi';
+import { getCourseById, useAllCoursesQuery, useCreateChapterMutation } from '@/redux/apis/courseApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/courseReducer';
+import { clearMessageReducer, createChapterFailReducer, createChapterReducer, loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/courseReducer';
 import Loading from '@/app/loading';
 import CourseCard from '@/components/courseCard/courseCard';
 import { usePathname } from "next/navigation"
 import ModuleCard from '@/components/moduleCard/moduleCard';
-
+import { MdCreateNewFolder } from 'react-icons/md';
+import { getMyProfile } from '@/redux/apis/userApi';
+import toast from 'react-hot-toast';
 
 const Page = () => {
-    // const { data, isLoading, isError, error } = useAllCoursesQuery();
-    // const { course } = useSelector(state => state.courseReducer);
-    const course = {
-        subject: "Science",
-        class: "6",
-        modules: [
-            {
-                name: "chapter 1",
-                _id: "dsjdkbbsfw"
-            },
-            {
-                name: "chapter 2",
-                _id: "lsjdkbbsfwca"
-            }
-        ]
-    }
-
+    const [createChapter, { }] = useCreateChapterMutation()
+    let { course } = useSelector(state => state.courseReducer);
+    let { user } = useSelector(state => state.userReducer);
+    const [name, setName] = useState("");
+    const [createChapterModal, setCreateChapterModal] = useState(false);
     const dispatch = useDispatch();
     const pathname = usePathname();
+
+
+    const showModal = () => {
+        setCreateChapterModal(!createChapterModal)
+    }
+
 
     const loadCourseDetailHandller = async () => {
 
     }
 
+    const createChapterHandller = async (e) => {
+        e.preventDefault();
+
+        const res = await createChapter({ id: user._id, cid: course._id, name });
+
+        if ("data" in res) {
+            toast.success(res.data.message)
+            // console.log(res.data)
+            dispatch(createChapterReducer(res.data))
+            dispatch(clearMessageReducer())
+            showModal();
+            dispatch(getCourseById(pathname.split("/").pop()))
+        } else {
+            const error = res.error;
+            const messageRes = error.data;
+            toast.error(messageRes.error)
+            dispatch(createChapterFailReducer(messageRes));
+            dispatch(clearErrorReducer())
+            showModal();
+        }
+    }
 
 
 
-    // useEffect(() => {
-    //     if (data) {
-    //         // toast.success(data.message)
-    //         // dispatch(loadCoursesReducer(data))
-    //     }
-    //     // if (error) {
-    //     //     // console.log(error)
-    //     //     const err = error;
-    //     //     const messageRes = err.data.error;
-    //     //     toast.error(messageRes)
-    //     //     dispatch(loadCoursesFailReducer(err))
-    //     // }
+    useEffect(() => {
+
+        dispatch(getMyProfile())
+    }, [])
+
+    useEffect(() => {
+        dispatch(getCourseById(pathname.split("/").pop()))
+    }, [])
 
 
-    // }, [data, error])
 
     return (
-        <div className={style.admin_dashboard}>
-            <div className={style.sidebar}>
-                <h2>EduVerse Panel</h2>
-                <ul>
-                    <li><Link className={style.links} href={"/dashboard"} >Dashboard</Link></li>
-                    <li><Link className={style.links} href={"/dashboard/users"} >Users</Link></li>
-                    <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
-                    {/* Add more menu items as needed */}
-                </ul>
-            </div>
-            <div className={style.main_content}>
-                <nav className={style.navbar}>
-                    <Link href="/profile">Profile</Link>
-                    {/* Add more navbar items as needed */}
-                </nav>
-                <div className={style.courseInfo}>
-                    <h1>{`${course.subject}`}</h1>
-                    <h1>class : {`${course.class}`}</h1>
+        <>
+            <div className={style.admin_dashboard}>
+                <div className={style.sidebar}>
+                    <h2>EduVerse Panel</h2>
+                    <ul>
+                        <li><Link className={style.links} href={"/dashboard"} >Dashboard</Link></li>
+                        <li><Link className={style.links} href={"/dashboard/users"} >Users</Link></li>
+                        <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
+                        {/* Add more menu items as needed */}
+                    </ul>
                 </div>
-                {
-                    course.modules != 0 ? (course.modules.map((i, index) => (
-                        <ModuleCard key={index} moduleName={i.name} moduleId={i._id} />
-                    ))) : (<Loading />)
-                }
+                <div className={style.main_content}>
+                    <nav className={style.navbar}>
+                        <Link href="/profile">Profile</Link>
+                        {/* Add more navbar items as needed */}
+                    </nav>
+                    {
+                        course ? (<div className={style.courseInfo}>
+                            <h1>{`${course.subject}`}</h1>
+                            <h1>class : {`${course.class}`}</h1>
+                            <div className={style.createChp} onClick={showModal} ><MdCreateNewFolder size={25} />
+                                <p>create chapter</p>
+                            </div>
+
+                        </div>) : (<Loading />)
+                    }
+                    {
+                        course ? (course.modules != 0 ? (course.modules.map((i, index) => (
+                            <ModuleCard key={index} moduleName={i.title} moduleId={i._id} />
+                        ))) : (<h2 className={style.h2} >No Chapter found</h2>)) : (<Loading />)
+                    }
+                </div>
             </div>
-        </div>
+
+            {createChapterModal && (
+                <div className={style.modal_overlay}>
+                    <div className={style.modal}>
+                        <button className={style.close_button} onClick={showModal}>X</button>
+
+                        <div className={style.modal_content}>
+                            <h2>{`CREATE CHAPTER`}</h2>
+                            <div className={style.modalForm} >
+                                <input className={style.inputName} type="text" name='name' onChange={(e) => setName(e.target.value)} placeholder='enter chapter name' />
+                                <button className={style.AddBtn} onClick={createChapterHandller}  >Create</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
+
     );
 }
 

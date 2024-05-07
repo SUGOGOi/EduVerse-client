@@ -1,8 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
-import { loadUserFailReducer, loadUserReducer } from "../reducers/userReducer";
+import {
+  loadUserFailReducer,
+  loadUserReducer,
+  loadUsersFailReducer,
+  loadUsersReducer,
+} from "../reducers/userReducer";
 import { loadCoursesFailReducer } from "../reducers/courseReducer";
 import toast from "react-hot-toast";
+const server = `http://localhost:8000/api/v1/`;
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -38,13 +44,21 @@ export const userApi = createApi({
       }),
     }),
 
-    getMyProfile: builder.query({
-      query: () => ({
-        url: `user/myprofile`,
-        method: "GET",
+    approveUser: builder.mutation({
+      query: ({ uid, id }) => ({
+        url: `user/approve?id=${id}&uid=${uid}`,
+        method: "PUT",
         credentials: "include",
       }),
     }),
+
+    // getMyProfile: builder.query({
+    //   query: () => ({
+    //     url: `user/myprofile`,
+    //     method: "GET",
+    //     credentials: "include",
+    //   }),
+    // }),
   }),
 });
 
@@ -52,24 +66,40 @@ export const getMyProfile = () => async (dispatch) => {
   try {
     // dispatch({ type: "loadUserRequest" });
 
-    const { data } = await axios.get(
-      `http://localhost:8000/api/v1/user/myprofile`,
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await axios.get(`${server}user/myprofile`, {
+      withCredentials: true,
+    });
 
     dispatch(loadUserReducer(data));
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     dispatch(loadUserFailReducer(error));
     toast.error(`${error.message}`);
   }
 };
 
+export const getAllUsers =
+  ({ id }) =>
+  async (dispatch) => {
+    try {
+      // dispatch({ type: "loadUserRequest" });
+
+      const { data } = await axios.get(`${server}user/all-users?id=${id}`, {
+        withCredentials: true,
+      });
+
+      dispatch(loadUsersReducer(data));
+      // console.log(data);
+    } catch (error) {
+      dispatch(loadUsersFailReducer(error));
+      toast.error(`${error.message}`);
+    }
+  };
+
 export const {
   useRegisterUserMutation,
   useGetMyProfileQuery,
   useLoginUserMutation,
   useLogoutUserMutation,
+  useApproveUserMutation,
 } = userApi;

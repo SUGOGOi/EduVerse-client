@@ -11,6 +11,7 @@ import { MdCreateNewFolder } from "react-icons/md";
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import { skipToken } from '@reduxjs/toolkit/query';
+import { getAllUsers, getMyProfile } from '@/redux/apis/userApi';
 
 
 
@@ -25,16 +26,13 @@ const Page = () => {
     const [imagePrev, setImagePrev] = useState("");
     const [image, setImage] = useState("");
     const { courses } = useSelector(state => state.courseReducer);
+    const { user } = useSelector(state => state.userReducer);
     // const { user } = useSelector(state => state.userReducer);
     const [createCourseModal, setCreateCourseModal] = useState(false);
     const formData = new FormData()
 
 
     // console.log(data)
-
-    const user = {
-        _id: "663456b5ae0cf0d5a86603f9"
-    }
 
 
 
@@ -84,6 +82,11 @@ const Page = () => {
             setImagePrev("")
         }
     }
+
+
+    useEffect(() => {
+        dispatch(getMyProfile())
+    }, [])
 
 
 

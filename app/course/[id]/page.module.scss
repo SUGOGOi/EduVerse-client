@@ -1,3 +1,15 @@
+@mixin tablet {
+  @media screen and (max-width: 700px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 540px) {
+    @content;
+  }
+}
+
 .con {
   margin-top: 67px;
   width: 100%;
@@ -9,11 +21,18 @@
   align-items: center;
   justify-content: space-around;
   //   flex-direction: column;
+
+  @include tablet() {
+    flex-direction: column;
+  }
 }
 
 .video_container {
   width: 70%;
   margin: 20px;
+  @include tablet() {
+    width: 80%;
+  }
 }
 
 .main_video {
@@ -24,6 +43,9 @@
   width: 30%; /* Adjust width as needed */
   padding: 20px;
   background-color: #f2f2f2;
+  @include tablet() {
+    width: 90%;
+  }
 }
 
 .playlist h2 {
@@ -33,6 +55,12 @@
 .playlist ul {
   list-style: none;
   padding: 0;
+  .chp {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #d1cbcb;
+  }
 }
 
 .playlist li {

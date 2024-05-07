@@ -5,35 +5,86 @@ import { FaEye } from "react-icons/fa";
 import { BiSolidVideoPlus } from "react-icons/bi";
 import Loading from '@/app/loading';
 import { MdDelete } from "react-icons/md";
+import { getChapterVideos, getCourseById, useAddVideoMutation, useDeleteChapterMutation, useDeleteVideoMutation } from '@/redux/apis/courseApi';
+import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+import { usePathname } from 'next/navigation';
+import { addVideoFailReducer, addVideoReducer, clearErrorReducer, clearMessageReducer } from '@/redux/reducers/courseReducer';
 
 const ModuleCard = ({ moduleName, moduleId }) => {
     const [videoShowModal, setVideoShowModal] = useState(false);
     const [addVideoModal, setAddVideoModal] = useState(false);
+    const [deleteChapter, { }] = useDeleteChapterMutation();
+    const [addVideo, { }] = useAddVideoMutation();
+    const [deleteVideo, { }] = useDeleteVideoMutation();
+    let { user } = useSelector(state => state.userReducer);
+    let { course } = useSelector(state => state.courseReducer);
+    let { videos } = useSelector(state => state.courseReducer);
+    const pathname = usePathname();
+    const [vname, setVname] = useState("");
+    const [link, setLink] = useState("");
 
-    const videos = [
-        {
-            name: "v1",
-            url: "u1"
-        },
-        {
-            name: "v2",
-            url: "u2"
-        }
-    ]
+
+
+    const dispatch = useDispatch();
+
 
     // const videos = undefined;
 
 
-    const toggleVideoShowModal = () => {
+    const videoShowModalHandller = () => {
+        dispatch(getChapterVideos({ mid: moduleId, id: user._id }))
         setVideoShowModal(!videoShowModal);
     };
 
-    const toggleAddVideoModal = () => {
+    const videoShowModalOnly = () => {
+        setVideoShowModal(!videoShowModal);
+    };
+
+    const toggleAddVideoModalOnly = () => {
         setAddVideoModal(!addVideoModal);
     }
 
-    const deleteVideoHandller = () => {
-        // setAddVideoModal(!addVideoModal);
+    const addVideoModalHandller = async () => {
+        const res = await addVideo({ id: user._id, mid: moduleId, vname, link })
+        if ("data" in res) {
+            toast.success(res.data.message)
+            dispatch(addVideoReducer(res.data))
+            dispatch(clearMessageReducer())
+
+        } else {
+            const error = res.error;
+            const messageRes = error.data;
+            toast.error(messageRes.error)
+            dispatch(addVideoFailReducer(messageRes));
+            dispatch(clearErrorReducer())
+        }
+        setAddVideoModal(!addVideoModal);
+    }
+
+    const deleteVideoHandller = async ({ vid }) => {
+        const res = await deleteVideo({ mid: moduleId, id: user._id, vid: vid });
+        if ("data" in res) {
+            toast.success(res.data.message)
+            dispatch(getChapterVideos({ mid: moduleId, id: user._id }))
+        } else {
+            const error = res.error;
+            const messageRes = error.data;
+            toast.error(messageRes.error)
+        }
+    }
+
+    const deleteChapterHandller = async () => {
+        // console.log({ mid: moduleId, id: user._id, cid: course._id })
+        const res = await deleteChapter({ mid: moduleId, id: user._id, cid: course._id });
+        if ("data" in res) {
+            toast.success(res.data.message)
+            dispatch(getCourseById(pathname.split("/").pop()))
+        } else {
+            const error = res.error;
+            const messageRes = error.data;
+            toast.error(messageRes.error)
+        }
     }
     return (
         <>
@@ -42,25 +93,26 @@ const ModuleCard = ({ moduleName, moduleId }) => {
                 <h3>{`${moduleName}`}</h3>
                 <p>{`${moduleId}`}</p>
 
-                <div className={style.viewVideos}  ><FaEye size={22} /><p onClick={toggleVideoShowModal} >view videos</p></div>
-                <div className={style.addVideo}><BiSolidVideoPlus size={30} onClick={toggleAddVideoModal} /></div>
+                <div className={style.viewVideos}  ><FaEye size={22} /><p onClick={videoShowModalHandller} >view videos</p></div>
+                <div className={style.addVideo}><BiSolidVideoPlus size={30} onClick={toggleAddVideoModalOnly} /></div>
+                <div className={style.deleteChap}><MdDelete size={25} onClick={deleteChapterHandller} /></div>
             </div>
 
             {videoShowModal && (
                 <div className={style.modal_overlay}>
                     <div className={style.modal}>
-                        <button className={style.close_button} onClick={toggleVideoShowModal}>X</button>
+                        <button className={style.close_button} onClick={videoShowModalOnly}>X</button>
                         <h2>{`${moduleName}`}</h2>
                         <div className={style.modal_content}>
-                            {videos ? (videos.map((item, index) => (
+                            {videos ? (videos.length != 0 ? (videos.map((item, index) => (
                                 <div key={index} className={style.modal_item}>
-                                    <p>Name : {item.name}</p>
-                                    <p>url : {item.url}</p>
-                                    <MdDelete size={22} onClick={deleteVideoHandller} className={style.deleteVideoBtn} />
+                                    <p>Name : {item.vname}</p>
+                                    {/* <p>url : {item.link}</p> */}
+                                    <MdDelete size={22} onClick={() => deleteVideoHandller({ vid: item._id })} className={style.deleteVideoBtn} />
                                 </div>
 
 
-                            ))) : (<Loading />)}
+                            ))) : (<h2>No videos yet</h2>)) : (<Loading />)}
                         </div>
                     </div>
                 </div>
@@ -69,12 +121,12 @@ const ModuleCard = ({ moduleName, moduleId }) => {
             {addVideoModal && (
                 <div className={style.modal_overlay}>
                     <div className={style.modal}>
-                        <button className={style.close_button} onClick={toggleAddVideoModal}>X</button>
+                        <button className={style.close_button} onClick={toggleAddVideoModalOnly}>X</button>
                         <h2>ADD VIDEO</h2>
                         <div className={style.modal_content}>
-                            <input className={style.inputName} type="text" name='vname' placeholder='video name' />
-                            <input className={style.inputUrl} type="text" name='url' placeholder='video url' />
-                            <button className={style.AddBtn}  >Add</button>
+                            <input className={style.inputName} type="text" name='vname' onChange={(e) => setVname(e.target.value)} placeholder='video name' />
+                            <input className={style.inputUrl} type="text" name='link' onChange={(e) => setLink(e.target.value)} placeholder='video url' />
+                            <button className={style.AddBtn} onClick={addVideoModalHandller} >Add</button>
                         </div>
                     </div>
                 </div>

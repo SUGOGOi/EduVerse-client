@@ -1,41 +1,66 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from "./page.module.scss"
 import Navbar from '@/components/navbar/Navbar';
-import { useGetCourseByIdQuery } from '@/redux/apis/courseApi';
-import { useDispatch } from 'react-redux';
+import { getCourseById, useGetCourseByIdQuery } from '@/redux/apis/courseApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { usePathname } from "next/navigation"
+import Loading from '@/app/loading';
+import { getMyProfile } from '@/redux/apis/userApi';
+import { IoIosArrowUp } from 'react-icons/io';
+
 
 const Page = () => {
-    const [loadCourseState, setLoadCourseState] = useState(1)
-    const { data, error } = useGetCourseByIdQuery(loadCourseState);
+    const { course } = useSelector(state => state.courseReducer);
+    let { user } = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
-    const videos = [
-        'https://www.youtube.com/watch?v=hvKaPTmQBA8&list=RDhvKaPTmQBA8&start_radio=1',
-        'https://www.example.com/video2.mp4',
-        'https://www.example.com/video3.mp4'
-    ];
+    const pathname = usePathname();
+
+
 
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
-    const playVideo = (index) => {
+    const playVideoHandller = (index) => {
         setCurrentVideoIndex(index);
     };
+
+
+    const expandModuleHandller = () => {
+
+    }
+
+    useEffect(() => {
+        dispatch(getCourseById(pathname.split("/").pop()))
+    }, [])
+
+    useEffect(() => {
+
+        if (!user) {
+            dispatch(getMyProfile())
+        }
+    }, [user])
 
     return (
         <>
             <Navbar />
             <div className={style.con}>
                 <div className={style.video_container}>
-                    <video controls autoPlay src={videos[currentVideoIndex]} className={style.main_video} />
+                    <video controls autoPlay src={`https://www.youtube.com/watch?v=_KPqk9NwaQg&list=RD_KPqk9NwaQg&start_radio=1`} className={style.main_video} />
                 </div>
                 <div className={style.playlist}>
-                    <h2>Playlist</h2>
+                    <h2>Chapters</h2>
                     <ul>
-                        {videos.map((video, index) => (
-                            <li key={index} onClick={() => playVideo(index)}>
-                                Video {index + 1}
-                            </li>
-                        ))}
+                        {
+                            course ? (course.modules.map((i, index) => (
+                                <li key={index} className={style.chp} onClick={expandModuleHandller}>
+                                    {i.title}
+                                    <div className={style.arrow}>
+                                        <IoIosArrowUp size={25} />
+                                    </div>
+                                </li>
+
+                            ))) : <Loading />
+                        }
                     </ul>
                 </div>
             </div>

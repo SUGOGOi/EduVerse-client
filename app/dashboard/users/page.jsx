@@ -1,11 +1,28 @@
-
-import React from 'react';
+"use client"
+import React, { useEffect } from 'react';
 import style from './page.module.scss';
 import Link from "next/link"
+import { getAllUsers, getMyProfile, useApproveUserMutation } from '@/redux/apis/userApi';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '@/app/loading';
+import toast from 'react-hot-toast';
 
 const Card = ({ name, id, isApproved, paymentLink }) => {
-    const approveHandller = async () => {
-        console.log("ll")
+    const { user } = useSelector(state => state.userReducer);
+    const [approveUser, { isLoading }] = useApproveUserMutation()
+    const dispatch = useDispatch();
+
+    const approveHandller = async ({ uid, id }) => {
+        const res = await approveUser({ id, uid });
+        if ("data" in res) {
+            toast.success(res.data.message)
+            dispatch(getAllUsers({ id }))
+
+        } else {
+            const error = res.error;
+            const messageRes = error.data;
+            toast.error(messageRes.error)
+        }
     }
 
     return (
@@ -14,7 +31,7 @@ const Card = ({ name, id, isApproved, paymentLink }) => {
             <p> Name : {name}</p>
             <p>Approve : {`${isApproved}`}</p>
             {
-                isApproved === false ? (<button>approve</button>) : (<button>reject</button>)
+                isApproved === false ? (<button onClick={() => approveHandller({ id: user._id, uid: id })} >approve</button>) : (<button>reject</button>)
             }
             <p><a href={`${paymentLink}`} target="_blank" >Payment Info</a></p>
         </div>
@@ -22,8 +39,21 @@ const Card = ({ name, id, isApproved, paymentLink }) => {
 }
 
 const Page = () => {
-    // Dummy data for total users and courses
-    const link = "http://res.cloudinary.com/dikx4aj2f/image/upload/v1714706100/kn1rnqdu5zjr8hlxraws.jpg"
+    const { user, users } = useSelector(state => state.userReducer);
+    const dispatch = useDispatch();
+
+
+
+
+    useEffect(() => {
+        dispatch(getMyProfile())
+    }, [])
+
+    useEffect(() => {
+        if (user) {
+            dispatch(getAllUsers({ id: user._id }))
+        }
+    }, [user])
 
     return (
         <div className={style.admin_dashboard}>
@@ -43,8 +73,14 @@ const Page = () => {
                     {/* Add more navbar items as needed */}
                 </nav>
                 <h1>All Users</h1>
-                <div className={style.dashboard_card}>
-                    <Card id={"qwee"} name={"sumsum"} isApproved={false} paymentLink={link} />
+                <div className={style.dashboard_container}>
+                    {
+                        users ? (
+                            users.map((i, index) => (
+                                <Card key={index} id={i._id} name={i.name} paymentLink={i.paymentPhoto.url} isApproved={i.isApproved} />
+                            ))
+                        ) : (<Loading />)
+                    }
                 </div>
                 {/* Add your dashboard components and content here */}
             </div>

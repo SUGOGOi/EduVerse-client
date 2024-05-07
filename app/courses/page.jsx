@@ -10,12 +10,15 @@ import Link from "next/link"
 import UserCourseCard from '@/components/userCourseCard/UserCourseCard'
 import { useAllCoursesQuery } from '@/redux/apis/courseApi'
 import { loadCoursesReducer } from '@/redux/reducers/courseReducer'
+import { getMyProfile } from '@/redux/apis/userApi'
 
 
 const Page = () => {
     const [loadCourseState, setLoadCourseState] = useState(1)
     const { data, isLoading, error } = useAllCoursesQuery(loadCourseState);
     const { courses } = useSelector(state => state.courseReducer);
+    let { user } = useSelector(state => state.userReducer);
+
 
 
     // const { courses } = useSelector(state => state.courseReducer);
@@ -40,6 +43,16 @@ const Page = () => {
         }
 
     }, [data, error])
+
+
+    useEffect(() => {
+
+        if (!user) {
+            dispatch(getMyProfile())
+        }
+    }, [user])
+
+
 
 
 

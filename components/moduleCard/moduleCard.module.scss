@@ -1,5 +1,5 @@
 .moduleCon {
-  width: 80%;
+  width: 90%;
   height: 60px;
   background-color: rgb(240, 240, 240);
   padding: 10px;
@@ -19,7 +19,19 @@
     }
 
     :hover {
-      color: white;
+      color: green;
+    }
+  }
+  .addVideo {
+    cursor: pointer;
+    :hover {
+      color: green;
+    }
+  }
+  .deleteChap {
+    cursor: pointer;
+    :hover {
+      color: red;
     }
   }
 }

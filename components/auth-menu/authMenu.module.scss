@@ -17,6 +17,7 @@
   align-items: center;
   justify-content: center;
   transition: 0.5s all ease-in-out;
+  z-index: 1;
 
   @include mobile() {
     width: 180px;

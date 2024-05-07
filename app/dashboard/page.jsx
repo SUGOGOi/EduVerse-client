@@ -2,34 +2,31 @@
 import React, { useEffect } from 'react';
 import style from './page.module.scss';
 import Link from "next/link"
-import { useAllCoursesQuery } from '@/redux/apis/courseApi';
+import { getAllCourses, useAllCoursesQuery } from '@/redux/apis/courseApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/courseReducer';
 import Loading from '../loading';
+import { getAllUsers, getMyProfile } from '@/redux/apis/userApi';
 
 const Page = () => {
     // Dummy data for total users and courses
-    const { data, isLoading, isError, error } = useAllCoursesQuery();
+
     const { courses } = useSelector(state => state.courseReducer);
-    console.log(courses)
+    const { user, users } = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
 
 
+
     useEffect(() => {
-        if (data) {
-            // toast.success(data.message)
-            dispatch(loadCoursesReducer(data))
-        }
-        if (error) {
-            // console.log(error)
-            const err = error;
-            const messageRes = err.data.error;
-            toast.error(messageRes)
-            dispatch(loadCoursesFailReducer(err))
-        }
+        dispatch(getAllCourses())
+        dispatch(getMyProfile())
+    }, [])
 
-
-    }, [data, error])
+    useEffect(() => {
+        if (user) {
+            dispatch(getAllUsers({ id: user._id }))
+        }
+    }, [user])
 
 
 
@@ -55,7 +52,9 @@ const Page = () => {
                 <div className={style.dashboard_card}>
                     <div className={style.card}>
                         <h2>Total Users</h2>
-                        <p>{9}</p>
+                        {
+                            users ? (<p>{users.length}</p>) : (<Loading />)
+                        }
                     </div>
                     <div className={style.card}>
                         <h2>Total Courses</h2>

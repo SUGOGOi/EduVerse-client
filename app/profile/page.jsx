@@ -46,7 +46,7 @@ const Page = () => {
     useEffect(() => {
         setTimeout(() => {
             dispatch(getMyProfile())
-        }, 3000)
+        }, 1000)
     }, [])
 
 

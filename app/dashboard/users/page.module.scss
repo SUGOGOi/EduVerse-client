@@ -54,8 +54,9 @@ $hilight: #2e374a;
   padding: 20px;
 }
 
-.dashboard_card {
+.dashboard_container {
   display: flex;
+  flex-direction: column;
 }
 
 .card {
@@ -65,7 +66,7 @@ $hilight: #2e374a;
   margin-right: 20px;
   border-radius: 5px;
   display: flex;
-  width: 80%;
+  width: 100%;
   align-items: center;
   justify-content: space-around;
   height: 40px;

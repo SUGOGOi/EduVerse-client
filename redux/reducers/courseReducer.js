@@ -17,6 +17,26 @@ export const courseReducer = createSlice({
       state.error = action.payload.error;
       state.success = action.payload.success;
     },
+
+    addVideoReducer: (state, action) => {
+      state.message = action.payload.message;
+      state.success = action.payload.success;
+    },
+    addVideoFailReducer: (state, action) => {
+      state.message = null;
+      state.error = action.payload.error;
+      state.success = action.payload.success;
+    },
+
+    createChapterReducer: (state, action) => {
+      state.message = action.payload.message;
+      state.success = action.payload.success;
+    },
+    createChapterFailReducer: (state, action) => {
+      state.message = null;
+      state.error = action.payload.error;
+      state.success = action.payload.success;
+    },
     loadCoursesReducer: (state, action) => {
       state.message = action.payload.message;
       state.success = action.payload.success;
@@ -24,6 +44,17 @@ export const courseReducer = createSlice({
     },
     loadCoursesFailReducer: (state, action) => {
       state.message = null;
+      state.error = action.payload.error;
+      state.success = action.payload.success;
+    },
+    loadChapterVideosReducer: (state, action) => {
+      state.message = action.payload.message;
+      state.success = action.payload.success;
+      state.videos = action.payload.videos;
+    },
+    loadChapterVideosFailReducer: (state, action) => {
+      state.message = null;
+      state.videos = null;
       state.error = action.payload.error;
       state.success = action.payload.success;
     },
@@ -58,4 +89,10 @@ export const {
   clearMessageReducer,
   getCourseByIdReducer,
   getCourseByIdFailReducer,
+  createChapterFailReducer,
+  createChapterReducer,
+  loadChapterVideosReducer,
+  loadChapterVideosFailReducer,
+  addVideoReducer,
+  addVideoFailReducer,
 } = courseReducer.actions;
