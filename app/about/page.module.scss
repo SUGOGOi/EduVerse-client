@@ -1,0 +1,51 @@
+$bg: #151c2c;
+$bgSoft: #182237;
+$text: white;
+$textSoft: #b7bac1;
+$hilight: #2e374a;
+
+@mixin tablet {
+  @media screen and (max-width: 700px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 540px) {
+    @content;
+  }
+}
+
+.container {
+  margin-top: 67px;
+  width: 100%;
+  min-height: 91vh;
+  height: auto;
+  color: black;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  h1 {
+    padding: 5px;
+    margin-top: 10px;
+  }
+  .aboutText {
+    padding: 20px;
+    margin: 20px;
+    font-size: 21px;
+  }
+  .aboutImage {
+    height: fit-content;
+    width: 90vw;
+    margin: 20px auto;
+    .slider {
+      width: 90vw;
+      height: 40vw;
+      background-color: blanchedalmond;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}

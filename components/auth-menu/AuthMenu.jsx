@@ -5,18 +5,18 @@ import Link from "next/link"
 import { useDispatch, useSelector } from 'react-redux'
 import { usePathname } from "next/navigation"
 import { useRouter } from 'next/navigation'
-import { useLogoutUserMutation } from "@/redux/apis/userApi"
 import { clearErrorReducer, clearMessageReducer, loadUserReducer, logoutFailReducer, logoutReducer } from '@/redux/reducers/userReducer'
 import toast from 'react-hot-toast'
+import { useLogoutUserMutation } from '@/redux/apis/userApi'
 
 
 
 const AuthMenu = ({ isAuthOpen, setIsAuthOpen }) => {
-
+    const [logoutUser, { }] = useLogoutUserMutation();
     const { user } = useSelector(state => state.userReducer);
     const pathname = usePathname();
     const router = useRouter();
-    const [logoutUser, { isLoading }] = useLogoutUserMutation();
+
     const dispatch = useDispatch();
 
 
@@ -27,6 +27,7 @@ const AuthMenu = ({ isAuthOpen, setIsAuthOpen }) => {
     const goToProfile = () => {
         router.push(`/profile`, { scroll: false })
     }
+
     const logoutHandller = async () => {
         const res = await logoutUser();
 
@@ -46,6 +47,7 @@ const AuthMenu = ({ isAuthOpen, setIsAuthOpen }) => {
         }
 
     }
+
 
 
 

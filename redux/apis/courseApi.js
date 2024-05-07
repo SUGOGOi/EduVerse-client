@@ -13,7 +13,27 @@ export const courseApi = createApi({
         credentials: "include",
       }),
     }),
+
+    createCourse: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `course/create-course?id=${id}`,
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      }),
+    }),
+    getCourseById: builder.query({
+      query: ({ id }) => ({
+        url: `course/${id}`,
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useAllCoursesQuery } = courseApi;
+export const {
+  useGetCourseByIdQuery,
+  useAllCoursesQuery,
+  useCreateCourseMutation,
+} = courseApi;

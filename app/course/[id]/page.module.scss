@@ -1,0 +1,45 @@
+.con {
+  margin-top: 67px;
+  width: 100%;
+  min-height: 91vh;
+  height: auto;
+  color: black;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  //   flex-direction: column;
+}
+
+.video_container {
+  width: 70%;
+  margin: 20px;
+}
+
+.main_video {
+  width: 100%;
+}
+
+.playlist {
+  width: 30%; /* Adjust width as needed */
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+.playlist h2 {
+  margin-bottom: 10px;
+}
+
+.playlist ul {
+  list-style: none;
+  padding: 0;
+}
+
+.playlist li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.playlist li:hover {
+  background-color: #ddd;
+}

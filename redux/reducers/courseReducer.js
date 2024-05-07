@@ -11,7 +11,6 @@ export const courseReducer = createSlice({
     createCourseReducer: (state, action) => {
       state.message = action.payload.message;
       state.success = action.payload.success;
-      state.course = action.payload.course;
     },
     createCourseFailReducer: (state, action) => {
       state.message = null;
@@ -24,6 +23,17 @@ export const courseReducer = createSlice({
       state.courses = action.payload.courses;
     },
     loadCoursesFailReducer: (state, action) => {
+      state.message = null;
+      state.error = action.payload.error;
+      state.success = action.payload.success;
+    },
+
+    getCourseByIdReducer: (state, action) => {
+      state.message = action.payload.message;
+      state.success = action.payload.success;
+      state.course = action.payload.course;
+    },
+    getCourseByIdFailReducer: (state, action) => {
       state.message = null;
       state.error = action.payload.error;
       state.success = action.payload.success;
@@ -46,4 +56,6 @@ export const {
   loadCoursesFailReducer,
   clearErrorReducer,
   clearMessageReducer,
+  getCourseByIdReducer,
+  getCourseByIdFailReducer,
 } = courseReducer.actions;

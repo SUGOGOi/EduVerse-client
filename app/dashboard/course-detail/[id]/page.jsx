@@ -67,6 +67,10 @@ const Page = () => {
                 </ul>
             </div>
             <div className={style.main_content}>
+                <nav className={style.navbar}>
+                    <Link href="/profile">Profile</Link>
+                    {/* Add more navbar items as needed */}
+                </nav>
                 <div className={style.courseInfo}>
                     <h1>{`${course.subject}`}</h1>
                     <h1>class : {`${course.class}`}</h1>

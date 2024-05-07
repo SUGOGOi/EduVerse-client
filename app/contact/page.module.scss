@@ -1,0 +1,167 @@
+@mixin tablet {
+  @media screen and (max-width: 700px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 540px) {
+    @content;
+  }
+}
+
+.container {
+  margin-top: 67px;
+  width: 100%;
+  height: 91vh;
+  color: black;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //   border: 1px solid red;
+
+  .loginCon {
+    width: 800px;
+    height: 91vh;
+    // border: 1px solid red;
+    color: black;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    .form {
+      h1 {
+        margin: 20px;
+        font-size: 26px;
+        color: rgb(77, 77, 77);
+      }
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      // box-shadow: 0.5px 0.5px 20px #a8a8a8;
+      border: 2px solid rgb(146, 145, 145);
+      border-radius: 20px;
+
+      height: 70vh;
+      width: 50%;
+
+      .input {
+        width: 300px;
+        height: 40px;
+        padding: 0px 8px;
+        border-radius: 5px;
+        border-style: none;
+        background-color: rgb(211, 210, 210);
+        @include tablet() {
+          width: 275px;
+        }
+        @include mobile() {
+          width: 250px;
+        }
+      }
+      .input:focus {
+        outline: 2px solid rgb(146, 145, 145);
+      }
+
+      .inputPass {
+        display: flex;
+        flex-direction: column;
+      }
+      .inputArea {
+        width: 300px;
+        height: 150px;
+        padding: 5px 8px;
+        resize: none;
+
+        border-radius: 5px;
+        border-style: none;
+        background-color: rgb(211, 210, 210);
+
+        @include tablet() {
+          width: 275px;
+        }
+        @include mobile() {
+          width: 250px;
+        }
+      }
+      .inputArea:focus {
+        outline: 2px solid rgb(146, 145, 145);
+      }
+
+      .btn {
+        background-color: grey;
+        color: white;
+        width: 120px;
+        padding: 15px 10px;
+        border: none;
+        margin-top: 20px;
+        border-radius: 5px;
+        .btnLoading {
+          padding: 2px 15px;
+          border: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .wave {
+            width: 3px;
+            height: 10px;
+            margin: 1px 2px;
+            animation: wave 1s linear infinite;
+            border-radius: 30px;
+            background-color: white;
+          }
+          .wave:nth-child(2) {
+            animation-delay: 0.1s;
+          }
+          .wave:nth-child(3) {
+            animation-delay: 0.2s;
+          }
+          .wave:nth-child(4) {
+            animation-delay: 0.3s;
+          }
+          .wave:nth-child(5) {
+            animation-delay: 0.4s;
+          }
+          .wave:nth-child(6) {
+            animation-delay: 0.5s;
+          }
+          .wave:nth-child(7) {
+            animation-delay: 0.6s;
+          }
+          .wave:nth-child(8) {
+            animation-delay: 0.7s;
+          }
+          .wave:nth-child(9) {
+            animation-delay: 0.8s;
+          }
+          .wave:nth-child(10) {
+            animation-delay: 0.9s;
+          }
+
+          @keyframes wave {
+            0% {
+              transform: scale(0);
+            }
+            50% {
+              transform: scale(1);
+            }
+            100% {
+              transform: scale(0);
+            }
+          }
+        }
+      }
+      @include tablet() {
+        width: 70%;
+      }
+      @include mobile() {
+        width: 85%;
+      }
+    }
+  }
+}

@@ -1,25 +1,59 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from "./page.module.scss"
 import { useDispatch, useSelector } from "react-redux"
-import { loadUserReducer } from '@/redux/reducers/userReducer'
 import Navbar from '@/components/navbar/Navbar'
 import { toast } from "react-hot-toast";
 import Loading from '../loading'
 import Link from "next/link"
-
+import { getMyProfile, useGetMyProfileQuery, useLogoutUserMutation } from '@/redux/apis/userApi'
+import { clearErrorReducer, clearMessageReducer, loadUserReducer, logoutFailReducer, logoutReducer } from '@/redux/reducers/userReducer'
+import { useRouter } from 'next/navigation'
+export const dynamic = "force-dynamic"
 
 const Page = () => {
-    const { user } = useSelector(state => state.userReducer);
+    let { user } = useSelector(state => state.userReducer);
+    const [logoutUser, { }] = useLogoutUserMutation();
+    const router = useRouter();
+
+
 
     const dispatch = useDispatch();
 
+    const logoutHandller = async () => {
+        const res = await logoutUser();
 
+        if ("data" in res) {
+            user = undefined;
+            toast.success(res.data.message)
+            console.log(res.data);
+            dispatch(logoutReducer())
+            router.push('/', { scroll: false })
+            dispatch(clearMessageReducer())
+
+
+        } else {
+            const error = res.error;
+            const messageRes = error.data;
+            toast.error(messageRes.error)
+            dispatch(logoutFailReducer(messageRes));
+            dispatch(clearErrorReducer())
+        }
+    }
+
+
+
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(getMyProfile())
+        }, 3000)
+    }, [])
 
 
     return (
         <>
             <Navbar />
+
             {
                 user ? (<div className={style.container} >
                     <div className={style.profileCon}>
@@ -30,9 +64,11 @@ const Page = () => {
                             {
                                 user.role === "admin" ? (<div className={style.dashBtn}  > <Link className={style.Link} href={"/dashboard"}>Go to Dashboard</Link></div>) : (<div className={style.approved}>{`Approved : ${user.isApproved}`}</div>)
                             }
+
+                            <button onClick={logoutHandller} >Logout</button>
                         </div>
                     </div>
-                </div>) : (<Loading />)
+                </div >) : (<Loading />)
             }
         </>
     )

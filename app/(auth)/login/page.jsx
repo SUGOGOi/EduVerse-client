@@ -37,8 +37,6 @@ const Page = () => {
 
         if ("data" in res) {
             toast.success(res.data.message)
-            dispatch(loadUserReducer(res.data))
-            // console.log(res.data)
             setTimeout(() => {
                 router.push(`/profile`, { scroll: false })
             }, 1000)

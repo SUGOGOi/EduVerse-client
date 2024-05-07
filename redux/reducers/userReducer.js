@@ -23,9 +23,9 @@ export const userReducer = createSlice({
       state.user = action.payload.user;
     },
     loadUserFailReducer: (state, action) => {
-      state.message = null;
-      state.error = action.payload.error;
-      state.success = action.payload.success;
+      state.message = action.payload.message;
+      // state.error = action.payload.error;
+      // state.success = action.payload.success;
     },
 
     logoutReducer: (state) => {
