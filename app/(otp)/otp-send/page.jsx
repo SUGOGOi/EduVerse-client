@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux"
 import { otpNotSendReducer, otpSendReducer } from "@/redux/reducers/otpReducer"
 import validator from "validator";
+import { emailReducer } from "@/redux/reducers/userReducer";
 const Page = () => {
     const [email, setEmail] = useState("");
     const [otpSend, { isLoading }] = useOtpSendMutation();
@@ -27,9 +28,10 @@ const Page = () => {
         if ("data" in res) {
             toast.success(res.data.message);
             dispatch(otpSendReducer(res.data))
+            dispatch(emailReducer({ email }))
             setTimeout(() => {
                 router.push("/otp-verify", { scroll: false });
-            }, 2000);
+            }, 1000);
         } else {
             const error = res.error;
             const messageRes = error.data;

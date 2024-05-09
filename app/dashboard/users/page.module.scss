@@ -73,6 +73,16 @@ $hilight: #2e374a;
   p {
     display: flex;
   }
+  .editUserIcon {
+    cursor: pointer;
+    color: black;
+  }
+  .roleAdmin {
+    color: red;
+  }
+  .roleTeacher {
+    color: green;
+  }
 }
 
 .card h2 {

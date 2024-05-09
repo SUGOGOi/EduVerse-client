@@ -7,16 +7,16 @@ import { useRegisterUserMutation } from "@/redux/apis/userApi"
 import { useDispatch, useSelector } from "react-redux"
 import { useRouter } from 'next/navigation'
 import Image from "next/image"
-import { clearErrorReducer, clearMessageReducer, registerFailReducer, registerReducer } from "@/redux/reducers/userReducer"
+import { clearErrorReducer, clearMessageReducer, emailClearReducer, registerFailReducer, registerReducer, roleClearReducer } from "@/redux/reducers/userReducer"
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 
 const Page = () => {
     const [registerUser, { isLoading }] = useRegisterUserMutation();
     const dispatch = useDispatch();
-
+    const { role, email } = useSelector(state => state.userReducer);
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    // const [email, setEmail] = useState("");
     const [phno, setPhno] = useState("");
     const [password, setPassword] = useState("");
     const [cpassword, setCpassword] = useState("");
@@ -55,8 +55,10 @@ const Page = () => {
             dispatch(registerReducer(res.data))
             setTimeout(() => {
                 router.push(`/profile`, { scroll: false })
-            }, 2000)
+            }, 1000)
             dispatch(clearMessageReducer())
+            dispatch(roleClearReducer());
+            dispatch(emailClearReducer());
 
         } else {
             const error = res.error;
@@ -99,7 +101,7 @@ const Page = () => {
 
                     <input placeholder="   name" name="name" type="text" required className={style.input} onChange={(e) => setName(e.target.value)} />
 
-                    <input placeholder={`   email`} name="email" type="text" required className={style.input} onChange={(e) => setEmail(e.target.value)} />
+                    <input value={email} name="email" type="text" required className={style.input} disabled />
                     <input placeholder="   mobile number" name="phno" type="text" required className={style.input} onChange={(e) => setPhno(e.target.value)} />
                     <div className={style.inputPass}>
                         <input placeholder="   password" name="password" type={isShow ? "text" : "password"} required className={style.input} onChange={(e) => setPassword(e.target.value)} /> {isShow ? <FiEye onClick={showHandler} /> : <FiEyeOff onClick={showHandler} />}
@@ -119,7 +121,9 @@ const Page = () => {
                         <option value="KV">KV</option>
                     </select>
 
-                    <input type="file" required placeholder="  payment screenshot" accept='image/*' name="file" className={style.input} onChange={changeImageHandler} />
+                    {
+                        role === "student" ? (<input type="file" required placeholder="  payment screenshot" accept='image/*' name="file" className={style.input} onChange={changeImageHandler} />) : (<></>)
+                    }
                     {
                         imagePrev && (
                             <Image src={imagePrev} width={200} height={200} alt='preview' />

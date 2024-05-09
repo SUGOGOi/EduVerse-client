@@ -44,24 +44,29 @@ const Page = () => {
         <>
             <Navbar />
             <div className={style.con}>
-                <div className={style.video_container}>
-                    <video controls autoPlay src={`https://www.youtube.com/watch?v=_KPqk9NwaQg&list=RD_KPqk9NwaQg&start_radio=1`} className={style.main_video} />
-                </div>
-                <div className={style.playlist}>
-                    <h2>Chapters</h2>
-                    <ul>
-                        {
-                            course ? (course.modules.map((i, index) => (
-                                <li key={index} className={style.chp} onClick={expandModuleHandller}>
-                                    {i.title}
-                                    <div className={style.arrow}>
-                                        <IoIosArrowUp size={25} />
-                                    </div>
-                                </li>
+                {
+                    course ? (<h2>{course.subject}</h2>) : (<Loading />)
+                }
+                <div className={style.video_Playlist}>
+                    <div className={style.video_container}>
+                        <video controls autoPlay src={`https://www.youtube.com/watch?v=_KPqk9NwaQg&list=RD_KPqk9NwaQg&start_radio=1`} className={style.main_video} />
+                    </div>
+                    <div className={style.playlist}>
+                        <h2>Chapters</h2>
+                        <ul>
+                            {
+                                course ? (course.modules.map((i, index) => (
+                                    <li key={index} className={style.chp} onClick={expandModuleHandller}>
+                                        {i.title}
+                                        <div className={style.arrow}>
+                                            <IoIosArrowUp size={25} />
+                                        </div>
+                                    </li>
 
-                            ))) : <Loading />
-                        }
-                    </ul>
+                                ))) : <Loading />
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
         </>

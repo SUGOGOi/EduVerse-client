@@ -11,7 +11,7 @@
 }
 
 .container {
-  margin-top: 67px;
+  margin-top: 61px;
   width: 100%;
   height: 91vh;
   color: black;
@@ -22,17 +22,18 @@
   //   border: 1px solid red;
 
   .loginCon {
-    width: 800px;
+    width: 100%;
     height: 91vh;
     // border: 1px solid red;
     color: black;
-    background-color: white;
+    background-color: #f0f0f0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
 
     .form {
+      background-color: white;
       h1 {
         margin: 20px;
         font-size: 26px;

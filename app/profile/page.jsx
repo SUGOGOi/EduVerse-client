@@ -62,7 +62,19 @@ const Page = () => {
                             <div className={style.name}>{`${user.name}`}</div>
                             <div className={style.email}>{`${user.email}`}</div>
                             {
-                                user.role === "admin" ? (<div className={style.dashBtn}  > <Link className={style.Link} href={"/dashboard"}>Go to Dashboard</Link></div>) : (<div className={style.approved}>{`Approved : ${user.isApproved}`}</div>)
+                                user.role === "admin" ? (<div className={style.dashBtn}  >
+                                    <Link className={style.Link} href={"/dashboard"}>Go to Dashboard</Link>
+                                </div>) : (user.role === "teacher" && user.isApproved === true ? (<>
+                                    <div className={style.approved}>
+                                        <p>Approve : </p>
+                                        <p className={style.approveTrue} >{`${user.isApproved}`}</p>
+                                    </div>
+                                    <div className={style.dashBtn}  > <Link className={style.Link} href={"/dashboard/courses"}>Go to Dashboard</Link></div></>) : (<div className={style.approved}>
+                                        <p>Approve : </p>
+                                        {
+                                            <p className={style.approveFalse} >{`${user.isApproved}`}</p>
+                                        }
+                                    </div>))
                             }
 
                             <button onClick={logoutHandller} >Logout</button>

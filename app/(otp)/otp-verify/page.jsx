@@ -14,6 +14,7 @@ const Page = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const { email } = useSelector(state => state.otpReducer);
+    const { role } = useSelector(state => state.userReducer);
 
 
 
@@ -27,12 +28,13 @@ const Page = () => {
         if ("data" in res) {
             toast.success(res.data.message);
             dispatch(otpVerifyReducer(res.data))
-            setTimeout(() => {
-                dispatch(clearMessageReducer())
-                dispatch(clearErrorReducer())
-                router.push("/qr-code", { scroll: false });
-
-            }, 2000);
+            dispatch(clearMessageReducer())
+            dispatch(clearErrorReducer())
+            if (role === "teacher") {
+                router.push("/signup", { scroll: false });
+            } else {
+                router.push("/qr-code", { scroll: false })
+            }
         } else {
             const error = res.error;
             const messageRes = error.data;

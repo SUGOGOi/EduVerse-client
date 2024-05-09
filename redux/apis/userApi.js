@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
 import {
+  loadSpecificUserFailReducer,
+  loadSpecificUserReducer,
   loadUserFailReducer,
   loadUserReducer,
   loadUsersFailReducer,
@@ -77,6 +79,24 @@ export const getMyProfile = () => async (dispatch) => {
     toast.error(`${error.message}`);
   }
 };
+
+export const getSpecificUser =
+  ({ uid, id }) =>
+  async (dispatch) => {
+    try {
+      // dispatch({ type: "loadUserRequest" });
+
+      const { data } = await axios.get(`${server}user/${uid}?id=${id}`, {
+        withCredentials: true,
+      });
+
+      dispatch(loadSpecificUserReducer(data));
+      // console.log(data);
+    } catch (error) {
+      dispatch(loadSpecificUserFailReducer(error));
+      toast.error(`${error.message}`);
+    }
+  };
 
 export const getAllUsers =
   ({ id }) =>

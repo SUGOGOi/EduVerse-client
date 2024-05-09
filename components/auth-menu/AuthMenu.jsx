@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useDispatch, useSelector } from 'react-redux'
 import { usePathname } from "next/navigation"
 import { useRouter } from 'next/navigation'
-import { clearErrorReducer, clearMessageReducer, loadUserReducer, logoutFailReducer, logoutReducer } from '@/redux/reducers/userReducer'
+import { clearErrorReducer, clearMessageReducer, loadUserReducer, logoutFailReducer, logoutReducer, roleReducer } from '@/redux/reducers/userReducer'
 import toast from 'react-hot-toast'
 import { useLogoutUserMutation } from '@/redux/apis/userApi'
 
@@ -48,6 +48,10 @@ const AuthMenu = ({ isAuthOpen, setIsAuthOpen }) => {
 
     }
 
+    const userRoleHandller = ({ role }) => {
+        dispatch(roleReducer({ role }))
+    }
+
 
 
 
@@ -65,7 +69,8 @@ const AuthMenu = ({ isAuthOpen, setIsAuthOpen }) => {
                 </div>) : (<ul>
                     <li onClick={() => setIsAuthOpen(false)} ><Link href="/login" className={style.menuText} >Login</Link></li >
                     <hr />
-                    <li onClick={() => setIsAuthOpen(false)} ><Link href="/otp-send" className={style.menuText}>Signup</Link></li>
+                    <li onClick={() => setIsAuthOpen(false)} ><Link href="/otp-send" className={style.menuText} onClick={() => userRoleHandller({ role: "teacher" })} >Signup as Teacher</Link></li>
+                    <li onClick={() => setIsAuthOpen(false)} ><Link href="/otp-send" className={style.menuText} onClick={() => userRoleHandller({ role: "student" })} >Signup as Student</Link></li>
 
                 </ul >)
             }

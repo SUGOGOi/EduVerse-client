@@ -18,13 +18,19 @@
   color: black;
   background-color: white;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-around;
+  flex-direction: column;
   //   flex-direction: column;
 
   @include tablet() {
     flex-direction: column;
   }
+}
+
+.video_Playlist {
+  width: 100%;
+  height: auto;
 }
 
 .video_container {
@@ -42,6 +48,7 @@
 .playlist {
   width: 30%; /* Adjust width as needed */
   padding: 20px;
+  margin: 20px;
   background-color: #f2f2f2;
   @include tablet() {
     width: 90%;

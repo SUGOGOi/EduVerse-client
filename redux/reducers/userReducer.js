@@ -24,8 +24,6 @@ export const userReducer = createSlice({
     },
     loadUserFailReducer: (state, action) => {
       state.message = action.payload.message;
-      // state.error = action.payload.error;
-      // state.success = action.payload.success;
     },
 
     loadUsersReducer: (state, action) => {
@@ -38,12 +36,34 @@ export const userReducer = createSlice({
       // state.success = action.payload.success;
     },
 
+    loadSpecificUserReducer: (state, action) => {
+      state.success = action.payload.success;
+      state.userDetail = action.payload.userDetail;
+    },
+    loadSpecificUserFailReducer: (state, action) => {
+      state.message = action.payload.message;
+      // state.error = action.payload.error;
+      // state.success = action.payload.success;
+    },
     logoutReducer: (state) => {
       state.user = null;
     },
     logoutFailReducer: (state, action) => {
       state.error = action.payload.error;
       state.success = action.payload.success;
+    },
+    roleReducer: (state, action) => {
+      state.role = action.payload.role;
+    },
+    roleClearReducer: (state) => {
+      state.role = null;
+    },
+
+    emailReducer: (state, action) => {
+      state.email = action.payload.email;
+    },
+    emailClearReducer: (state) => {
+      state.email = null;
     },
 
     clearErrorReducer: (state) => {
@@ -68,4 +88,10 @@ export const {
   logoutFailReducer,
   loadUsersReducer,
   loadUsersFailReducer,
+  roleReducer,
+  roleClearReducer,
+  emailClearReducer,
+  emailReducer,
+  loadSpecificUserFailReducer,
+  loadSpecificUserReducer,
 } = userReducer.actions;
