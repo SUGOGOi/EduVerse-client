@@ -4,8 +4,8 @@ const server = `http://localhost:8000/api/v1/`;
 import {
   getCourseByIdFailReducer,
   getCourseByIdReducer,
-  loadChapterVideosFailReducer,
-  loadChapterVideosReducer,
+  loadChapterMaterialsFailReducer,
+  loadChapterMaterialsReducer,
   loadCoursesFailReducer,
   loadCoursesReducer,
 } from "../reducers/courseReducer";
@@ -107,23 +107,23 @@ export const getAllCourses = () => async (dispatch) => {
   }
 };
 
-export const getChapterVideos =
-  ({ id, mid }) =>
+export const getChapterMaterials =
+  ({ mid }) =>
   async (dispatch) => {
     try {
       // dispatch({ type: "loadUserRequest" });
 
       const { data } = await axios.get(
-        `${server}module/all-videos?mid=${mid}&id=${id}`,
+        `${server}module/all-materials?mid=${mid}`,
         {
           withCredentials: true,
         }
       );
 
-      dispatch(loadChapterVideosReducer(data));
+      dispatch(loadChapterMaterialsReducer(data));
       // console.log(data);
     } catch (error) {
-      dispatch(loadChapterVideosFailReducer(error));
+      dispatch(loadChapterMaterialsFailReducer(error));
       toast.error(`${error.message}`);
     }
   };

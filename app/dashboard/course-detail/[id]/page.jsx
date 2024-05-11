@@ -94,7 +94,7 @@ const Page = () => {
                     </nav>
                     {
                         course ? (<div className={style.courseInfo}>
-                            <h2>{`${course.subject}`}</h2>
+                            <h2 className={style.hTitle} >{`${course.subject}`}</h2>
                             <h2>Class : {`${course.class}`}</h2>
 
                             <h2>Creator : {`${course.creator}`}</h2>

@@ -47,14 +47,14 @@ export const courseReducer = createSlice({
       state.error = action.payload.error;
       state.success = action.payload.success;
     },
-    loadChapterVideosReducer: (state, action) => {
+    loadChapterMaterialsReducer: (state, action) => {
       state.message = action.payload.message;
       state.success = action.payload.success;
-      state.videos = action.payload.videos;
+      state.materials = action.payload.materials;
     },
-    loadChapterVideosFailReducer: (state, action) => {
+    loadChapterMaterialsFailReducer: (state, action) => {
       state.message = null;
-      state.videos = null;
+      state.materials = null;
       state.error = action.payload.error;
       state.success = action.payload.success;
     },
@@ -91,8 +91,8 @@ export const {
   getCourseByIdFailReducer,
   createChapterFailReducer,
   createChapterReducer,
-  loadChapterVideosReducer,
-  loadChapterVideosFailReducer,
+  loadChapterMaterialsReducer,
+  loadChapterMaterialsFailReducer,
   addVideoReducer,
   addVideoFailReducer,
 } = courseReducer.actions;
