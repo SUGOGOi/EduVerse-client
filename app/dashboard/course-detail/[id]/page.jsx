@@ -4,7 +4,7 @@ import style from './page.module.scss';
 import Link from "next/link"
 import { getCourseById, useAllCoursesQuery, useCreateChapterMutation } from '@/redux/apis/courseApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearMessageReducer, createChapterFailReducer, createChapterReducer, loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/courseReducer';
+import { clearErrorReducer, clearMessageReducer, createChapterFailReducer, createChapterReducer, loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/courseReducer';
 import Loading from '@/app/loading';
 import CourseCard from '@/components/courseCard/courseCard';
 import { usePathname } from "next/navigation"
@@ -74,12 +74,16 @@ const Page = () => {
                     <h2>EduVerse Panel</h2>
                     <ul>
                         {
-                            user.role === "teacher" ? (<>
+                            user && user.role === "teacher" ? (<>
                                 <li><Link className={style.links} href={"/dashboard/users"} >Students</Link></li>
-                            </>) : (<><li><Link className={style.links} href={"/dashboard"} >Dashboard</Link></li>
-                                <li><Link className={style.links} href={"/dashboard/users"} >Users</Link></li></>)
+                                <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
+                            </>) : (
+                                user && user.role === "admin" ? (<><li><Link className={style.links} href={"/dashboard"} >Dashboard</Link></li>
+                                    <li><Link className={style.links} href={"/dashboard/users"} >Users</Link></li>
+                                    <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
+                                </>) : (<></>)
+                            )
                         }
-                        <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
                         {/* Add more menu items as needed */}
                     </ul>
                 </div>
@@ -90,8 +94,10 @@ const Page = () => {
                     </nav>
                     {
                         course ? (<div className={style.courseInfo}>
-                            <h1>{`${course.subject}`}</h1>
-                            <h1>class : {`${course.class}`}</h1>
+                            <h2>{`${course.subject}`}</h2>
+                            <h2>Class : {`${course.class}`}</h2>
+
+                            <h2>Creator : {`${course.creator}`}</h2>
                             <div className={style.createChp} onClick={showModal} ><MdCreateNewFolder size={25} />
                                 <p>create chapter</p>
                             </div>

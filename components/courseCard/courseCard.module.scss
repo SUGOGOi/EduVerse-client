@@ -13,4 +13,10 @@
   p {
     display: flex;
   }
+  .delete {
+    cursor: pointer;
+    :hover {
+      color: red;
+    }
+  }
 }

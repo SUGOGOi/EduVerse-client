@@ -22,6 +22,7 @@ const Page = () => {
     const [load, setLoad] = useState(1);
     const [name, setName] = useState("");
     const [Class, setClass] = useState("");
+    const [school, setSchool] = useState("");
     const [description, setDescription] = useState("");
     const [imagePrev, setImagePrev] = useState("");
     const [image, setImage] = useState("");
@@ -58,6 +59,11 @@ const Page = () => {
         e.preventDefault();
         formData.set("subject", name);
         formData.set("Class", Class);
+        if (user.role === "teacher") {
+            formData.set("school", user.school);
+        } else {
+            formData.set("school", school);
+        }
         formData.set("description", description);
         formData.set("file", image);
         const res = await createCourse({ id: user._id, formData });
@@ -87,6 +93,12 @@ const Page = () => {
     useEffect(() => {
         dispatch(getMyProfile())
     }, [])
+
+    useEffect(() => {
+        if (data) {
+            dispatch(loadCoursesReducer(data))
+        }
+    }, [data])
 
 
 
@@ -128,8 +140,8 @@ const Page = () => {
 
                     <div className={style.dashboard_card}>
                         {
-                            data ? data.courses.map((i, index) => (
-                                <CourseCard key={index} id={i._id} name={i.subject} Class={i.class} modules={i.modules.length} />
+                            courses ? courses.map((i, index) => (
+                                <CourseCard key={index} id={i._id} school={i.school} name={i.subject} Class={i.class} modules={i.modules.length} />
 
                             )) : (<Loading />)
                         }
@@ -147,9 +159,23 @@ const Page = () => {
                             <h2>{`CREATE COURSE`}</h2>
                             <form action="" onSubmit={createCourseHandller} >
                                 <input className={style.inputName} type="text" name='subject' onChange={(e) => setName(e.target.value)} placeholder='enter subject' />
-                                <input className={style.inputName} type="text" name='class' onChange={(e) => setClass(e.target.value)} placeholder='enter class' />
+                                <select name="class" onChange={(e) => setClass(e.target.value)} className={style.inputName} required>
+                                    <option value="">For which class?</option>
+                                    {
+                                        user.classes.map((i, index) => (
+                                            <option value={i} key={index} >{i}</option>
+                                        ))
+                                    }
+                                </select>
+                                {
+                                    user.role === "teacher" ? (<>
+                                        <input className={style.inputName} type="text" name='school' value={user.school} dispatch readOnly />
+                                    </>) : (<>
+                                        <input className={style.inputName} type="text" name='school' onChange={(e) => setSchool(e.target.value)} placeholder='enter school' />
+                                    </>)
+                                }
                                 <textarea className={style.inputArea} name='description' placeholder='enter decription' onChange={(e) => setDescription(e.target.value)} />
-                                <input className={style.inputName} type="file" name='file' accept='image/*' onChange={changeImageHandler} />
+                                <input className={style.inputName} type="file" name='file' accept='image/*' onChange={changeImageHandler} placeholder='course poster' />
                                 {
                                     imagePrev && (
                                         <img src={imagePrev} className={style.Img} alt='preview' />

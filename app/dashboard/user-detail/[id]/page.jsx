@@ -28,6 +28,7 @@ const Page = () => {
         if ("data" in res) {
             toast.success(res.data.message)
             //current specific user
+            dispatch(getSpecificUser({ id, uid }))
 
         } else {
             const error = res.error;
@@ -75,7 +76,9 @@ const Page = () => {
                             </p>
                             <p>{`School : ${userDetail.school}`}</p>
                             <p>{`Role : ${userDetail.role}`}</p>
-                            <p>Payment Proof : <a target='_blank' href={`${userDetail.paymentPhoto.url}`}>Link</a> </p>
+                            {
+                                userDetail.role === "student" ? (<p>Payment Proof : <a target='_blank' href={`${userDetail.paymentPhoto.url}`}>Link</a> </p>) : (<></>)
+                            }
                             <button type="submit" className={style.btn} onClick={() => approveHandller({ id: user._id, uid: userDetail._id })} >
                                 {isLoading ? (
                                     <div className={style.btnLoading}>

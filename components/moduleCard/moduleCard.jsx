@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { usePathname } from 'next/navigation';
 import { addVideoFailReducer, addVideoReducer, clearErrorReducer, clearMessageReducer } from '@/redux/reducers/courseReducer';
+import { RiFileUploadLine } from "react-icons/ri";
 
 const ModuleCard = ({ moduleName, moduleId }) => {
     const [videoShowModal, setVideoShowModal] = useState(false);
@@ -95,6 +96,7 @@ const ModuleCard = ({ moduleName, moduleId }) => {
 
                 <div className={style.viewVideos}  ><FaEye size={22} /><p onClick={videoShowModalHandller} >view videos</p></div>
                 <div className={style.addVideo}><BiSolidVideoPlus size={30} onClick={toggleAddVideoModalOnly} /></div>
+                <div className={style.uploadPdf}><RiFileUploadLine /></div>
                 <div className={style.deleteChap}><MdDelete size={25} onClick={deleteChapterHandller} /></div>
             </div>
 

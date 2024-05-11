@@ -10,6 +10,8 @@ import { getMyProfile, useGetMyProfileQuery, useLogoutUserMutation } from '@/red
 import { clearErrorReducer, clearMessageReducer, loadUserReducer, logoutFailReducer, logoutReducer } from '@/redux/reducers/userReducer'
 import { useRouter } from 'next/navigation'
 export const dynamic = "force-dynamic"
+import profileImage from "../../public/images/profile.jpg"
+import Image from 'next/image'
 
 const Page = () => {
     let { user } = useSelector(state => state.userReducer);
@@ -58,7 +60,9 @@ const Page = () => {
                 user ? (<div className={style.container} >
                     <div className={style.profileCon}>
                         <div className={style.myDetails}>
-                            <img src={`${user.paymentPhoto.url}`} alt='' className={style.image} />
+                            {
+                                user.avatar ? (<> <Image quality={75} priority={true} src={`${user.avatar.url}`} alt='' className={style.image} /></>) : (<> <Image priority={true} quality={75} src={profileImage} alt='' className={style.image} /></>)
+                            }
                             <div className={style.name}>{`${user.name}`}</div>
                             <div className={style.email}>{`${user.email}`}</div>
                             {
@@ -77,7 +81,7 @@ const Page = () => {
                                     </div>))
                             }
 
-                            <button onClick={logoutHandller} >Logout</button>
+                            <button onClick={logoutHandller} className={style.logoutBtn} >Logout</button>
                         </div>
                     </div>
                 </div >) : (<Loading />)

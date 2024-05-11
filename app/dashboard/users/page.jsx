@@ -71,7 +71,7 @@ const Page = () => {
                         users ? (
                             users.length > 0 ? (users.map((i, index) => (
                                 <Card key={index} id={i._id} name={i.name} role={i.role} isApproved={i.isApproved} />
-                            ))) : (<h2>No student yet</h2>)
+                            ))) : (<h2 className={style.h2} >No student yet</h2>)
                         ) : (<Loading />)
                     }
                 </div>

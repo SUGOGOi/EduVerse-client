@@ -18,6 +18,7 @@ const Page = () => {
     const [name, setName] = useState("");
     // const [email, setEmail] = useState("");
     const [phno, setPhno] = useState("");
+    const [Class, setClass] = useState("");
     const [password, setPassword] = useState("");
     const [cpassword, setCpassword] = useState("");
     const [school, setSchool] = useState("");
@@ -47,6 +48,8 @@ const Page = () => {
         formData.set("password", password);
         formData.set("file", image);
         formData.set("name", name);
+        formData.set("Class", Class);
+        formData.set("role", role);
 
         const res = await registerUser({ formData });
 
@@ -120,6 +123,7 @@ const Page = () => {
                         <option value="JNV">JNV</option>
                         <option value="KV">KV</option>
                     </select>
+                    <input placeholder="   class" name="class" type="text" required className={style.input} onChange={(e) => setClass(e.target.value)} />
 
                     {
                         role === "student" ? (<input type="file" required placeholder="  payment screenshot" accept='image/*' name="file" className={style.input} onChange={changeImageHandler} />) : (<></>)

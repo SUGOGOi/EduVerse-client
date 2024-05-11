@@ -9,6 +9,7 @@ import {
   loadCoursesFailReducer,
   loadCoursesReducer,
 } from "../reducers/courseReducer";
+import toast from "react-hot-toast";
 
 export const courseApi = createApi({
   reducerPath: "courseApi",
