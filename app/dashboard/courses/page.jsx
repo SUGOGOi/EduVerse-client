@@ -141,7 +141,7 @@ const Page = () => {
                     <div className={style.dashboard_card}>
                         {
                             courses ? courses.map((i, index) => (
-                                <CourseCard key={index} id={i._id} school={i.school} name={i.subject} Class={i.class} modules={i.modules.length} />
+                                <CourseCard key={index} cid={i._id} school={i.school} name={i.subject} Class={i.class} modules={i.modules.length} />
 
                             )) : (<Loading />)
                         }

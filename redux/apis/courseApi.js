@@ -50,6 +50,15 @@ export const courseApi = createApi({
       }),
     }),
 
+    addPdf: builder.mutation({
+      query: ({ mid, id, formData }) => ({
+        url: `module/add-pdf?mid=${mid}&id=${id}`,
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      }),
+    }),
+
     deleteChapter: builder.mutation({
       query: ({ id, cid, mid }) => ({
         url: `module/delete-module?mid=${mid}&id=${id}&cid=${cid}`,
@@ -60,6 +69,22 @@ export const courseApi = createApi({
     deleteVideo: builder.mutation({
       query: ({ id, vid, mid }) => ({
         url: `module/delete-video?mid=${mid}&id=${id}&vid=${vid}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+    }),
+
+    deletePdf: builder.mutation({
+      query: ({ id, pid, mid }) => ({
+        url: `module/delete-pdf?mid=${mid}&id=${id}&pid=${pid}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+    }),
+
+    deleteCourse: builder.mutation({
+      query: ({ id, cid }) => ({
+        url: `course/${cid}?id=${id}`,
         method: "DELETE",
         credentials: "include",
       }),
@@ -93,8 +118,6 @@ export const getCourseById = (id) => async (dispatch) => {
 
 export const getAllCourses = () => async (dispatch) => {
   try {
-    // dispatch({ type: "loadUserRequest" });
-
     const { data } = await axios.get(`${server}course/all-courses`, {
       withCredentials: true,
     });
@@ -136,4 +159,7 @@ export const {
   useDeleteChapterMutation,
   useAddVideoMutation,
   useDeleteVideoMutation,
+  useDeletePdfMutation,
+  useAddPdfMutation,
+  useDeleteCourseMutation,
 } = courseApi;

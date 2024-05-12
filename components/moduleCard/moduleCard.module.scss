@@ -34,6 +34,13 @@
       color: red;
     }
   }
+
+  .uploadPdf {
+    cursor: pointer;
+    :hover {
+      color: green;
+    }
+  }
 }
 
 .modal_overlay {
@@ -161,6 +168,26 @@
     :hover {
       color: red;
     }
+  }
+
+  .deleteLoadingBtn {
+    transform-origin: 50% 50%;
+    animation: deleteLoadingBtn 1.2s infinite;
+  }
+  @keyframes deleteLoadingBtn {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .modal_item_inside {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 80%;
   }
 }
 

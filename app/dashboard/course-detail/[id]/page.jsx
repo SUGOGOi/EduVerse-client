@@ -27,11 +27,6 @@ const Page = () => {
         setCreateChapterModal(!createChapterModal)
     }
 
-
-    const loadCourseDetailHandller = async () => {
-
-    }
-
     const createChapterHandller = async (e) => {
         e.preventDefault();
 
