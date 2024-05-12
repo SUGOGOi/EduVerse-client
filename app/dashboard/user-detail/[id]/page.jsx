@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loading from '@/app/loading'
 import { getMyProfile, getSpecificUser, useApproveUserMutation } from '@/redux/apis/userApi'
 import toast from 'react-hot-toast'
+import Image from 'next/image'
 
 
 const Page = () => {
@@ -77,7 +78,7 @@ const Page = () => {
                             <p>{`School : ${userDetail.school}`}</p>
                             <p>{`Role : ${userDetail.role}`}</p>
                             {
-                                userDetail.role === "student" ? (<p>Payment Proof : <a target='_blank' href={`${userDetail.paymentPhoto.url}`}>Link</a> </p>) : (<></>)
+                                userDetail.role === "student" ? (<a target='_blank' href={`http://localhost:8000/${userDetail.paymentPhoto}`} >payment proof</a>) : (<></>)
                             }
                             <button type="submit" className={style.btn} onClick={() => approveHandller({ id: user._id, uid: userDetail._id })} >
                                 {isLoading ? (

@@ -37,7 +37,7 @@ const Page = () => {
 
 
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch("");
 
     const changeImageHandler = e => {
         const file = e.target.files[0];
@@ -159,8 +159,8 @@ const Page = () => {
                             <h2>{`CREATE COURSE`}</h2>
                             <form action="" onSubmit={createCourseHandller} >
                                 <input className={style.inputName} type="text" name='subject' onChange={(e) => setName(e.target.value)} placeholder='enter subject' />
-                                <select name="class" onChange={(e) => setClass(e.target.value)} className={style.inputName} required>
-                                    <option value="">For which class?</option>
+                                <select name="class" onChange={(e) => setClass(e.target.value)} className={style.inputName}>
+                                    <option value={undefined}>For which class?</option>
                                     {
                                         user.classes.map((i, index) => (
                                             <option value={i} key={index} >{i}</option>
@@ -169,7 +169,7 @@ const Page = () => {
                                 </select>
                                 {
                                     user.role === "teacher" ? (<>
-                                        <input className={style.inputName} type="text" name='school' value={user.school} dispatch readOnly />
+                                        <input className={style.inputName} type="text" name='school' value={user.school} readOnly />
                                     </>) : (<>
                                         <input className={style.inputName} type="text" name='school' onChange={(e) => setSchool(e.target.value)} placeholder='enter school' />
                                     </>)

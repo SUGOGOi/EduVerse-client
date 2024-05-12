@@ -61,7 +61,7 @@ const Page = () => {
                     <div className={style.profileCon}>
                         <div className={style.myDetails}>
                             {
-                                user.avatar ? (<> <Image quality={75} priority={true} src={`${user.avatar.url}`} alt='' className={style.image} /></>) : (<> <Image priority={true} quality={75} src={profileImage} alt='' className={style.image} /></>)
+                                user.avatar ? (<> <Image quality={75} priority={true} src={`${user.avatar}`} alt='' className={style.image} /></>) : (<> <Image priority={true} quality={75} src={profileImage} alt='' className={style.image} /></>)
                             }
                             <div className={style.name}>{`${user.name}`}</div>
                             <div className={style.email}>{`${user.email}`}</div>

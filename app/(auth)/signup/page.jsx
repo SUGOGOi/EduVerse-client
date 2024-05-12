@@ -21,7 +21,7 @@ const Page = () => {
     const [Class, setClass] = useState("");
     const [password, setPassword] = useState("");
     const [cpassword, setCpassword] = useState("");
-    const [school, setSchool] = useState("");
+    const [school, setSchool] = useState();
     const [imagePrev, setImagePrev] = useState("");
     const [image, setImage] = useState("");
     const formData = new FormData()
@@ -117,7 +117,7 @@ const Page = () => {
                     }
 
                     <select name="school" onChange={(e) => setSchool(e.target.value)} className={style.input} required>
-                        <option value="">Select Your School</option>
+                        <option value={undefined}>Select Your School</option>
                         <option value="DBHS">DBHS</option>
                         <option value="VKV">VKV</option>
                         <option value="JNV">JNV</option>
