@@ -2,24 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import style from './page.module.scss';
 import Link from "next/link"
-import { useAllCoursesQuery, useCreateCourseMutation } from '@/redux/apis/courseApi';
+import { getAllCourses, useCreateCourseMutation } from '@/redux/apis/courseApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearErrorReducer, clearMessageReducer, createCourseFailReducer, createCourseReducer, loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/courseReducer';
+import { clearErrorReducer, clearMessageReducer, createCourseFailReducer, createCourseReducer } from '@/redux/reducers/courseReducer';
 import Loading from '@/app/loading';
 import CourseCard from '@/components/courseCard/courseCard';
 import { MdCreateNewFolder } from "react-icons/md";
 import toast from 'react-hot-toast';
-import Image from 'next/image';
-import { skipToken } from '@reduxjs/toolkit/query';
-import { getAllUsers, getMyProfile } from '@/redux/apis/userApi';
+import { getMyProfile } from '@/redux/apis/userApi';
 
 
 
 const Page = () => {
-    const [loadCourseState, setLoadCourseState] = useState(1)
-    const { data, isLoading, error } = useAllCoursesQuery(loadCourseState);
     const [createCourse, { }] = useCreateCourseMutation();
-    const [load, setLoad] = useState(1);
     const [name, setName] = useState("");
     const [Class, setClass] = useState("");
     const [school, setSchool] = useState("");
@@ -28,7 +23,6 @@ const Page = () => {
     const [image, setImage] = useState("");
     const { courses } = useSelector(state => state.courseReducer);
     const { user } = useSelector(state => state.userReducer);
-    // const { user } = useSelector(state => state.userReducer);
     const [createCourseModal, setCreateCourseModal] = useState(false);
     const formData = new FormData()
 
@@ -74,7 +68,7 @@ const Page = () => {
             dispatch(createCourseReducer(res.data))
             dispatch(clearMessageReducer())
             showModal();
-            setLoadCourseState(loadCourseState + 1);
+            dispatch(getAllCourses())
             setImagePrev("")
 
         } else {
@@ -84,7 +78,7 @@ const Page = () => {
             dispatch(createCourseFailReducer(messageRes));
             dispatch(clearErrorReducer())
             showModal();
-            setLoadCourseState(loadCourseState + 1);
+            dispatch(getAllCourses())
             setImagePrev("")
         }
     }
@@ -95,10 +89,10 @@ const Page = () => {
     }, [])
 
     useEffect(() => {
-        if (data) {
-            dispatch(loadCoursesReducer(data))
+        if (user) {
+            dispatch(getAllCourses())
         }
-    }, [data])
+    }, [user])
 
 
 

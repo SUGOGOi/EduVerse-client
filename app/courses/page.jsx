@@ -2,11 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import style from "./page.module.scss"
 import { useDispatch, useSelector } from "react-redux"
-import { loadUserReducer } from '@/redux/reducers/userReducer'
 import Navbar from '@/components/navbar/Navbar'
 import { toast } from "react-hot-toast";
 import Loading from '../loading'
-import Link from "next/link"
 import UserCourseCard from '@/components/userCourseCard/UserCourseCard'
 import { useAllCoursesQuery } from '@/redux/apis/courseApi'
 import { loadCoursesReducer } from '@/redux/reducers/courseReducer'
@@ -69,7 +67,7 @@ const Page = () => {
 
                         {
                             courses.map((i, index) => (
-                                <UserCourseCard key={index} id={i._id} posterUrl={i.poster.url} subject={i.subject} Class={i.class} />
+                                <UserCourseCard key={index} id={i._id} posterUrl={`${process.env.SERVER}${i.poster}`} subject={i.subject} Class={i.class} />
                             ))
                         }
                     </div>) : (<Loading />)

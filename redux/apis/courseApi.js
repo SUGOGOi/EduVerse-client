@@ -122,6 +122,8 @@ export const getAllCourses = () => async (dispatch) => {
       withCredentials: true,
     });
 
+    console.log(data);
+
     dispatch(loadCoursesReducer(data));
     // console.log(data);
   } catch (error) {

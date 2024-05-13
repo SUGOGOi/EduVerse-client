@@ -7,7 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { usePathname } from "next/navigation"
 import Loading from '@/app/loading';
 import { getMyProfile } from '@/redux/apis/userApi';
-import { IoIosArrowUp } from 'react-icons/io';
+import ModuleCard from '@/components/moduleCard/moduleCard';
+import dynamic from 'next/dynamic';
+import UserModuleCard from '@/components/userModuleCard/UserModuleCard';
+const Reactplayer = dynamic(() => import('../../../components/reactPlayer/ReactPlayer'), {
+    ssr: false,
+});
 
 
 const Page = () => {
@@ -15,19 +20,9 @@ const Page = () => {
     let { user } = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
     const pathname = usePathname();
+    const [videoLink, setVideoLink] = useState("");
 
 
-
-    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-
-    const playVideoHandller = (index) => {
-        setCurrentVideoIndex(index);
-    };
-
-
-    const expandModuleHandller = () => {
-
-    }
 
     useEffect(() => {
         dispatch(getCourseById(pathname.split("/").pop()))
@@ -45,32 +40,33 @@ const Page = () => {
             <Navbar />
             <div className={style.con}>
                 {
-                    course ? (<h2>{course.subject}</h2>) : (<Loading />)
+                    course ? (<div className={style.conInside} >
+                        <h1 className={style.h1ChapterName}>{course.subject}</h1>
+                        <h1 className={style.h1ChapterName}>Class : {course.class}</h1>
+                    </div>) : (<Loading />)
                 }
                 <div className={style.video_Playlist}>
                     <div className={style.video_container}>
-                        <video controls autoPlay src={`https://www.youtube.com/watch?v=_KPqk9NwaQg&list=RD_KPqk9NwaQg&start_radio=1`} className={style.main_video} />
+                        <div className={style.main_video} >
+                            <Reactplayer videosrc={`${videoLink}`} />
+                        </div>
+
+
                     </div>
                     <div className={style.playlist}>
                         <h2>Chapters</h2>
-                        <ul>
-                            {
-                                course ? (course.modules.map((i, index) => (
-                                    <li key={index} className={style.chp} onClick={expandModuleHandller}>
-                                        {i.title}
-                                        <div className={style.arrow}>
-                                            <IoIosArrowUp size={25} />
-                                        </div>
-                                    </li>
 
-                                ))) : <Loading />
-                            }
-                        </ul>
+                        {
+                            course ? (course.modules != 0 ? (course.modules.map((i, index) => (
+                                <UserModuleCard key={index} moduleName={i.title} moduleId={i._id} setVideoLink={setVideoLink} />
+                            ))) : (<h2 className={style.h2} >No Chapter found</h2>)) : (<Loading />)
+                        }
+
                     </div>
                 </div>
             </div>
+
         </>
     )
 }
-
 export default Page
