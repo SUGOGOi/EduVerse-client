@@ -18,7 +18,6 @@ export default function RootLayout({ children }) {
         <body>
           <Toaster position="bottom-center" />
           {children}
-          <Footer />
         </body>
       </html>
     </ReduxProvider>

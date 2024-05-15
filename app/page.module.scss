@@ -1,7 +1,26 @@
+@mixin Home {
+  @media screen and (max-width: 1025px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 540px) {
+    @content;
+  }
+}
+
 .container {
   width: 100%;
   height: 1000px;
   // border: 1px solid red;
+
+  @include Home() {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
 }
 .loadingCon {
   display: flex;

@@ -6,33 +6,11 @@ import Navbar from '../navbar/Navbar'
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux"
 import { getMyProfile, useGetMyProfileQuery } from "@/redux/apis/userApi"
-import { loadUserReducer } from '@/redux/reducers/userReducer'
 
 
 const Home = () => {
-    // const { data, isLoading, error } = useGetMyProfileQuery();
     const { user } = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     if (document.cookie) {
-    //         if (data) {
-    //             // toast.success(data.message)
-    //             dispatch(loadUserReducer(data))
-    //         }
-
-
-    //     }
-    //     if (document.cookie) {
-    //         if (error) {
-    //             // console.log(error)
-    //             const err = error;
-    //             const messageRes = err.data.error;
-    //             toast.error(messageRes)
-    //         }
-    //     }
-
-    // }, [data, error])
 
     useEffect(() => {
         if (document.cookie) {
@@ -60,6 +38,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            {/* <Footer /> */}
 
         </>
     )

@@ -10,12 +10,12 @@ import {
 } from "../reducers/userReducer";
 import { loadCoursesFailReducer } from "../reducers/courseReducer";
 import toast from "react-hot-toast";
-const server = `http://localhost:8000/api/v1/`;
+const server = `${process.env.SERVER}api/v1/`;
 
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api/v1/",
+    baseUrl: `${process.env.SERVER}api/v1/`,
     // refetchOnFocus: true,
     // refetchOnReconnect: true,
   }),
@@ -51,6 +51,15 @@ export const userApi = createApi({
         url: `user/approve?id=${id}&uid=${uid}`,
         method: "PUT",
         credentials: "include",
+      }),
+    }),
+
+    forgetPassword: builder.mutation({
+      query: ({ ...body }) => ({
+        url: `auth/forget-password`,
+        method: "POST",
+        credentials: "include",
+        body: body,
       }),
     }),
 
@@ -118,8 +127,8 @@ export const getAllUsers =
 
 export const {
   useRegisterUserMutation,
-  useGetMyProfileQuery,
   useLoginUserMutation,
   useLogoutUserMutation,
   useApproveUserMutation,
+  useForgetPasswordMutation,
 } = userApi;

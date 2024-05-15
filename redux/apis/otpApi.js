@@ -1,9 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { contactMessageReducer } from "../reducers/otpReducer";
+import toast from "react-hot-toast";
+import axios from "axios";
+const server = `${process.env.SERVER}api/v1/`;
 
 export const otpApi = createApi({
   reducerPath: "otpApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api/v1/otp/",
+    baseUrl: `${process.env.SERVER}api/v1/otp/`,
   }),
   endpoints: (builder) => ({
     otpSend: builder.mutation({
@@ -20,7 +24,37 @@ export const otpApi = createApi({
         body: body,
       }),
     }),
+
+    sendContactMessage: builder.mutation({
+      query: ({ ...body }) => ({
+        url: `conact-us`,
+        method: "POST",
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { useOtpSendMutation, useOtpVerifyMutation } = otpApi;
+//================================CONTACT API==================================//
+export const getAllCOntactMessages =
+  ({ id }) =>
+  async (dispatch) => {
+    try {
+      // dispatch({ type: "loadUserRequest" });
+
+      const { data } = await axios.get(`${server}otp/all-conacts?id=${id}`, {
+        withCredentials: true,
+      });
+
+      dispatch(contactMessageReducer(data));
+      // console.log(data);
+    } catch (error) {
+      toast.error(`${error.message}`);
+    }
+  };
+
+export const {
+  useOtpSendMutation,
+  useOtpVerifyMutation,
+  useSendContactMessageMutation,
+} = otpApi;

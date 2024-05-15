@@ -12,6 +12,7 @@ import ModuleCard from '@/components/moduleCard/moduleCard';
 import { MdCreateNewFolder } from 'react-icons/md';
 import { getMyProfile } from '@/redux/apis/userApi';
 import toast from 'react-hot-toast';
+import Footer from '@/components/footer/Footer';
 
 const Page = () => {
     const [createChapter, { }] = useCreateChapterMutation()
@@ -71,11 +72,12 @@ const Page = () => {
                         {
                             user && user.role === "teacher" ? (<>
                                 <li><Link className={style.links} href={"/dashboard/users"} >Students</Link></li>
-                                <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
+                                <li><Link className={style.links} href={"/dashboard/courses"} >Courses</Link></li>
                             </>) : (
                                 user && user.role === "admin" ? (<><li><Link className={style.links} href={"/dashboard"} >Dashboard</Link></li>
                                     <li><Link className={style.links} href={"/dashboard/users"} >Users</Link></li>
-                                    <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
+                                    <li><Link className={style.links} href={"/dashboard/courses"} >Courses</Link></li>
+                                    <li><Link className={style.links} href={"/dashboard/contact"} >Contact Messages</Link></li>
                                 </>) : (<></>)
                             )
                         }
@@ -123,6 +125,8 @@ const Page = () => {
                     </div>
                 </div>
             )}
+
+            {/* <Footer /> */}
         </>
 
     );

@@ -19,6 +19,22 @@ export const otpReducer = createSlice({
       state.message = null;
     },
 
+    //=================================CONTACT MESSAGES================================//
+    contactMessageReducer: (state, action) => {
+      state.success = action.payload.success;
+      state.messages = action.payload.messages;
+    },
+
+    sendContactMessageReducer: (state, action) => {
+      state.success = action.payload.success;
+      state.message = action.payload.message;
+    },
+    sendContactMessageFailReducer: (state, action) => {
+      state.error = action.payload.error;
+      state.success = action.payload.success;
+      state.messages = null;
+    },
+
     otpVerifyReducer: (state, action) => {
       state.message = action.payload.message;
       state.success = action.payload.success;
@@ -46,4 +62,6 @@ export const {
   clearMessageReducer,
   otpVerifyReducer,
   otpNotVerifyReducer,
+  contactMessageReducer,
+  sendContactMessageReducer,
 } = otpReducer.actions;

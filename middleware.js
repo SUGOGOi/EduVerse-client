@@ -1,41 +1,89 @@
 import { NextResponse } from "next/server";
+import { getUserForAuth } from "./redux/apis/userApi";
+import { getUserRole } from "./redux/apis/route";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request) {
   const path = request.nextUrl.pathname;
+  // console.log(path);
 
-  const isPublicPath =
+  let isPublicPath =
     path === "/login" ||
-    "/signup" ||
-    "/qr-code" ||
-    "/otp-send" ||
-    "/otp-verify";
+    path === "/signup" ||
+    path === "/qr-code" ||
+    path === "/otp-send" ||
+    path === "/otp-verify";
 
-  const isPrivatePath = path === "/profile";
+  let isPrivatePath =
+    path === "/profile" || path === "/courses" || path === "/course/:path*";
+
+  // console.log(isPrivatePath);
 
   const isAdminPath =
     path === "/dashboard" ||
-    "/dashboard/users" ||
-    "/dashboard/courses" ||
-    "/dashboard/course-detail" ||
-    "/dashboard/user-detail";
+    path === "/dashboard/users" ||
+    path === "/dashboard/courses" ||
+    path === "/dashboard/course-detail" ||
+    path === "/dashboard/user-detail/:path*" ||
+    path === "/dashboard/contact";
 
-  const token = request.cookies.get("token") || "";
+  let token = request.cookies.get("token") || "";
+
+  if (isPrivatePath && !token) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
   if (isPublicPath && token) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (!isPublicPath && !token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (isAdminPath && !token) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  if (isAdminPath && token) {
+    let role = getUserRole({ token: token.value });
+    if (role === "teacher") {
+      if (
+        path === "/dashboad" ||
+        path === "/dashboard/user-detail/:path*" ||
+        path === "/dashboard/contact"
+      ) {
+        return NextResponse.redirect(
+          new URL("/dashboard/courses", request.url)
+        );
+      }
+    }
+    if (role === "student") {
+      if (
+        path === "/dashboad" ||
+        path === "/dashboard/user-detail/:path*" ||
+        path === "/dashboard/contact" ||
+        path === "/dashboard" ||
+        path === "/dashboard/users" ||
+        path === "/dashboard/courses"
+      ) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+    }
   }
 }
 
-// if (isPrivatePath && !token) {
-//   return NextResponse.redirect(new URL("/login", request.url));
-// }
-
-// See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/login", "/signup", "/qr-code", "/otp-send", "/otp-verify"],
+  matcher: [
+    "/login",
+    "/signup",
+    "/qr-code",
+    "/otp-send",
+    "/otp-verify",
+    "/profile",
+    "/courses",
+    "/course/:path*",
+    "/dashboard", //protect from teacher
+    "/dashboard/users", //protect from student
+    "/dashboard/courses", //protect from student
+    "/dashboard/course-detail", //protect from student
+    "/dashboard/user-detail/:path*", // protect from teacher
+    "/dashboard/contact", // protect from teacher
+  ],
 };

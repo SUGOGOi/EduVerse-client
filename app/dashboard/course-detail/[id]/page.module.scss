@@ -84,24 +84,21 @@ $hilight: #2e374a;
 }
 
 .navbar {
-  background-color: #f0f0f0;
+  background-color: #182237;
   padding: 10px;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding: 10px;
   border-radius: 5px;
-  width: 100%;
 }
 
 .navbar a {
-  color: #333;
+  color: white;
   text-decoration: none;
-  margin-right: 20px;
-}
-
-.navbar a:hover {
-  color: #000;
+  margin-right: 25px;
+  font-weight: 600;
 }
 
 .modal_overlay {

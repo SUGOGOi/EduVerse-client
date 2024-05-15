@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 export const dynamic = "force-dynamic"
 import profileImage from "../../public/images/profile.jpg"
 import Image from 'next/image'
+import Footer from '@/components/footer/Footer'
 
 const Page = () => {
     let { user } = useSelector(state => state.userReducer);
@@ -28,7 +29,6 @@ const Page = () => {
         if ("data" in res) {
             user = undefined;
             toast.success(res.data.message)
-            console.log(res.data);
             dispatch(logoutReducer())
             router.push('/', { scroll: false })
             dispatch(clearMessageReducer())
@@ -46,9 +46,8 @@ const Page = () => {
 
 
     useEffect(() => {
-        setTimeout(() => {
-            dispatch(getMyProfile())
-        }, 1000)
+        dispatch(getMyProfile())
+
     }, [])
 
 
@@ -86,6 +85,7 @@ const Page = () => {
                     </div>
                 </div >) : (<Loading />)
             }
+            <Footer />
         </>
     )
 }

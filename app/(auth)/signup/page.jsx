@@ -22,6 +22,7 @@ const Page = () => {
     const [password, setPassword] = useState("");
     const [cpassword, setCpassword] = useState("");
     const [school, setSchool] = useState();
+    const [subject, setSubject] = useState();
     const [imagePrev, setImagePrev] = useState("");
     const [image, setImage] = useState("");
     const formData = new FormData()
@@ -50,15 +51,17 @@ const Page = () => {
         formData.set("name", name);
         formData.set("Class", Class);
         formData.set("role", role);
+        if (role === "teacher") {
+            setSubject(subject.toUpperCase())
+            formData.set("subject", subject);
+        }
 
         const res = await registerUser({ formData });
 
         if ("data" in res) {
             toast.success(res.data.message)
             dispatch(registerReducer(res.data))
-            setTimeout(() => {
-                router.push(`/profile`, { scroll: false })
-            }, 1000)
+            router.push(`/profile`, { scroll: false })
             dispatch(clearMessageReducer())
             dispatch(roleClearReducer());
             dispatch(emailClearReducer());
@@ -95,61 +98,67 @@ const Page = () => {
         }
     }, [cpassword, password])
     return (
-        <div className={style.container} >
+        <>
             <Navbar />
-            <div className={style.signupCon}>
+            <div className={style.container} >
 
-                <form action="" className={style.form} onSubmit={submitHandler} >
-                    <h1>Signup</h1>
+                <div className={style.signupCon}>
 
-                    <input placeholder="   name" name="name" type="text" required className={style.input} onChange={(e) => setName(e.target.value)} />
+                    <form action="" className={style.form} onSubmit={submitHandler} >
+                        <h1>Signup</h1>
 
-                    <input value={email} name="email" type="text" required className={style.input} disabled />
-                    <input placeholder="   mobile number" name="phno" type="text" required className={style.input} onChange={(e) => setPhno(e.target.value)} />
-                    <div className={style.inputPass}>
-                        <input placeholder="   password" name="password" type={isShow ? "text" : "password"} required className={style.input} onChange={(e) => setPassword(e.target.value)} /> {isShow ? <FiEye onClick={showHandler} /> : <FiEyeOff onClick={showHandler} />}
-                    </div>
-                    <div className={style.inputPass}>
-                        <input placeholder="   confirm password" name="cpassword" type={isCShow ? "text" : "password"} required className={style.input} onChange={(e) => setCpassword(e.target.value)} />{isCShow ? <FiEye onClick={cshowHandler} /> : <FiEyeOff onClick={cshowHandler} />}
-                    </div>
-                    {
-                        !isProcced && (<p className={style.notMatch} >Password not match</p>)
-                    }
+                        <input placeholder="   name" name="name" type="text" required className={style.input} onChange={(e) => setName(e.target.value)} />
 
-                    <select name="school" onChange={(e) => setSchool(e.target.value)} className={style.input} required>
-                        <option value={undefined}>Select Your School</option>
-                        <option value="DBHS">DBHS</option>
-                        <option value="VKV">VKV</option>
-                        <option value="JNV">JNV</option>
-                        <option value="KV">KV</option>
-                    </select>
-                    <input placeholder="   class" name="class" type="text" required className={style.input} onChange={(e) => setClass(e.target.value)} />
+                        <input value={email} name="email" type="text" required className={style.input} disabled />
+                        <input placeholder="   mobile number" name="phno" type="text" required className={style.input} onChange={(e) => setPhno(e.target.value)} />
+                        <div className={style.inputPass}>
+                            <input placeholder="   password" name="password" type={isShow ? "text" : "password"} required className={style.input} onChange={(e) => setPassword(e.target.value)} /> {isShow ? <FiEye onClick={showHandler} /> : <FiEyeOff onClick={showHandler} />}
+                        </div>
+                        <div className={style.inputPass}>
+                            <input placeholder="   confirm password" name="cpassword" type={isCShow ? "text" : "password"} required className={style.input} onChange={(e) => setCpassword(e.target.value)} />{isCShow ? <FiEye onClick={cshowHandler} /> : <FiEyeOff onClick={cshowHandler} />}
+                        </div>
+                        {
+                            !isProcced && (<p className={style.notMatch} >Password not match</p>)
+                        }
 
-                    {
-                        role === "student" ? (<input type="file" required placeholder="  payment screenshot" accept='image/*' name="file" className={style.input} onChange={changeImageHandler} />) : (<></>)
-                    }
-                    {
-                        imagePrev && (
-                            <Image src={imagePrev} width={200} height={200} alt='preview' />
-                        )}
-                    <button type="submit" className={`${style.btn} ${!isProcced ? style.procced : null}`} >{
-                        isLoading ? (<div className={style.btnLoading} >
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                        </div>) : (<p>Signup</p>)
-                    }</button>
-                    <p>Already have an account? <br /> <Link href={"/login"} >Login</Link></p>
-                </form>
+                        <select name="school" onChange={(e) => setSchool(e.target.value)} className={style.input} required>
+                            <option value={undefined}>Select Your School</option>
+                            <option value="DBHS">DBHS</option>
+                            <option value="VKV">VKV</option>
+                            <option value="JNV">JNV</option>
+                            <option value="KV">KV</option>
+                        </select>
+                        <input placeholder="   class" name="class" type="text" required className={style.input} onChange={(e) => setClass(e.target.value)} />
+
+                        {
+                            role === "student" ? (<input type="file" required placeholder="  payment screenshot" accept='image/*' name="file" className={style.input} onChange={changeImageHandler} />) : (<>
+                                <input placeholder="   specialized subject" name="subject" type="text" required className={style.input} onChange={(e) => setSubject(e.target.value)} />
+                            </>)
+                        }
+                        {
+                            imagePrev && (
+                                <Image src={imagePrev} width={200} height={200} alt='preview' />
+                            )}
+                        <button type="submit" className={`${style.btn} ${!isProcced ? style.procced : null}`} >{
+                            isLoading ? (<div className={style.btnLoading} >
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                            </div>) : (<p>Signup</p>)
+                        }</button>
+                        <p>Already have an account? <br /> <Link href={"/login"} >Login</Link></p>
+                    </form>
+                </div>
             </div>
-        </div>
+            <Footer />
+        </>
     )
 }
 

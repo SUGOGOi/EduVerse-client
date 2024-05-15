@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux"
 import { otpNotSendReducer, otpSendReducer } from "@/redux/reducers/otpReducer"
 import validator from "validator";
 import { emailReducer } from "@/redux/reducers/userReducer";
+import Footer from "@/components/footer/Footer";
 const Page = () => {
     const [email, setEmail] = useState("");
     const [otpSend, { isLoading }] = useOtpSendMutation();
@@ -29,9 +30,7 @@ const Page = () => {
             toast.success(res.data.message);
             dispatch(otpSendReducer(res.data))
             dispatch(emailReducer({ email }))
-            setTimeout(() => {
-                router.push("/otp-verify", { scroll: false });
-            }, 1000);
+            router.push("/otp-verify", { scroll: false });
         } else {
             const error = res.error;
             const messageRes = error.data;
@@ -41,8 +40,9 @@ const Page = () => {
     };
     return (
         <>
+            <Navbar />
             <div className={style.container}>
-                <Navbar />
+
                 <div className={style.otpSend}>
 
                     <form action="" onSubmit={submitHandler} className={style.form}>
@@ -77,6 +77,7 @@ const Page = () => {
                 </div>
             </div>
             {/* <ToastContainer /> */}
+            <Footer />
         </>
     );
 };

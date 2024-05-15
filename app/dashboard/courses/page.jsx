@@ -51,7 +51,11 @@ const Page = () => {
 
     const createCourseHandller = async (e) => {
         e.preventDefault();
-        formData.set("subject", name);
+        if (user.role === "teacher") {
+            formData.set("subject", user.subject);
+        } else {
+            formData.set("subject", name);
+        }
         formData.set("Class", Class);
         if (user.role === "teacher") {
             formData.set("school", user.school);
@@ -64,7 +68,6 @@ const Page = () => {
 
         if ("data" in res) {
             toast.success(res.data.message)
-            console.log(res.data)
             dispatch(createCourseReducer(res.data))
             dispatch(clearMessageReducer())
             showModal();
@@ -107,11 +110,12 @@ const Page = () => {
                         {
                             user && user.role === "teacher" ? (<>
                                 <li><Link className={style.links} href={"/dashboard/users"} >Students</Link></li>
-                                <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
+                                <li><Link className={style.links} href={"/dashboard/courses"} >Courses</Link></li>
                             </>) : (
                                 user && user.role === "admin" ? (<><li><Link className={style.links} href={"/dashboard"} >Dashboard</Link></li>
                                     <li><Link className={style.links} href={"/dashboard/users"} >Users</Link></li>
-                                    <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
+                                    <li><Link className={style.links} href={"/dashboard/courses"} >Courses</Link></li>
+                                    <li><Link className={style.links} href={"/dashboard/contact"} >Contact Messages</Link></li>
                                 </>) : (<></>)
                             )
                         }
@@ -152,8 +156,8 @@ const Page = () => {
                         <div className={style.modal_content}>
                             <h2>{`CREATE COURSE`}</h2>
                             <form action="" onSubmit={createCourseHandller} >
-                                <input className={style.inputName} type="text" name='subject' onChange={(e) => setName(e.target.value)} placeholder='enter subject' />
-                                <select name="class" onChange={(e) => setClass(e.target.value)} className={style.inputName}>
+                                <input required className={style.inputName} type="text" name='subject' placeholder='enter subject' value={user.subject} readOnly />
+                                <select name="class" required onChange={(e) => setClass(e.target.value)} className={style.inputName}>
                                     <option value={undefined}>For which class?</option>
                                     {
                                         user.classes.map((i, index) => (
@@ -163,13 +167,14 @@ const Page = () => {
                                 </select>
                                 {
                                     user.role === "teacher" ? (<>
-                                        <input className={style.inputName} type="text" name='school' value={user.school} readOnly />
+                                        <input className={style.inputName} required type="text" name='school' value={user.school} readOnly />
                                     </>) : (<>
-                                        <input className={style.inputName} type="text" name='school' onChange={(e) => setSchool(e.target.value)} placeholder='enter school' />
+                                        <input className={style.inputName} required type="text" name='school' onChange={(e) => setSchool(e.target.value)} placeholder='enter school' />
                                     </>)
                                 }
-                                <textarea className={style.inputArea} name='description' placeholder='enter decription' onChange={(e) => setDescription(e.target.value)} />
-                                <input className={style.inputName} type="file" name='file' accept='image/*' onChange={changeImageHandler} placeholder='course poster' />
+                                <textarea className={style.inputArea} required name='description' placeholder='enter decription' onChange={(e) => setDescription(e.target.value)} />
+                                <label className={style.labelPoster} >Course Poster</label>
+                                <input className={style.inputName} required type="file" name='file' accept='image/*' onChange={changeImageHandler} placeholder='course poster' />
                                 {
                                     imagePrev && (
                                         <img src={imagePrev} className={style.Img} alt='preview' />
@@ -181,6 +186,7 @@ const Page = () => {
                     </div>
                 </div>
             )}
+            {/* <Footer /> */}
         </>
     );
 }

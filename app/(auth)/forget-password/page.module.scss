@@ -1,0 +1,136 @@
+@mixin tablet {
+  @media screen and (max-width: 700px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 540px) {
+    @content;
+  }
+}
+
+.container {
+  margin-top: 61px;
+  width: 100%;
+  min-height: 91vh;
+  height: auto;
+  color: black;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .forgetCon {
+    width: 600px;
+    height: 80vh;
+    // border: 1px solid red;
+    color: black;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid rgb(146, 145, 145);
+    border-radius: 20px;
+
+    h2 {
+      font-size: 26px;
+
+      color: rgb(77, 77, 77);
+    }
+    p {
+      margin: 20px;
+
+      color: rgb(77, 77, 77);
+    }
+
+    .AddBtn {
+      position: relative;
+      padding: 8px 16px;
+      background-color: grey;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      font-weight: 600;
+      width: 100px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px;
+      p {
+        color: white;
+      }
+
+      .lds_ring {
+        /* change color here */
+        color: white;
+        // margin-top: -2px;
+      }
+      .lds_ring,
+      .lds_ring div {
+        box-sizing: border-box;
+      }
+      .lds_ring {
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        width: 20px;
+        height: 20px;
+      }
+      .lds_ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        // margin: 4px;
+        border: 3px solid currentColor;
+        border-radius: 50%;
+        animation: lds_ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: currentColor transparent transparent transparent;
+      }
+      .lds_ring div:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+      .lds_ring div:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+      .lds_ring div:nth-child(3) {
+        animation-delay: -0.15s;
+      }
+      @keyframes lds_ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+
+    .input {
+      width: 300px;
+      height: 40px;
+      padding: 0px 8px;
+      border-radius: 5px;
+      border-style: none;
+      background-color: rgb(211, 210, 210);
+      @include tablet() {
+        width: 275px;
+      }
+      @include mobile() {
+        width: 250px;
+      }
+    }
+
+    @include tablet() {
+      width: 70%;
+    }
+    @include mobile() {
+      width: 85%;
+    }
+  }
+}

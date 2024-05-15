@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useOtpVerifyMutation } from "@/redux/apis/otpApi"
 import { useDispatch, useSelector } from "react-redux"
 import { clearErrorReducer, clearMessageReducer, otpNotVerifyReducer, otpVerifyReducer } from "@/redux/reducers/otpReducer"
+import Footer from "@/components/footer/Footer"
 
 const Page = () => {
     const [otp, setOtp] = useState("");
@@ -43,30 +44,34 @@ const Page = () => {
         }
     };
     return (
-        <div className={style.container} >
+        <>
             <Navbar />
-            <div className={style.otpVerify}>
+            <div className={style.container} >
 
-                <form action="" className={style.form} onSubmit={submitHandler} >
-                    <h1>OTP Verify</h1>
-                    <input placeholder="   XXXX" name="otp" type="text" required className={style.input} onChange={(e) => setOtp(e.target.value)} />
-                    <button type="submit" className={style.btn} >{
-                        isLoading ? (<div className={style.btnLoading} >
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                            <div className={style.wave}></div>
-                        </div>) : (<p>Verify Otp</p>)
-                    }</button>
-                </form>
+                <div className={style.otpVerify}>
+
+                    <form action="" className={style.form} onSubmit={submitHandler} >
+                        <h1>OTP Verify</h1>
+                        <input placeholder="   XXXX" name="otp" type="text" required className={style.input} onChange={(e) => setOtp(e.target.value)} />
+                        <button type="submit" className={style.btn} >{
+                            isLoading ? (<div className={style.btnLoading} >
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                                <div className={style.wave}></div>
+                            </div>) : (<p>Verify Otp</p>)
+                        }</button>
+                    </form>
+                </div>
             </div>
-        </div>
+            <Footer />
+        </>
     )
 }
 

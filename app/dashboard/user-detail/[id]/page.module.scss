@@ -155,7 +155,7 @@ $hilight: #2e374a;
 }
 
 .navbar {
-  background-color: #f0f0f0;
+  background-color: #182237;
   padding: 10px;
   margin-bottom: 20px;
   display: flex;
@@ -166,11 +166,8 @@ $hilight: #2e374a;
 }
 
 .navbar a {
-  color: #333;
+  color: white;
   text-decoration: none;
-  margin-right: 20px;
-}
-
-.navbar a:hover {
-  color: #000;
+  margin-right: 25px;
+  font-weight: 600;
 }

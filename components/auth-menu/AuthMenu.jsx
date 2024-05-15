@@ -33,7 +33,6 @@ const AuthMenu = ({ isAuthOpen, setIsAuthOpen }) => {
 
         if ("data" in res) {
             toast.success(res.data.message)
-            console.log(res.data)
             dispatch(logoutReducer())
             router.push('/', { scroll: false })
             dispatch(clearMessageReducer())

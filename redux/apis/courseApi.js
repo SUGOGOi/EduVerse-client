@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
-const server = `http://localhost:8000/api/v1/`;
+const server = `${process.env.SERVER}api/v1/`;
 import {
   getCourseByIdFailReducer,
   getCourseByIdReducer,
@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 export const courseApi = createApi({
   reducerPath: "courseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api/v1/",
+    baseUrl: `${process.env.SERVER}api/v1/`,
   }),
   endpoints: (builder) => ({
     allCourses: builder.query({
@@ -122,7 +122,7 @@ export const getAllCourses = () => async (dispatch) => {
       withCredentials: true,
     });
 
-    console.log(data);
+    // console.log(data);
 
     dispatch(loadCoursesReducer(data));
     // console.log(data);

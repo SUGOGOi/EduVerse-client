@@ -1,9 +1,10 @@
-"use client"
-import React, { useEffect } from 'react'
+
+import React from 'react'
 import style from "./page.module.scss"
 import Navbar from '@/components/navbar/Navbar'
 import Image from "next/image"
 import img from "../../public/images/eduverseHome.jpg"
+import Footer from '@/components/footer/Footer'
 
 
 
@@ -25,6 +26,7 @@ const Page = () => {
                     <Image src={img} className={style.slider} alt='' />
                 </div>
             </div>
+            <Footer />
 
         </>
     )

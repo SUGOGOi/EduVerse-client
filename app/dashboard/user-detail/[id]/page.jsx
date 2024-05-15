@@ -56,7 +56,8 @@ const Page = () => {
                 <ul>
                     <li><Link className={style.links} href={"/dashboard"} >Dashboard</Link></li>
                     <li><Link className={style.links} href={"/dashboard/users"} >Users</Link></li>
-                    <li><Link className={style.links} href={"/dashboard/courses"} >courses</Link></li>
+                    <li><Link className={style.links} href={"/dashboard/courses"} >Courses</Link></li>
+                    <li><Link className={style.links} href={"/dashboard/contact"} >Contact Messages</Link></li>
                     {/* Add more menu items as needed */}
                 </ul>
             </div>

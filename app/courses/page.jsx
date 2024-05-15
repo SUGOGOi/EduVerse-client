@@ -9,6 +9,7 @@ import UserCourseCard from '@/components/userCourseCard/UserCourseCard'
 import { useAllCoursesQuery } from '@/redux/apis/courseApi'
 import { loadCoursesReducer } from '@/redux/reducers/courseReducer'
 import { getMyProfile } from '@/redux/apis/userApi'
+import Footer from '@/components/footer/Footer'
 
 
 const Page = () => {
@@ -45,8 +46,10 @@ const Page = () => {
 
     useEffect(() => {
 
-        if (!user) {
-            dispatch(getMyProfile())
+        if (document.cookie) {
+            if (!user) {
+                dispatch(getMyProfile())
+            }
         }
     }, [user])
 
@@ -74,6 +77,7 @@ const Page = () => {
                 }
 
             </div>
+            <Footer />
         </>
     )
 }
