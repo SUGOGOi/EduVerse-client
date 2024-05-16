@@ -10,6 +10,7 @@ import Image from "next/image"
 import { clearErrorReducer, clearMessageReducer, emailClearReducer, registerFailReducer, registerReducer, roleClearReducer } from "@/redux/reducers/userReducer"
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "react-hot-toast";
+import Footer from "@/components/footer/Footer"
 
 const Page = () => {
     const [registerUser, { isLoading }] = useRegisterUserMutation();
