@@ -10,6 +10,7 @@ import { getMyProfile } from '@/redux/apis/userApi';
 import ModuleCard from '@/components/moduleCard/moduleCard';
 import dynamic from 'next/dynamic';
 import UserModuleCard from '@/components/userModuleCard/UserModuleCard';
+import Footer from '@/components/footer/Footer';
 const Reactplayer = dynamic(() => import('../../../components/reactPlayer/ReactPlayer'), {
     ssr: false,
 });
