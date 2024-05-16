@@ -1,87 +1,87 @@
-// import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-// // This function can be marked `async` if using `await` inside
-// export function middleware(request) {
-//   const path = request.nextUrl.pathname;
-//   // console.log(path);
+// This function can be marked `async` if using `await` inside
+export function middleware(request) {
+  const path = request.nextUrl.pathname;
+  // console.log(path);
 
-//   let isPublicPath =
-//     path === "/login" ||
-//     path === "/signup" ||
-//     path === "/qr-code" ||
-//     path === "/otp-send" ||
-//     path === "/otp-verify";
+  let isPublicPath =
+    path === "/login" ||
+    path === "/signup" ||
+    path === "/qr-code" ||
+    path === "/otp-send" ||
+    path === "/otp-verify";
 
-//   let isPrivatePath =
-//     path === "/profile" || path === "/courses" || path === "/course/:path*";
+  let isPrivatePath =
+    path === "/profile" || path === "/courses" || path === "/course/:path*";
 
-//   // console.log(isPrivatePath);
+  // console.log(isPrivatePath);
 
-//   const isAdminPath =
-//     path === "/dashboard" ||
-//     path === "/dashboard/users" ||
-//     path === "/dashboard/courses" ||
-//     path === "/dashboard/course-detail" ||
-//     path === "/dashboard/user-detail/:path*" ||
-//     path === "/dashboard/contact";
+  const isAdminPath =
+    path === "/dashboard" ||
+    path === "/dashboard/users" ||
+    path === "/dashboard/courses" ||
+    path === "/dashboard/course-detail" ||
+    path === "/dashboard/user-detail/:path*" ||
+    path === "/dashboard/contact";
 
-//   let token = request.cookies.get("token") || "";
+  let token = request.cookies.get("token") || "";
 
-//   if (isPrivatePath && !token) {
-//     return NextResponse.redirect(new URL("/", request.url));
-//   }
+  if (isPrivatePath && !token) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
-//   if (isPublicPath && token) {
-//     return NextResponse.redirect(new URL("/", request.url));
-//   }
+  if (isPublicPath && token) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
-//   if (isAdminPath && !token) {
-//     return NextResponse.redirect(new URL("/", request.url));
-//   }
+  if (isAdminPath && !token) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
-//   // if (isAdminPath && token) {
-//   //   let role = getUserRole({ token: token.value });
-//   //   if (role === "teacher") {
-//   //     if (
-//   //       path === "/dashboad" ||
-//   //       path === "/dashboard/user-detail/:path*" ||
-//   //       path === "/dashboard/contact"
-//   //     ) {
-//   //       return NextResponse.redirect(
-//   //         new URL("/dashboard/courses", request.url)
-//   //       );
-//   //     }
-//   //   }
-//   //   if (role === "student") {
-//   //     if (
-//   //       path === "/dashboad" ||
-//   //       path === "/dashboard/user-detail/:path*" ||
-//   //       path === "/dashboard/contact" ||
-//   //       path === "/dashboard" ||
-//   //       path === "/dashboard/users" ||
-//   //       path === "/dashboard/courses"
-//   //     ) {
-//   //       return NextResponse.redirect(new URL("/", request.url));
-//   //     }
-//   //   }
-//   // }
-// }
+  // if (isAdminPath && token) {
+  //   let role = getUserRole({ token: token.value });
+  //   if (role === "teacher") {
+  //     if (
+  //       path === "/dashboad" ||
+  //       path === "/dashboard/user-detail/:path*" ||
+  //       path === "/dashboard/contact"
+  //     ) {
+  //       return NextResponse.redirect(
+  //         new URL("/dashboard/courses", request.url)
+  //       );
+  //     }
+  //   }
+  //   if (role === "student") {
+  //     if (
+  //       path === "/dashboad" ||
+  //       path === "/dashboard/user-detail/:path*" ||
+  //       path === "/dashboard/contact" ||
+  //       path === "/dashboard" ||
+  //       path === "/dashboard/users" ||
+  //       path === "/dashboard/courses"
+  //     ) {
+  //       return NextResponse.redirect(new URL("/", request.url));
+  //     }
+  //   }
+  // }
+}
 
-// export const config = {
-//   matcher: [
-//     "/login",
-//     "/signup",
-//     "/qr-code",
-//     "/otp-send",
-//     "/otp-verify",
-//     "/profile",
-//     "/courses",
-//     "/course/:path*",
-//     "/dashboard", //protect from teacher
-//     "/dashboard/users", //protect from student
-//     "/dashboard/courses", //protect from student
-//     "/dashboard/course-detail", //protect from student
-//     "/dashboard/user-detail/:path*", // protect from teacher
-//     "/dashboard/contact", // protect from teacher
-//   ],
-// };
+export const config = {
+  matcher: [
+    "/login",
+    "/signup",
+    "/qr-code",
+    "/otp-send",
+    "/otp-verify",
+    // "/profile",
+    "/courses",
+    "/course/:path*",
+    "/dashboard", //protect from teacher
+    "/dashboard/users", //protect from student
+    "/dashboard/courses", //protect from student
+    "/dashboard/course-detail", //protect from student
+    "/dashboard/user-detail/:path*", // protect from teacher
+    "/dashboard/contact", // protect from teacher
+  ],
+};
