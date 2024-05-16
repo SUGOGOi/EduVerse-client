@@ -69,19 +69,19 @@ export function middleware(request) {
 
 export const config = {
   matcher: [
-    "/login",
-    "/signup",
-    "/qr-code",
-    "/otp-send",
-    "/otp-verify",
+    // "/login",
+    // "/signup",
+    // "/qr-code",
+    // "/otp-send",
+    // "/otp-verify",
     // "/profile",
-    "/courses",
-    "/course/:path*",
-    "/dashboard", //protect from teacher
-    "/dashboard/users", //protect from student
-    "/dashboard/courses", //protect from student
-    "/dashboard/course-detail", //protect from student
-    "/dashboard/user-detail/:path*", // protect from teacher
-    "/dashboard/contact", // protect from teacher
+    // "/courses",
+    // "/course/:path*",
+    // "/dashboard", //protect from teacher
+    // "/dashboard/users", //protect from student
+    // "/dashboard/courses", //protect from student
+    // "/dashboard/course-detail", //protect from student
+    // "/dashboard/user-detail/:path*", // protect from teacher
+    // "/dashboard/contact", // protect from teacher
   ],
 };
