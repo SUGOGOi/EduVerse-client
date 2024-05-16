@@ -43,6 +43,9 @@ export const getAllCOntactMessages =
       // dispatch({ type: "loadUserRequest" });
 
       const { data } = await axios.get(`${server}otp/all-conacts?id=${id}`, {
+        headers: {
+          "Content-type": "application/json",
+        },
         withCredentials: true,
       });
 

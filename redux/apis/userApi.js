@@ -16,8 +16,10 @@ export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.SERVER}api/v1/`,
-    // refetchOnFocus: true,
-    // refetchOnReconnect: true,
+    credentials: "include",
+    prepareHeaders(headers) {
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     registerUser: builder.mutation({
@@ -78,6 +80,9 @@ export const getMyProfile = () => async (dispatch) => {
     // dispatch({ type: "loadUserRequest" });
 
     const { data } = await axios.get(`${server}user/myprofile`, {
+      headers: {
+        "Content-type": "application/json",
+      },
       withCredentials: true,
     });
 
@@ -96,6 +101,9 @@ export const getSpecificUser =
       // dispatch({ type: "loadUserRequest" });
 
       const { data } = await axios.get(`${server}user/${uid}?id=${id}`, {
+        headers: {
+          "Content-type": "application/json",
+        },
         withCredentials: true,
       });
 
@@ -114,6 +122,9 @@ export const getAllUsers =
       // dispatch({ type: "loadUserRequest" });
 
       const { data } = await axios.get(`${server}user/all-users?id=${id}`, {
+        headers: {
+          "Content-type": "application/json",
+        },
         withCredentials: true,
       });
 

@@ -105,6 +105,9 @@ export const getCourseById = (id) => async (dispatch) => {
     // dispatch({ type: "loadUserRequest" });
 
     const { data } = await axios.get(`${server}course/${id}`, {
+      headers: {
+        "Content-type": "application/json",
+      },
       withCredentials: true,
     });
 
@@ -119,6 +122,9 @@ export const getCourseById = (id) => async (dispatch) => {
 export const getAllCourses = () => async (dispatch) => {
   try {
     const { data } = await axios.get(`${server}course/all-courses`, {
+      headers: {
+        "Content-type": "application/json",
+      },
       withCredentials: true,
     });
 
@@ -141,6 +147,9 @@ export const getChapterMaterials =
       const { data } = await axios.get(
         `${server}module/all-materials?mid=${mid}`,
         {
+          headers: {
+            "Content-type": "application/json",
+          },
           withCredentials: true,
         }
       );
