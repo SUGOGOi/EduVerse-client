@@ -41,32 +41,32 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (isAdminPath && token) {
-    let role = getUserRole({ token: token.value });
-    if (role === "teacher") {
-      if (
-        path === "/dashboad" ||
-        path === "/dashboard/user-detail/:path*" ||
-        path === "/dashboard/contact"
-      ) {
-        return NextResponse.redirect(
-          new URL("/dashboard/courses", request.url)
-        );
-      }
-    }
-    if (role === "student") {
-      if (
-        path === "/dashboad" ||
-        path === "/dashboard/user-detail/:path*" ||
-        path === "/dashboard/contact" ||
-        path === "/dashboard" ||
-        path === "/dashboard/users" ||
-        path === "/dashboard/courses"
-      ) {
-        return NextResponse.redirect(new URL("/", request.url));
-      }
-    }
-  }
+  // if (isAdminPath && token) {
+  //   let role = getUserRole({ token: token.value });
+  //   if (role === "teacher") {
+  //     if (
+  //       path === "/dashboad" ||
+  //       path === "/dashboard/user-detail/:path*" ||
+  //       path === "/dashboard/contact"
+  //     ) {
+  //       return NextResponse.redirect(
+  //         new URL("/dashboard/courses", request.url)
+  //       );
+  //     }
+  //   }
+  //   if (role === "student") {
+  //     if (
+  //       path === "/dashboad" ||
+  //       path === "/dashboard/user-detail/:path*" ||
+  //       path === "/dashboard/contact" ||
+  //       path === "/dashboard" ||
+  //       path === "/dashboard/users" ||
+  //       path === "/dashboard/courses"
+  //     ) {
+  //       return NextResponse.redirect(new URL("/", request.url));
+  //     }
+  //   }
+  // }
 }
 
 export const config = {
