@@ -75,13 +75,12 @@ export const userApi = createApi({
   }),
 });
 
-export const getMyProfile = () => async (dispatch) => {
+export const getMyProfile = (token) => async (dispatch) => {
   try {
-    // dispatch({ type: "loadUserRequest" });
-
     const { data } = await axios.get(`${server}user/myprofile`, {
       headers: {
         "Content-type": "application/json",
+        Authorization: token,
       },
       withCredentials: true,
     });

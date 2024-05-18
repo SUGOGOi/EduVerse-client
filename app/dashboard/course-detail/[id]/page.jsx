@@ -13,6 +13,8 @@ import { MdCreateNewFolder } from 'react-icons/md';
 import { getMyProfile } from '@/redux/apis/userApi';
 import toast from 'react-hot-toast';
 import Footer from '@/components/footer/Footer';
+import Cookies from 'js-cookie';
+
 
 const Page = () => {
     const [createChapter, { }] = useCreateChapterMutation()
@@ -54,11 +56,18 @@ const Page = () => {
 
     useEffect(() => {
 
-        dispatch(getMyProfile())
+        let token = Cookies.get("token")
+
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+            }
+        }
     }, [])
 
     useEffect(() => {
-        dispatch(getCourseById(pathname.split("/").pop()))
+        let token = Cookies.get("token")
+        dispatch(getCourseById({ id: pathname.split("/").pop(), token }))
     }, [])
 
 

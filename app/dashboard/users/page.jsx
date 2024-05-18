@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '@/app/loading';
 import toast from 'react-hot-toast';
 import { RiEdit2Fill } from "react-icons/ri";
+import Cookies from 'js-cookie';
 
 const Card = ({ name, id, isApproved, role }) => {
     const { user } = useSelector(state => state.userReducer);
@@ -30,7 +31,14 @@ const Page = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getMyProfile())
+
+        let token = Cookies.get("token")
+
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+            }
+        }
     }, [])
 
     useEffect(() => {

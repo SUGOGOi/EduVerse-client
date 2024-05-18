@@ -100,30 +100,34 @@ export const courseApi = createApi({
   }),
 });
 
-export const getCourseById = (id) => async (dispatch) => {
-  try {
-    // dispatch({ type: "loadUserRequest" });
+export const getCourseById =
+  ({ id, token }) =>
+  async (dispatch) => {
+    try {
+      // dispatch({ type: "loadUserRequest" });
 
-    const { data } = await axios.get(`${server}course/${id}`, {
-      headers: {
-        "Content-type": "application/json",
-      },
-      withCredentials: true,
-    });
+      const { data } = await axios.get(`${server}course/${id}`, {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+        withCredentials: true,
+      });
 
-    dispatch(getCourseByIdReducer(data));
-    // console.log(data);
-  } catch (error) {
-    dispatch(getCourseByIdFailReducer(error));
-    toast.error(`${error.message}`);
-  }
-};
+      dispatch(getCourseByIdReducer(data));
+      // console.log(data);
+    } catch (error) {
+      dispatch(getCourseByIdFailReducer(error));
+      toast.error(`${error.message}`);
+    }
+  };
 
-export const getAllCourses = () => async (dispatch) => {
+export const getAllCourses = (token) => async (dispatch) => {
   try {
     const { data } = await axios.get(`${server}course/all-courses`, {
       headers: {
         "Content-type": "application/json",
+        Authorization: token,
       },
       withCredentials: true,
     });

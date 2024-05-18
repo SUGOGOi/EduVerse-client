@@ -6,6 +6,7 @@ import Navbar from '../navbar/Navbar'
 import { useDispatch, useSelector } from "react-redux"
 import { getMyProfile } from "@/redux/apis/userApi"
 import { NextResponse } from "next/server";
+import Cookies from 'js-cookie'
 
 
 
@@ -14,7 +15,14 @@ const Home = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getMyProfile())
+
+        let token = Cookies.get("token")
+
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+            }
+        }
     }, [])
     return (
         <>

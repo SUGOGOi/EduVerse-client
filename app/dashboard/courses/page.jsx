@@ -10,6 +10,8 @@ import CourseCard from '@/components/courseCard/courseCard';
 import { MdCreateNewFolder } from "react-icons/md";
 import toast from 'react-hot-toast';
 import { getMyProfile } from '@/redux/apis/userApi';
+import Cookies from 'js-cookie';
+
 
 
 
@@ -88,14 +90,21 @@ const Page = () => {
 
 
     useEffect(() => {
-        dispatch(getMyProfile())
+        let token = Cookies.get("token")
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+            }
+        }
     }, [])
 
     useEffect(() => {
-        if (user) {
-            dispatch(getAllCourses())
+        let token = Cookies.get("token")
+        if (!courses) {
+            // toast.success(data.message)
+            dispatch(getAllCourses(token))
         }
-    }, [user])
+    }, [])
 
 
 

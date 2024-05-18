@@ -13,6 +13,8 @@ export const dynamic = "force-dynamic"
 import profileImage from "../../public/images/profile.jpg"
 import Image from 'next/image'
 import Footer from '@/components/footer/Footer'
+import Cookies from 'js-cookie';
+
 
 const Page = () => {
     let { user } = useSelector(state => state.userReducer);
@@ -47,7 +49,9 @@ const Page = () => {
 
 
     useEffect(() => {
-        dispatch(getMyProfile())
+        let token = Cookies.get("token")
+        // console.log(token)
+        dispatch(getMyProfile(token))
 
     }, [])
 

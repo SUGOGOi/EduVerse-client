@@ -9,6 +9,7 @@ import { getMyProfile } from '@/redux/apis/userApi';
 import { getAllCOntactMessages } from '@/redux/apis/otpApi';
 import ContactMessageCard from '@/components/contactMessageCard/ContactMessageCard';
 import Footer from '@/components/footer/Footer';
+import Cookies from 'js-cookie';
 
 
 
@@ -20,7 +21,14 @@ const Page = () => {
     const dispatch = useDispatch("");
 
     useEffect(() => {
-        dispatch(getMyProfile())
+
+        let token = Cookies.get("token")
+
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+            }
+        }
     }, [])
 
     useEffect(() => {

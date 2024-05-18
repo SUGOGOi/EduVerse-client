@@ -6,15 +6,15 @@ import Navbar from '@/components/navbar/Navbar'
 import { toast } from "react-hot-toast";
 import Loading from '../loading'
 import UserCourseCard from '@/components/userCourseCard/UserCourseCard'
-import { useAllCoursesQuery } from '@/redux/apis/courseApi'
+import { getAllCourses, useAllCoursesQuery } from '@/redux/apis/courseApi'
 import { loadCoursesReducer } from '@/redux/reducers/courseReducer'
 import { getMyProfile } from '@/redux/apis/userApi'
 import Footer from '@/components/footer/Footer'
+import Cookies from 'js-cookie';
 
 
 const Page = () => {
     const [loadCourseState, setLoadCourseState] = useState(1)
-    const { data, isLoading, error } = useAllCoursesQuery(loadCourseState);
     const { courses } = useSelector(state => state.courseReducer);
     let { user } = useSelector(state => state.userReducer);
 
@@ -28,30 +28,24 @@ const Page = () => {
 
     useEffect(() => {
 
-        if (data) {
+        let token = Cookies.get("token")
+        if (!courses) {
             // toast.success(data.message)
-            dispatch(loadCoursesReducer(data))
+            dispatch(getAllCourses(token))
         }
 
-
-        if (error) {
-            // console.log(error)
-            const err = error;
-            const messageRes = err.data.error;
-            toast.error(messageRes)
-        }
-
-    }, [data, error])
+    }, [])
 
 
     useEffect(() => {
+        let token = Cookies.get("token")
 
-        if (document.cookie) {
+        if (token) {
             if (!user) {
-                dispatch(getMyProfile())
+                dispatch(getMyProfile(token))
             }
         }
-    }, [user])
+    }, [])
 
 
 

@@ -15,6 +15,9 @@ const Reactplayer = dynamic(() => import('../../../components/reactPlayer/ReactP
     ssr: false,
 });
 
+import Cookies from 'js-cookie';
+
+
 
 const Page = () => {
     const { course } = useSelector(state => state.courseReducer);
@@ -26,15 +29,20 @@ const Page = () => {
 
 
     useEffect(() => {
-        dispatch(getCourseById(pathname.split("/").pop()))
+        let token = Cookies.get("token")
+        dispatch(getCourseById({ id: pathname.split("/").pop(), token }))
     }, [])
 
     useEffect(() => {
 
-        if (!user) {
-            dispatch(getMyProfile())
+        let token = Cookies.get("token")
+
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+            }
         }
-    }, [user])
+    }, [])
 
     return (
         <>

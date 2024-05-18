@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/courseReducer';
 import Loading from '../loading';
 import { getAllUsers, getMyProfile } from '@/redux/apis/userApi';
+import Cookies from 'js-cookie';
 
 const Page = () => {
     // Dummy data for total users and courses
@@ -18,8 +19,19 @@ const Page = () => {
 
 
     useEffect(() => {
-        dispatch(getAllCourses())
-        dispatch(getMyProfile())
+
+        let token = Cookies.get("token")
+
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+            }
+        }
+
+        if (!courses) {
+            // toast.success(data.message)
+            dispatch(getAllCourses(token))
+        }
     }, [])
 
     useEffect(() => {

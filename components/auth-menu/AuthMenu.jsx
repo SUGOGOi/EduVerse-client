@@ -7,7 +7,9 @@ import { usePathname } from "next/navigation"
 import { useRouter } from 'next/navigation'
 import { clearErrorReducer, clearMessageReducer, loadUserReducer, logoutFailReducer, logoutReducer, roleReducer } from '@/redux/reducers/userReducer'
 import toast from 'react-hot-toast'
-import { useLogoutUserMutation } from '@/redux/apis/userApi'
+import { getMyProfile, useLogoutUserMutation } from '@/redux/apis/userApi'
+import Cookies from 'js-cookie';
+
 
 
 
@@ -50,6 +52,19 @@ const AuthMenu = ({ isAuthOpen, setIsAuthOpen }) => {
     const userRoleHandller = ({ role }) => {
         dispatch(roleReducer({ role }))
     }
+
+
+    useEffect(() => {
+
+        let token = Cookies.get("token")
+        // console.log(token)
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+
+            }
+        }
+    }, [])
 
 
 
