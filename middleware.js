@@ -29,6 +29,8 @@ export function middleware(request) {
   let token = Cookies.get("token");
   if (token) {
     token = true;
+  } else {
+    token = false;
   }
   let role = Cookies.get("role");
 
