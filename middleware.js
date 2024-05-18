@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { NextResponse } from "next/server";
 
 // This function can be marked `async` if using `await` inside
@@ -25,8 +26,11 @@ export function middleware(request) {
     path === "/dashboard/user-detail/:path*" ||
     path === "/dashboard/contact";
 
-  let token = request.cookies.get("token") || "";
-  let role = request.cookies.get("role") || "";
+  let token = Cookies.get("token");
+  if (token) {
+    token = true;
+  }
+  let role = Cookies.get("role");
 
   if (isPrivatePath && !token) {
     return NextResponse.redirect(new URL("/", request.url));

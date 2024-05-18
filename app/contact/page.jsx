@@ -19,7 +19,6 @@ const Page = () => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [message, setMessage] = useState("");
-    const [isShow, setIsShow] = useState("");
 
 
     const formClear = () => {
@@ -47,9 +46,9 @@ const Page = () => {
         let token = Cookies.get("token")
         // console.log(token)
         if (token) {
-            if (!user) {
-                dispatch(getMyProfile(token))
-            }
+
+            dispatch(getMyProfile(token))
+
         }
     }, [])
 
