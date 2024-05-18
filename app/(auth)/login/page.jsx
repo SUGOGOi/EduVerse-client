@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux"
 import { clearMessageReducer, loadUserReducer } from "@/redux/reducers/userReducer"
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Footer from "@/components/footer/Footer"
+import Cookies from 'js-cookie';
 
 
 
@@ -38,7 +39,22 @@ const Page = () => {
 
         if ("data" in res) {
             toast.success(res.data.message)
+            const { token, role } = res.data;
+            console.log(token)
+            console.log(role)
+            Cookies.set('token', token, {
+                expires: 10, // 1 day
+                secure: true, // true in production
+                sameSite: 'strict', // Helps prevent CSRF attacks
+            });
+            Cookies.set('role', role, {
+                expires: 10, // 1 day
+                secure: ture, // true in production
+                sameSite: 'strict', // Helps prevent CSRF attacks
+            });
+
             router.push(`/profile`, { scroll: false })
+
 
         } else {
             const error = res.error;

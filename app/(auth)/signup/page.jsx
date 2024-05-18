@@ -11,6 +11,8 @@ import { clearErrorReducer, clearMessageReducer, emailClearReducer, registerFail
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import Footer from "@/components/footer/Footer"
+import Cookies from 'js-cookie';
+
 
 const Page = () => {
     const [registerUser, { isLoading }] = useRegisterUserMutation();
@@ -31,6 +33,7 @@ const Page = () => {
     const [isShow, setIsShow] = useState("");
     const [isCShow, setIsCShow] = useState("");
     const [isProcced, setIsProcced] = useState(false);
+
 
 
     const showHandler = () => {
@@ -60,6 +63,21 @@ const Page = () => {
         const res = await registerUser({ formData });
 
         if ("data" in res) {
+
+            const { token, role } = res.data;
+            console.log(token)
+            console.log(role)
+
+            Cookies.set('token', token, {
+                expires: 10, // 1 day
+                secure: true, // true in production
+                sameSite: 'strict', // Helps prevent CSRF attacks
+            });
+            Cookies.set('role', role, {
+                expires: 10, // 1 day
+                secure: ture, // true in production
+                sameSite: 'strict', // Helps prevent CSRF attacks
+            });
             toast.success(res.data.message)
             dispatch(registerReducer(res.data))
             router.push(`/profile`, { scroll: false })
