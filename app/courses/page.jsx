@@ -3,18 +3,15 @@ import React, { useEffect, useState } from 'react'
 import style from "./page.module.scss"
 import { useDispatch, useSelector } from "react-redux"
 import Navbar from '@/components/navbar/Navbar'
-import { toast } from "react-hot-toast";
 import Loading from '../loading'
 import UserCourseCard from '@/components/userCourseCard/UserCourseCard'
-import { getAllCourses, useAllCoursesQuery } from '@/redux/apis/courseApi'
-import { loadCoursesReducer } from '@/redux/reducers/courseReducer'
+import { getAllCourses } from '@/redux/apis/courseApi'
 import { getMyProfile } from '@/redux/apis/userApi'
 import Footer from '@/components/footer/Footer'
 import Cookies from 'js-cookie';
 
 
 const Page = () => {
-    const [loadCourseState, setLoadCourseState] = useState(1)
     const { courses } = useSelector(state => state.courseReducer);
     let { user } = useSelector(state => state.userReducer);
 
@@ -27,19 +24,16 @@ const Page = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
         let token = Cookies.get("token")
         if (!courses) {
             // toast.success(data.message)
             dispatch(getAllCourses(token))
         }
-
     }, [])
 
 
     useEffect(() => {
         let token = Cookies.get("token")
-
         if (token) {
             if (!user) {
                 dispatch(getMyProfile(token))

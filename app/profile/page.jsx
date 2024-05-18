@@ -6,8 +6,8 @@ import Navbar from '@/components/navbar/Navbar'
 import { toast } from "react-hot-toast";
 import Loading from '../loading'
 import Link from "next/link"
-import { getMyProfile, useGetMyProfileQuery, useLogoutUserMutation } from '@/redux/apis/userApi'
-import { clearErrorReducer, clearMessageReducer, loadUserReducer, logoutFailReducer, logoutReducer } from '@/redux/reducers/userReducer'
+import { getMyProfile, useLogoutUserMutation } from '@/redux/apis/userApi'
+import { clearErrorReducer, clearMessageReducer, logoutFailReducer, logoutReducer } from '@/redux/reducers/userReducer'
 import { useRouter } from 'next/navigation'
 export const dynamic = "force-dynamic"
 import profileImage from "../../public/images/profile.jpg"

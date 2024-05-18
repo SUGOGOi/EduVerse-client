@@ -1,5 +1,5 @@
 "use Client"
-import React, { useState } from 'react'
+import React from 'react'
 import style from "./userCouseCard.module.scss"
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'

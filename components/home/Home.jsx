@@ -5,7 +5,6 @@ import Slider from '../slider/Slider'
 import Navbar from '../navbar/Navbar'
 import { useDispatch, useSelector } from "react-redux"
 import { getMyProfile } from "@/redux/apis/userApi"
-import { NextResponse } from "next/server";
 import Cookies from 'js-cookie'
 
 

@@ -2,12 +2,10 @@
 import Navbar from "@/components/navbar/Navbar"
 import style from "./page.module.scss"
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { toast } from "react-hot-toast";
 import { useLoginUserMutation } from "@/redux/apis/userApi"
 import { useRouter } from 'next/navigation'
-import { useDispatch } from "react-redux"
-import { clearMessageReducer, loadUserReducer } from "@/redux/reducers/userReducer"
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Footer from "@/components/footer/Footer"
 import Cookies from 'js-cookie';
@@ -18,15 +16,11 @@ import Cookies from 'js-cookie';
 
 const Page = () => {
     const [loginUser, { isLoading }] = useLoginUserMutation();
-    const dispatch = useDispatch();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isShow, setIsShow] = useState("");
     const router = useRouter();
-
-
-
 
     const showHandler = () => {
         setIsShow(!isShow);
@@ -34,9 +28,7 @@ const Page = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-
         const res = await loginUser({ email, password });
-
         if ("data" in res) {
             toast.success(res.data.message)
             const { token, role } = res.data;

@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import style from "./page.module.scss"
 import Navbar from '@/components/navbar/Navbar'
 import Footer from '@/components/footer/Footer'
-import Link from 'next/link'
 import { useForgetPasswordMutation } from '@/redux/apis/userApi'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'

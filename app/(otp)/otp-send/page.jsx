@@ -3,10 +3,8 @@ import Navbar from "@/components/navbar/Navbar";
 import style from "./page.module.scss";
 import { useState } from "react";
 import { useOtpSendMutation } from "@/redux/apis/otpApi";
-// import { ToastContainer, toast } from "react-toastify";
 import { toast } from "react-hot-toast"
 import { useRouter } from "next/navigation";
-// import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux"
 import { otpNotSendReducer, otpSendReducer } from "@/redux/reducers/otpReducer"
 import validator from "validator";

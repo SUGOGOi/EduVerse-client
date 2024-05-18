@@ -1,14 +1,12 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import style from './page.module.scss';
 import Link from "next/link"
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '@/app/loading';
-import toast from 'react-hot-toast';
 import { getMyProfile } from '@/redux/apis/userApi';
 import { getAllCOntactMessages } from '@/redux/apis/otpApi';
 import ContactMessageCard from '@/components/contactMessageCard/ContactMessageCard';
-import Footer from '@/components/footer/Footer';
 import Cookies from 'js-cookie';
 
 

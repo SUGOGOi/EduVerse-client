@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useDispatch, useSelector } from 'react-redux'
 import { usePathname } from "next/navigation"
 import { useRouter } from 'next/navigation'
-import { clearErrorReducer, clearMessageReducer, loadUserReducer, logoutFailReducer, logoutReducer, roleReducer } from '@/redux/reducers/userReducer'
+import { clearErrorReducer, clearMessageReducer, logoutFailReducer, logoutReducer, roleReducer } from '@/redux/reducers/userReducer'
 import toast from 'react-hot-toast'
 import { getMyProfile, useLogoutUserMutation } from '@/redux/apis/userApi'
 import Cookies from 'js-cookie';

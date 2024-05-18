@@ -2,10 +2,9 @@
 import React, { useEffect } from 'react';
 import style from './page.module.scss';
 import Link from "next/link"
-import { getAllUsers, getMyProfile, useApproveUserMutation } from '@/redux/apis/userApi';
+import { getAllUsers, getMyProfile } from '@/redux/apis/userApi';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '@/app/loading';
-import toast from 'react-hot-toast';
 import { RiEdit2Fill } from "react-icons/ri";
 import Cookies from 'js-cookie';
 

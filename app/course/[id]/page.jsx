@@ -2,12 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import style from "./page.module.scss"
 import Navbar from '@/components/navbar/Navbar';
-import { getCourseById, useGetCourseByIdQuery } from '@/redux/apis/courseApi';
+import { getCourseById } from '@/redux/apis/courseApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePathname } from "next/navigation"
 import Loading from '@/app/loading';
 import { getMyProfile } from '@/redux/apis/userApi';
-import ModuleCard from '@/components/moduleCard/moduleCard';
 import dynamic from 'next/dynamic';
 import UserModuleCard from '@/components/userModuleCard/UserModuleCard';
 import Footer from '@/components/footer/Footer';

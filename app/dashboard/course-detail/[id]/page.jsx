@@ -2,17 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import style from './page.module.scss';
 import Link from "next/link"
-import { getCourseById, useAllCoursesQuery, useCreateChapterMutation } from '@/redux/apis/courseApi';
+import { getCourseById, useCreateChapterMutation } from '@/redux/apis/courseApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearErrorReducer, clearMessageReducer, createChapterFailReducer, createChapterReducer, loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/courseReducer';
+import { clearErrorReducer, clearMessageReducer, createChapterFailReducer, createChapterReducer } from '@/redux/reducers/courseReducer';
 import Loading from '@/app/loading';
-import CourseCard from '@/components/courseCard/courseCard';
 import { usePathname } from "next/navigation"
 import ModuleCard from '@/components/moduleCard/moduleCard';
 import { MdCreateNewFolder } from 'react-icons/md';
 import { getMyProfile } from '@/redux/apis/userApi';
 import toast from 'react-hot-toast';
-import Footer from '@/components/footer/Footer';
 import Cookies from 'js-cookie';
 
 
@@ -55,9 +53,7 @@ const Page = () => {
 
 
     useEffect(() => {
-
         let token = Cookies.get("token")
-
         if (token) {
             if (!user) {
                 dispatch(getMyProfile(token))

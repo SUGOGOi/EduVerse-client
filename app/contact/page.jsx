@@ -1,14 +1,10 @@
 "use client"
 import Navbar from "@/components/navbar/Navbar"
 import style from "./page.module.scss"
-import Link from "next/link"
 import { useState, useEffect } from "react"
 import { toast } from "react-hot-toast";
-import { getMyProfile, useLoginUserMutation } from "@/redux/apis/userApi"
-import { useRouter } from 'next/navigation'
+import { getMyProfile } from "@/redux/apis/userApi"
 import { useDispatch } from "react-redux"
-import { clearMessageReducer, loadUserReducer } from "@/redux/reducers/userReducer"
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useSendContactMessageMutation } from "@/redux/apis/otpApi"
 import Footer from "@/components/footer/Footer"
 import Cookies from "js-cookie"
@@ -25,12 +21,6 @@ const Page = () => {
     const [message, setMessage] = useState("");
     const [isShow, setIsShow] = useState("");
 
-
-
-
-    const showHandler = () => {
-        setIsShow(!isShow);
-    }
 
     const formClear = () => {
         setName("");

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loading from '@/app/loading'
 import { getMyProfile, getSpecificUser, useApproveUserMutation } from '@/redux/apis/userApi'
 import toast from 'react-hot-toast'
-import Image from 'next/image'
 import Cookies from 'js-cookie'
 
 
@@ -40,9 +39,7 @@ const Page = () => {
     }
 
     useEffect(() => {
-
         let token = Cookies.get("token")
-
         if (token) {
             if (!user) {
                 dispatch(getMyProfile(token))
