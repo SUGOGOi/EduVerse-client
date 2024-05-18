@@ -36,6 +36,8 @@ const Page = () => {
             const messageRes = error.data;
             toast.error(messageRes.error);
             dispatch(otpNotSendReducer(messageRes))
+            router.push("/login", { scroll: false });
+
         }
     };
     return (

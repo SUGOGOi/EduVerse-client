@@ -23,7 +23,7 @@ const Page = () => {
     const [password, setPassword] = useState("");
     const [cpassword, setCpassword] = useState("");
     const [school, setSchool] = useState();
-    const [subject, setSubject] = useState();
+    const [subject, setSubject] = useState("");
     const [imagePrev, setImagePrev] = useState("");
     const [image, setImage] = useState("");
     const formData = new FormData()
@@ -52,7 +52,7 @@ const Page = () => {
         formData.set("name", name);
         formData.set("Class", Class);
         formData.set("role", role);
-        if (role === "teacher") {
+        if (role === "teacher" || role === "student") {
             setSubject(subject.toUpperCase())
             formData.set("subject", subject);
         }
@@ -131,8 +131,12 @@ const Page = () => {
                         </select>
                         <input placeholder="   class" name="class" type="text" required className={style.input} onChange={(e) => setClass(e.target.value)} />
 
+
                         {
-                            role === "student" ? (<input type="file" required placeholder="  payment screenshot" accept='image/*' name="file" className={style.input} onChange={changeImageHandler} />) : (<>
+                            role === "student" ? (<>
+                                <input placeholder="   subject" name="subject" type="text" required className={style.input} onChange={(e) => setSubject(e.target.value)} />
+                                <input type="file" required placeholder="  payment screenshot" accept='image/*' name="file" className={style.input} onChange={changeImageHandler} />
+                            </>) : (<>
                                 <input placeholder="   specialized subject" name="subject" type="text" required className={style.input} onChange={(e) => setSubject(e.target.value)} />
                             </>)
                         }

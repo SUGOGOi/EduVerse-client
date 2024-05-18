@@ -3,9 +3,10 @@ import React, { useEffect } from 'react'
 import style from "./home.module.scss"
 import Slider from '../slider/Slider'
 import Navbar from '../navbar/Navbar'
-import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux"
-import { getMyProfile, useGetMyProfileQuery } from "@/redux/apis/userApi"
+import { getMyProfile } from "@/redux/apis/userApi"
+import { NextResponse } from "next/server";
+
 
 
 const Home = () => {
@@ -13,9 +14,7 @@ const Home = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (document.cookie) {
-            dispatch(getMyProfile())
-        }
+        dispatch(getMyProfile())
     }, [])
     return (
         <>

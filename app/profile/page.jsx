@@ -16,7 +16,8 @@ import Footer from '@/components/footer/Footer'
 
 const Page = () => {
     let { user } = useSelector(state => state.userReducer);
-    const [logoutUser, { }] = useLogoutUserMutation();
+    const [logoutUser, { isLoading }] = useLogoutUserMutation();
+    const [Class, setClass] = useState("")
     const router = useRouter();
 
 
@@ -72,15 +73,59 @@ const Page = () => {
                                         <p>Approve : </p>
                                         <p className={style.approveTrue} >{`${user.isApproved}`}</p>
                                     </div>
-                                    <div className={style.dashBtn}  > <Link className={style.Link} href={"/dashboard/courses"}>Go to Dashboard</Link></div></>) : (<div className={style.approved}>
-                                        <p>Approve : </p>
-                                        {
-                                            <p className={style.approveFalse} >{`${user.isApproved}`}</p>
-                                        }
-                                    </div>))
+                                    <div className={style.dashBtn}  > <Link className={style.Link} href={"/dashboard/courses"}>Go to Dashboard</Link></div>
+                                    <div className={style.addClass} >
+                                        <input placeholder="   add class" name="class" type="text" required className={style.input} onChange={(e) => setClass(e.target.value)} />
+
+                                        <button
+                                            type="button"
+                                            className={style.AddBtn}
+                                        >
+                                            {isLoading ? (
+                                                <>
+                                                    <div className={style.lds_ring}>
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                        <div></div>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <p>Send</p>
+                                            )}
+                                        </button>
+
+                                    </div>
+
+
+
+                                </>) : (<div className={style.approved}>
+                                    <p>Approve : </p>
+                                    {
+                                        <p className={style.approveFalse} >{`${user.isApproved}`}</p>
+                                    }
+                                </div>))
                             }
 
-                            <button onClick={logoutHandller} className={style.logoutBtn} >Logout</button>
+
+                            <button
+                                type="button"
+                                className={style.logoutBtn}
+                                onClick={logoutHandller}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <div className={style.lds_ring}>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <p>Logout</p>
+                                )}
+                            </button>
                         </div>
                     </div>
                 </div >) : (<Loading />)

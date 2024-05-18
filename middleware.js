@@ -26,6 +26,7 @@ export function middleware(request) {
     path === "/dashboard/contact";
 
   let token = request.cookies.get("token") || "";
+  let role = request.cookies.get("role") || "";
 
   if (isPrivatePath && !token) {
     return NextResponse.redirect(new URL("/", request.url));
@@ -39,49 +40,48 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // if (isAdminPath && token) {
-  //   let role = getUserRole({ token: token.value });
-  //   if (role === "teacher") {
-  //     if (
-  //       path === "/dashboad" ||
-  //       path === "/dashboard/user-detail/:path*" ||
-  //       path === "/dashboard/contact"
-  //     ) {
-  //       return NextResponse.redirect(
-  //         new URL("/dashboard/courses", request.url)
-  //       );
-  //     }
-  //   }
-  //   if (role === "student") {
-  //     if (
-  //       path === "/dashboad" ||
-  //       path === "/dashboard/user-detail/:path*" ||
-  //       path === "/dashboard/contact" ||
-  //       path === "/dashboard" ||
-  //       path === "/dashboard/users" ||
-  //       path === "/dashboard/courses"
-  //     ) {
-  //       return NextResponse.redirect(new URL("/", request.url));
-  //     }
-  //   }
-  // }
+  if (isAdminPath && token) {
+    if (role.value === "teacher") {
+      if (
+        path === "/dashboad" ||
+        path === "/dashboard/user-detail/:path*" ||
+        path === "/dashboard/contact"
+      ) {
+        return NextResponse.redirect(
+          new URL("/dashboard/courses", request.url)
+        );
+      }
+    }
+    if (role === "student") {
+      if (
+        path === "/dashboad" ||
+        path === "/dashboard/user-detail/:path*" ||
+        path === "/dashboard/contact" ||
+        path === "/dashboard" ||
+        path === "/dashboard/users" ||
+        path === "/dashboard/courses"
+      ) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+    }
+  }
 }
 
 export const config = {
   matcher: [
-    // "/login",
-    // "/signup",
-    // "/qr-code",
-    // "/otp-send",
-    // "/otp-verify",
-    // "/profile",
-    // "/courses",
-    // "/course/:path*",
-    // "/dashboard", //protect from teacher
-    // "/dashboard/users", //protect from student
-    // "/dashboard/courses", //protect from student
-    // "/dashboard/course-detail", //protect from student
-    // "/dashboard/user-detail/:path*", // protect from teacher
-    // "/dashboard/contact", // protect from teacher
+    "/login",
+    "/signup",
+    "/qr-code",
+    "/otp-send",
+    "/otp-verify",
+    "/profile",
+    "/courses",
+    "/course/:path*",
+    "/dashboard", //protect from teacher
+    "/dashboard/users", //protect from student
+    "/dashboard/courses", //protect from student
+    "/dashboard/course-detail", //protect from student
+    "/dashboard/user-detail/:path*", // protect from teacher
+    "/dashboard/contact", // protect from teacher
   ],
 };

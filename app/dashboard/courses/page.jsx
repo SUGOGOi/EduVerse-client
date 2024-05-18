@@ -14,7 +14,7 @@ import { getMyProfile } from '@/redux/apis/userApi';
 
 
 const Page = () => {
-    const [createCourse, { }] = useCreateCourseMutation();
+    const [createCourse, { isLoading }] = useCreateCourseMutation();
     const [name, setName] = useState("");
     const [Class, setClass] = useState("");
     const [school, setSchool] = useState("");
@@ -155,16 +155,22 @@ const Page = () => {
 
                         <div className={style.modal_content}>
                             <h2>{`CREATE COURSE`}</h2>
-                            <form action="" onSubmit={createCourseHandller} >
-                                <input required className={style.inputName} type="text" name='subject' placeholder='enter subject' value={user.subject} readOnly />
-                                <select name="class" required onChange={(e) => setClass(e.target.value)} className={style.inputName}>
-                                    <option value={undefined}>For which class?</option>
-                                    {
-                                        user.classes.map((i, index) => (
-                                            <option value={i} key={index} >{i}</option>
-                                        ))
-                                    }
-                                </select>
+                            <form action=""  >
+                                {
+                                    user.role === "teacher" ? (<input required className={style.inputName} type="text" name='subject' placeholder='enter subject' value={user.subject} readOnly />) : (<input required className={style.inputName} type="text" name='subject' placeholder='enter subject' onChange={(e) => setName(e.target.value)} />)
+
+                                }
+                                {
+                                    user.role === "teacher" ? (
+                                        <select name="class" required onChange={(e) => setClass(e.target.value)} className={style.inputName}>
+                                            <option value={undefined}>For which class?</option>
+                                            {
+                                                user.classes.map((i, index) => (
+                                                    <option value={i} key={index} >{i}</option>
+                                                ))
+                                            }
+                                        </select>) : (<input required className={style.inputName} type="text" name='class' placeholder='enter class' onChange={(e) => setClass(e.target.value)} />)
+                                }
                                 {
                                     user.role === "teacher" ? (<>
                                         <input className={style.inputName} required type="text" name='school' value={user.school} readOnly />
@@ -179,7 +185,24 @@ const Page = () => {
                                     imagePrev && (
                                         <img src={imagePrev} className={style.Img} alt='preview' />
                                     )}
-                                <button className={style.AddBtn}  >Create</button>
+                                <button
+                                    type="button"
+                                    className={style.AddBtn}
+                                    onClick={createCourseHandller}
+                                >
+                                    {isLoading ? (
+                                        <>
+                                            <div className={style.lds_ring}>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <p>Create</p>
+                                    )}
+                                </button>
                             </form>
 
                         </div>
