@@ -65,6 +65,15 @@ export const userApi = createApi({
       }),
     }),
 
+    addClassToTeacher: builder.mutation({
+      query: ({ id, ...body }) => ({
+        url: `user/addclass?id=${id}`,
+        method: "PUT",
+        credentials: "include",
+        body: body,
+      }),
+    }),
+
     // getMyProfile: builder.query({
     //   query: () => ({
     //     url: `user/myprofile`,
@@ -141,4 +150,5 @@ export const {
   useLogoutUserMutation,
   useApproveUserMutation,
   useForgetPasswordMutation,
+  useAddClassToTeacherMutation,
 } = userApi;

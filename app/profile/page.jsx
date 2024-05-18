@@ -6,7 +6,7 @@ import Navbar from '@/components/navbar/Navbar'
 import { toast } from "react-hot-toast";
 import Loading from '../loading'
 import Link from "next/link"
-import { getMyProfile, useLogoutUserMutation } from '@/redux/apis/userApi'
+import { getMyProfile, useAddClassToTeacherMutation, useLogoutUserMutation } from '@/redux/apis/userApi'
 import { clearErrorReducer, clearMessageReducer, logoutFailReducer, logoutReducer } from '@/redux/reducers/userReducer'
 import { useRouter } from 'next/navigation'
 export const dynamic = "force-dynamic"
@@ -19,6 +19,7 @@ import Cookies from 'js-cookie';
 const Page = () => {
     let { user } = useSelector(state => state.userReducer);
     const [logoutUser, { isLoading }] = useLogoutUserMutation();
+    const [addClassToTeacher, { }] = useAddClassToTeacherMutation();
     const [Class, setClass] = useState("")
     const router = useRouter();
 
@@ -45,6 +46,19 @@ const Page = () => {
             toast.error(messageRes.error)
             dispatch(logoutFailReducer(messageRes));
             dispatch(clearErrorReducer())
+        }
+    }
+
+
+    const addClassHandller = async () => {
+        const res = await addClassToTeacher({ id: user._id, Class });
+
+        if ("data" in res) {
+            toast.success(res.data.message)
+        } else {
+            const error = res.error;
+            const messageRes = error.data;
+            toast.error(messageRes.error)
         }
     }
 
@@ -84,11 +98,12 @@ const Page = () => {
                                     </div>
                                     <div className={style.dashBtn}  > <Link className={style.Link} href={"/dashboard/courses"}>Go to Dashboard</Link></div>
                                     <div className={style.addClass} >
-                                        <input placeholder="   add class" name="class" type="text" required className={style.input} onChange={(e) => setClass(e.target.value)} />
+                                        <input placeholder="   add class" name="class" type="number" required className={style.input} onChange={(e) => setClass(e.target.value)} />
 
                                         <button
                                             type="button"
                                             className={style.AddBtn}
+                                            onClick={addClassHandller}
                                         >
                                             {isLoading ? (
                                                 <>
