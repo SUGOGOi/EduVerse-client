@@ -43,14 +43,14 @@ const Page = () => {
             // console.log(token)
             // console.log(role)
             Cookies.set('token', token, {
-                expires: 10, // 1 day
-                // secure: true, // true in production
-                // sameSite: 'strict', // Helps prevent CSRF attacks
+                expires: 10, // 10 day
+                secure: true, // true in production
+                sameSite: 'strict', // Helps prevent CSRF attacks
             });
             Cookies.set('role', role, {
-                expires: 10, // 1 day
-                // secure: true, // true in production
-                // sameSite: 'strict', // Helps prevent CSRF attacks
+                expires: 10, // 10 day
+                secure: true, // true in production
+                sameSite: 'strict', // Helps prevent CSRF attacks
             });
 
             router.push(`/profile`, { scroll: false })
