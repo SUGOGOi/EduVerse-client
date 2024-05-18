@@ -35,6 +35,8 @@ const AuthMenu = ({ isAuthOpen, setIsAuthOpen }) => {
 
         if ("data" in res) {
             toast.success(res.data.message)
+            Cookies.remove("token")
+            Cookies.remove("role")
             dispatch(logoutReducer())
             router.push('/', { scroll: false })
             dispatch(clearMessageReducer())

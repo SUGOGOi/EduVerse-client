@@ -11,6 +11,7 @@ import { clearMessageReducer, loadUserReducer } from "@/redux/reducers/userReduc
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useSendContactMessageMutation } from "@/redux/apis/otpApi"
 import Footer from "@/components/footer/Footer"
+import Cookies from "js-cookie"
 
 
 
@@ -45,7 +46,6 @@ const Page = () => {
         if ("data" in res) {
             toast.success(res.data.message)
             formClear()
-
         } else {
             const error = res.error;
             const messageRes = error.data;
@@ -54,9 +54,12 @@ const Page = () => {
     }
 
     useEffect(() => {
-
-        if (document.cookie) {
-            dispatch(getMyProfile())
+        let token = Cookies.get("token")
+        // console.log(token)
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+            }
         }
     }, [])
 

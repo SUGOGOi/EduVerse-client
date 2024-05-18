@@ -1,3 +1,5 @@
+$bg: rgb(24, 24, 24);
+
 @mixin responsive {
   @media screen and (max-width: 700px) {
     @content;
@@ -7,7 +9,7 @@
   z-index: 2;
   top: 0px;
   position: fixed;
-  background-color: black;
+  background-color: $bg;
   width: 100%;
   height: 9vh;
   display: flex;

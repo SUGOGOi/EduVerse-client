@@ -32,6 +32,8 @@ const Page = () => {
         if ("data" in res) {
             user = undefined;
             toast.success(res.data.message)
+            Cookies.remove("token")
+            Cookies.remove("role")
             dispatch(logoutReducer())
             router.push('/', { scroll: false })
             dispatch(clearMessageReducer())
@@ -51,8 +53,11 @@ const Page = () => {
     useEffect(() => {
         let token = Cookies.get("token")
         // console.log(token)
-        dispatch(getMyProfile(token))
-
+        if (token) {
+            if (!user) {
+                dispatch(getMyProfile(token))
+            }
+        }
     }, [])
 
 
