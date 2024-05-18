@@ -49,7 +49,7 @@ const Page = () => {
             });
             Cookies.set('role', role, {
                 expires: 10, // 1 day
-                secure: ture, // true in production
+                secure: true, // true in production
                 sameSite: 'strict', // Helps prevent CSRF attacks
             });
 
