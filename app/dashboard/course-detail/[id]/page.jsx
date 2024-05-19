@@ -35,17 +35,13 @@ const Page = () => {
 
         if ("data" in res) {
             toast.success(res.data.message)
-            // console.log(res.data)
-            dispatch(createChapterReducer(res.data))
-            dispatch(clearMessageReducer())
             showModal();
-            dispatch(getCourseById(pathname.split("/").pop()))
+            let token = Cookies.get("token")
+            dispatch(getCourseById({ id: pathname.split("/").pop(), token }))
         } else {
             const error = res.error;
             const messageRes = error.data;
             toast.error(messageRes.error)
-            dispatch(createChapterFailReducer(messageRes));
-            dispatch(clearErrorReducer())
             showModal();
         }
     }

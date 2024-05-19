@@ -100,7 +100,8 @@ const ModuleCard = ({ moduleName, moduleId }) => {
         });
         if ("data" in res) {
             toast.success(res.data.message);
-            dispatch(getCourseById(pathname.split("/").pop()));
+            let token = Cookies.get("token")
+            dispatch(getCourseById({ id: pathname.split("/").pop(), token }))
         } else {
             const error = res.error;
             const messageRes = error.data;
