@@ -84,7 +84,7 @@ const Page = () => {
                             <p>{`School : ${userDetail.school}`}</p>
                             <p>{`Role : ${userDetail.role}`}</p>
                             {
-                                userDetail.role === "student" ? (<a target='_blank' href={`http://localhost:8000/${userDetail.paymentPhoto}`} >payment proof</a>) : (<></>)
+                                userDetail.role === "student" ? (<a target='_blank' href={`${process.env.SERVER}${userDetail.paymentPhoto}`} >payment proof</a>) : (<></>)
                             }
                             <button type="submit" className={style.btn} onClick={() => approveHandller({ id: user._id, uid: userDetail._id })} >
                                 {isLoading ? (

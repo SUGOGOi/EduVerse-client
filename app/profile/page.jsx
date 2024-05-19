@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation'
 export const dynamic = "force-dynamic"
 import profileImage from "../../public/images/profile.jpg"
 import Image from 'next/image'
-import Footer from '@/components/footer/Footer'
 import Cookies from 'js-cookie';
 
 
@@ -55,10 +54,13 @@ const Page = () => {
 
         if ("data" in res) {
             toast.success(res.data.message)
+            setClass("")
         } else {
             const error = res.error;
             const messageRes = error.data;
             toast.error(messageRes.error)
+            setClass("")
+
         }
     }
 
@@ -98,7 +100,7 @@ const Page = () => {
                                     </div>
                                     <div className={style.dashBtn}  > <Link className={style.Link} href={"/dashboard/courses"}>Go to Dashboard</Link></div>
                                     <div className={style.addClass} >
-                                        <input placeholder="   add class" name="class" type="number" required className={style.input} onChange={(e) => setClass(e.target.value)} />
+                                        <input placeholder="   add class" name="class" type="number" required className={style.input} value={Class} onChange={(e) => setClass(e.target.value)} />
 
                                         <button
                                             type="button"
@@ -115,7 +117,7 @@ const Page = () => {
                                                     </div>
                                                 </>
                                             ) : (
-                                                <p>Send</p>
+                                                <p>ADD</p>
                                             )}
                                         </button>
 
@@ -154,7 +156,18 @@ const Page = () => {
                     </div>
                 </div >) : (<Loading />)
             }
-            <Footer />
+            <div className={style.footer}>
+                <div className={style.linkContainer}>
+                    <Link className={style.links} href="/login">Login</Link>
+                    <Link className={style.links} href="/contact">Home</Link>
+                    <Link className={style.links} href="/courses">Courses</Link>
+                    <Link className={style.links} href="/about">About</Link>
+                    <Link className={style.links} href="/contact">Contact</Link>
+                </div>
+                <h1 className={style.logoFooter}>
+                    &#169; EduVerse
+                </h1>
+            </div>
         </>
     )
 }
