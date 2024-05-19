@@ -8,7 +8,7 @@ const nextConfig = {
     remotePatterns: [
       {
         // hostname: "localhost",
-        hostname: "eduverse-server-jii8.onrender",
+        hostname: "eduverse-server-jii8.onrender.com",
       },
     ],
   },
