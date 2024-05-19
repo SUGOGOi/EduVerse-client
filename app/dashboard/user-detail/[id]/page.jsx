@@ -79,7 +79,7 @@ const Page = () => {
                         userDetail ? (<>
                             <p>{`Id : ${userDetail._id}`}</p>
                             <p>{`Name : ${userDetail.name}`}</p>
-                            <p>{`Name : ${userDetail.email}`}</p>
+                            <p>{`Email : ${userDetail.email}`}</p>
                             <p>Approve : {userDetail.isApproved === true ? (<span className={style.approveTrue} >{`${userDetail.isApproved}`}</span>) : (<span className={style.approveFalse} >{`${userDetail.isApproved}`}</span>)}
                             </p>
                             <p>{`School : ${userDetail.school}`}</p>
