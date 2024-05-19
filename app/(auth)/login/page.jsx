@@ -47,6 +47,9 @@ const Page = () => {
                     sameSite: 'strict', // Helps prevent CSRF attacks
                 });
 
+                setEmail("")
+                setPassword("")
+
                 router.push(`/profile`, { scroll: false })
 
 
@@ -55,7 +58,8 @@ const Page = () => {
                 const messageRes = error.data;
                 toast.error(messageRes.error)
 
-
+                setEmail("")
+                setPassword("")
 
             }
         } catch (error) {
@@ -74,10 +78,10 @@ const Page = () => {
 
                     <form action="" className={style.form} onSubmit={submitHandler} >
                         <h1>LogIn</h1>
-                        <input placeholder="   email" onChange={(e) => setEmail(e.target.value)} name="email" type="text" required className={style.input} />
+                        <input placeholder="   email" onChange={(e) => setEmail(e.target.value)} value={email} name="email" type="text" required className={style.input} />
 
                         <div className={style.inputPass}>
-                            <input placeholder="   password" name="password" type={isShow ? "text" : "password"} required className={style.input} onChange={(e) => setPassword(e.target.value)} /> {isShow ? <FiEye onClick={showHandler} /> : <FiEyeOff onClick={showHandler} />}
+                            <input placeholder="   password" name="password" value={password} type={isShow ? "text" : "password"} required className={style.input} onChange={(e) => setPassword(e.target.value)} /> {isShow ? <FiEye onClick={showHandler} /> : <FiEyeOff onClick={showHandler} />}
                         </div>
 
                         <button type="submit" className={style.btn} >{

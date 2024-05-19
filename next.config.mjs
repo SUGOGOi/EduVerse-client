@@ -8,7 +8,7 @@ const nextConfig = {
     remotePatterns: [
       {
         // hostname: "localhost",
-        hostname: "eduverse-server-d6nq",
+        hostname: "eduverse-server-jii8",
       },
     ],
   },

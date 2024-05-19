@@ -8,10 +8,11 @@ import { loadCoursesFailReducer, loadCoursesReducer } from '@/redux/reducers/cou
 import Loading from '../loading';
 import { getAllUsers, getMyProfile } from '@/redux/apis/userApi';
 import Cookies from 'js-cookie';
+import { getAllCOntactMessages } from '@/redux/apis/otpApi';
 
 const Page = () => {
-    // Dummy data for total users and courses
-
+    // data for total users, courses, messages
+    const { messages } = useSelector(state => state.otpReducer)
     const { courses } = useSelector(state => state.courseReducer);
     const { user, users } = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
@@ -19,15 +20,12 @@ const Page = () => {
 
 
     useEffect(() => {
-
         let token = Cookies.get("token")
-
         if (token) {
             if (!user) {
                 dispatch(getMyProfile(token))
             }
         }
-
         if (!courses) {
             // toast.success(data.message)
             dispatch(getAllCourses(token))
@@ -37,8 +35,10 @@ const Page = () => {
     useEffect(() => {
         if (user) {
             dispatch(getAllUsers({ id: user._id }))
+            dispatch(getAllCOntactMessages({ id: user._id }))
         }
     }, [user])
+
 
 
 
@@ -73,6 +73,13 @@ const Page = () => {
                         <h2>Total Courses</h2>
                         {
                             courses ? (<p>{courses.length}</p>) : (<Loading />)
+                        }
+                    </div>
+
+                    <div className={style.card}>
+                        <h2>Total Messages</h2>
+                        {
+                            messages ? (<p>{messages.length}</p>) : (<Loading />)
                         }
                     </div>
                 </div>
