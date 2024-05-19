@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { getAllCourses, useDeleteCourseMutation } from "@/redux/apis/courseApi";
 import toast from "react-hot-toast";
 import { useDispatch } from 'react-redux';
+import Cookies from "js-cookie";
 
 
 
@@ -24,7 +25,8 @@ const CourseCard = ({ name, school, cid, Class, modules }) => {
             toast.error(messageRes.error);
         }
 
-        dispatch(getAllCourses())
+        let token = Cookies.get("token")
+        dispatch(getAllCourses(token))
     }
     return (
         <div className={style.card}>

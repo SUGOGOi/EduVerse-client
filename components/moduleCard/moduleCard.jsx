@@ -25,6 +25,7 @@ import {
 } from "@/redux/reducers/courseReducer";
 import { RiFileUploadLine } from "react-icons/ri";
 import { AiOutlineLoading } from "react-icons/ai";
+import Cookies from "js-cookie";
 
 const ModuleCard = ({ moduleName, moduleId }) => {
     const [videoOrPdfShowModal, setVideoOrPdfShowModal] = useState(false);
