@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import toast from "react-hot-toast";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request) {
@@ -29,6 +30,7 @@ export function middleware(request) {
   let role = request.cookies.get("role") || "";
 
   if (isPrivatePath && !token) {
+    toast.error("Login to access these resources");
     return NextResponse.redirect(new URL("/", request.url));
   }
 
@@ -37,6 +39,7 @@ export function middleware(request) {
   }
 
   if (isAdminPath && !token) {
+    toast.error("Login to access");
     return NextResponse.redirect(new URL("/", request.url));
   }
 
@@ -47,6 +50,7 @@ export function middleware(request) {
         path === "/dashboard/user-detail/:path*" ||
         path === "/dashboard/contact"
       ) {
+        toast.error("Unauthorized");
         return NextResponse.redirect(
           new URL("/dashboard/courses", request.url)
         );
@@ -61,6 +65,7 @@ export function middleware(request) {
         path === "/dashboard/users" ||
         path === "/dashboard/courses"
       ) {
+        toast.error("Unauthorized");
         return NextResponse.redirect(new URL("/", request.url));
       }
     }

@@ -16,7 +16,7 @@
   min-height: 91vh;
   height: auto;
   color: black;
-  background-color: white;
+  background-color: #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -56,10 +56,18 @@
   width: 70%;
   aspect-ratio: 9/4.5;
   margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
   background-color: black;
   @include tablet() {
     width: 80%;
+  }
+
+  p {
+    margin: 20px;
   }
 }
 
