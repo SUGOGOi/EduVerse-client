@@ -73,18 +73,18 @@ const Page = () => {
             dispatch(createCourseReducer(res.data))
             dispatch(clearMessageReducer())
             showModal();
-            dispatch(getAllCourses())
+            let token = Cookies.get("token")
+            dispatch(getAllCourses(token))
             setImagePrev("")
+            setDescription("")
 
         } else {
             const error = res.error;
             const messageRes = error.data;
             toast.error(messageRes.error)
-            dispatch(createCourseFailReducer(messageRes));
-            dispatch(clearErrorReducer())
             showModal();
-            dispatch(getAllCourses())
             setImagePrev("")
+            setDescription("")
         }
     }
 

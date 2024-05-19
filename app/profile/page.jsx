@@ -55,6 +55,8 @@ const Page = () => {
         if ("data" in res) {
             toast.success(res.data.message)
             setClass("")
+            let token = Cookies.get("token")
+            dispatch(getMyProfile(token))
         } else {
             const error = res.error;
             const messageRes = error.data;
