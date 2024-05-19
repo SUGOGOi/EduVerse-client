@@ -68,7 +68,7 @@ const UserModuleCard = ({ moduleName, moduleId, setVideoLink }) => {
                                                     <>
                                                         <p>PDF : {item.pname}</p>
                                                         <a
-                                                            href={`http://localhost:8000/${item.url}`}
+                                                            href={`${process.env.SERVER}${item.url}`}
                                                             target="_blank"
                                                         >
                                                             Link
