@@ -200,7 +200,7 @@ const ModuleCard = ({ moduleName, moduleId }) => {
                                                     <>
                                                         <p>PDF Name: {item.pname}</p>
                                                         <a
-                                                            href={`http://localhost:8000/${item.url}`}
+                                                            href={`${process.env.SERVER}${item.url}`}
                                                             target="_blank"
                                                         >
                                                             Link
