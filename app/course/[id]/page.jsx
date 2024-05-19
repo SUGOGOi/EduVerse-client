@@ -59,7 +59,9 @@ const Page = () => {
                             <Reactplayer videosrc={`${videoLink}`} />
                         </div>
 
-                        <p>{`${course.description}`}</p>
+                        {
+                            course ? (<p>{`${course.description}`}</p>) : (<></>)
+                        }
                     </div>
                     <div className={style.playlist}>
                         <h2>Chapters</h2>
