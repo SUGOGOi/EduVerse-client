@@ -7,7 +7,18 @@ import Footer from '@/components/footer/Footer'
 const page = () => {
   return (
     <div className={style.container}  >   <Home />
-      <Footer />
+      <div className={style.footer}>
+        <div className={style.linkContainer}>
+          <Link className={style.links} href="/login">Login</Link>
+          <Link className={style.links} href="/contact">Home</Link>
+          <Link className={style.links} href="/courses">Courses</Link>
+          <Link className={style.links} href="/about">About</Link>
+          <Link className={style.links} href="/contact">Contact</Link>
+        </div>
+        <h1 className={style.logoFooter}>
+          &#169; EduVerse
+        </h1>
+      </div>
     </div>
   )
 }
