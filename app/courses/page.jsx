@@ -9,6 +9,7 @@ import { getAllCourses } from '@/redux/apis/courseApi'
 import { getMyProfile } from '@/redux/apis/userApi'
 import Footer from '@/components/footer/Footer'
 import Cookies from 'js-cookie';
+import Link from 'next/link'
 
 
 const Page = () => {

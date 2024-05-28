@@ -5,6 +5,7 @@ import Navbar from '@/components/navbar/Navbar'
 import Image from "next/image"
 import img from "../../public/images/eduverseHome.jpg"
 import Footer from '@/components/footer/Footer'
+import Link from 'next/link'
 
 
 

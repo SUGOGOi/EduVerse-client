@@ -1,7 +1,10 @@
+
+"use client"
 import Home from '@/components/home/Home'
 import React from 'react'
 import style from "./page.module.scss"
 import Footer from '@/components/footer/Footer'
+import Link from 'next/link'
 
 
 const page = () => {

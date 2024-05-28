@@ -5,6 +5,7 @@ import Image from "next/image"
 import qr from "../../../public/images/qr.png"
 import { useRouter } from 'next/navigation'
 import Footer from "@/components/footer/Footer"
+import Link from "next/link"
 
 const Page = () => {
     const router = useRouter();

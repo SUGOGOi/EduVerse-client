@@ -8,6 +8,7 @@ import { useOtpVerifyMutation } from "@/redux/apis/otpApi"
 import { useDispatch, useSelector } from "react-redux"
 import { clearErrorReducer, clearMessageReducer, otpNotVerifyReducer, otpVerifyReducer } from "@/redux/reducers/otpReducer"
 import Footer from "@/components/footer/Footer"
+import Link from "next/link"
 
 const Page = () => {
     const [otp, setOtp] = useState("");

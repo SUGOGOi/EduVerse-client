@@ -10,6 +10,7 @@ import { otpNotSendReducer, otpSendReducer } from "@/redux/reducers/otpReducer"
 import validator from "validator";
 import { emailReducer } from "@/redux/reducers/userReducer";
 import Footer from "@/components/footer/Footer";
+import Link from "next/link";
 const Page = () => {
     const [email, setEmail] = useState("");
     const [otpSend, { isLoading }] = useOtpSendMutation();

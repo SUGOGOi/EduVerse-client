@@ -15,6 +15,7 @@ const Reactplayer = dynamic(() => import('../../../components/reactPlayer/ReactP
 });
 
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 
 
 
